@@ -1,6 +1,6 @@
 #pragma once
 #include "Scene.h"
-class SceneGameOver : Scene //game over
+class SceneGameOver : public Scene //game over
 {
 public:
 	SceneGameOver();

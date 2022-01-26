@@ -1,6 +1,6 @@
 #pragma once
 #include "Scene.h"
-class SceneMain : Scene //pantalla principal
+class SceneMain : public Scene //pantalla principal
 {
 public:
 	SceneMain();

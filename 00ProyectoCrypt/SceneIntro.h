@@ -1,6 +1,6 @@
 #pragma once
 #include "Scene.h"
-class SceneIntro : Scene //menú jugable
+class SceneIntro : public Scene //menú jugable
 {
 public:
 	SceneIntro();
