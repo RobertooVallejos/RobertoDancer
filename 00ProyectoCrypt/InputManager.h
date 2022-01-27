@@ -8,10 +8,13 @@ class InputManager
 {
 	static InputManager* pInstance;
 	SDL_Event teclas;
-	bool left;
-	bool down;
-	bool right;
-	bool up;
+	bool _left;
+	bool _down;
+	bool _right;
+	bool _up;
+	int _contador;
+	int _tiempoSinMoverse;
+	bool _sePuedeMover;
 public:
 	InputManager();
 	~InputManager();

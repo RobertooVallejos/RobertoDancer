@@ -16,6 +16,7 @@ extern Uint32           global_elapsed_time;
 
 SceneMain::SceneMain()
 {
+
 }
 
 SceneMain::~SceneMain()
@@ -30,15 +31,19 @@ void SceneMain::init()
 
 void SceneMain::update()
 {
-	
-	std::cout << "funciona";
+	Personaje.update();
 }
 
 void SceneMain::render()
 {
+	sVideo->setColorLimpieza(0, 0, 0);
+	sVideo->rendererClear();
 	Personaje.render();
+	sVideo->updateScreen();
 }
 
 void SceneMain::reinit()
 {
+	init();
+	mReinit = false;
 }

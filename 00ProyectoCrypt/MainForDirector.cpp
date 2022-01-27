@@ -31,8 +31,6 @@ int main( int argc, char* args[] ) {
 	Timer* globalTimer = new Timer();
 	globalTimer->start();
 	Uint32 last_time = 0;
-	SceneMain mainScene;
-	mainScene.init();
 
 	while (gameOn){
 		//ReInit o no
