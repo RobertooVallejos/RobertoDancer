@@ -2,8 +2,9 @@
 #include "ResourceManager.h"
 #include "Video.h"
 #include <iostream>
+#include "SceneDirector.h"
 
-extern Video Bideo;
+extern Video* sVideo;
 
 ElementoGFX::ElementoGFX()
 {
@@ -32,5 +33,5 @@ void ElementoGFX::update()
 
 void ElementoGFX::render()
 {
-	Bideo.renderGraphic(_ID, _Rect.x, _Rect.y, _Rect.width, _Rect.h);
+	sVideo->renderGraphic(_ID, _Rect.x, _Rect.y, _Rect.width, _Rect.h);
 }

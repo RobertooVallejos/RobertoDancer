@@ -19,3 +19,7 @@ void SceneGame::update()
 void SceneGame::render()
 {
 }
+
+void SceneGame::reinit()
+{
+}

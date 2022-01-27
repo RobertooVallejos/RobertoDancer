@@ -19,3 +19,7 @@ void SceneScoreboard::update()
 void SceneScoreboard::render()
 {
 }
+
+void SceneScoreboard::reinit()
+{
+}

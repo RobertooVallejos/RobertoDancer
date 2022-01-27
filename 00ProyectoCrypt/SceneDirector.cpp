@@ -9,9 +9,8 @@
 SceneDirector* SceneDirector::pInstance = NULL;
 
 SceneDirector* SceneDirector::getInstance(){
-	if (!pInstance) {
-		pInstance = new SceneDirector();
-	}
+	if (pInstance == nullptr) pInstance = new SceneDirector();
+
 	return pInstance;
 }
 

@@ -145,8 +145,8 @@
     <ClCompile Include="Cadence.cpp" />
     <ClCompile Include="ElementoGFX.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="MainForDirector.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneDirector.cpp" />
     <ClCompile Include="SceneGame.cpp" />
@@ -161,6 +161,7 @@
     <ClInclude Include="Cadence.h" />
     <ClInclude Include="ElementoGFX.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneDirector.h" />
     <ClInclude Include="SceneGame.h" />

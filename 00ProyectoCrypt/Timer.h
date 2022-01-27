@@ -2,8 +2,8 @@
 #include "SDL.h"
 class Timer
 {
-	uint32_t _StartTicks;
-	uint32_t _Ticks;
+	float _StartTicks;
+	float _Ticks;
 	bool _Status;
 
 public:
@@ -11,6 +11,6 @@ public:
 	~Timer();
 	void start();
 	void stop();
-	uint32_t getTime();
+	float getTime();
 };
 

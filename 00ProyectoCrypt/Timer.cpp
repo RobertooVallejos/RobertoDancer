@@ -27,7 +27,7 @@ void Timer::stop()
 	}
 }
 
-uint32_t Timer::getTime()
+float Timer::getTime()
 {
 	return SDL_GetTicks();
 }

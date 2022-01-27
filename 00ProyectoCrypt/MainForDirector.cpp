@@ -1,16 +1,29 @@
 #include "SceneDirector.h"
 #include "InputManager.h"
-
+#include "ElementoGFX.h"
+#include "ResourceManager.h"
+#include "Scene.h"
+#include "SceneGame.h"
+#include "SceneGameOver.h"
+#include "SceneIntro.h"
+#include "SceneMain.h"
+#include "SceneScoreboard.h"
+#include "Video.h"
+#include <iostream>
 #include "Timer.h"
 
 Uint32 		global_elapsed_time = 0;
 bool		gameOn = true;
 SceneDirector	*sDirector = NULL;
 InputManager*	sInputManager = NULL;
+ResourceManager*	sResourceManager = NULL;
+Video*	sVideo = NULL;
 
-int main( int argc, char* argv[] ) { 
+int main( int argc, char* args[] ) {
 	//Init Singletons
 	sInputManager = InputManager::getInstance();
+	sResourceManager	= ResourceManager::getInstance();
+	sVideo	= Video::getIntance();
 	sDirector		= SceneDirector::getInstance();
 	
 	//Main Loop
@@ -18,6 +31,8 @@ int main( int argc, char* argv[] ) {
 	Timer* globalTimer = new Timer();
 	globalTimer->start();
 	Uint32 last_time = 0;
+	SceneMain mainScene;
+	mainScene.init();
 
 	while (gameOn){
 		//ReInit o no

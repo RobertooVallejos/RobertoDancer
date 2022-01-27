@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene(){
-	mReinit = true;
+	mReinit = false;
 }
 
 Scene::~Scene(){

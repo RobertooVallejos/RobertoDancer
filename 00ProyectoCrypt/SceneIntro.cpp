@@ -19,3 +19,7 @@ void SceneIntro::update()
 void SceneIntro::render()
 {
 }
+
+void SceneIntro::reinit()
+{
+}

@@ -19,3 +19,7 @@ void SceneGameOver::update()
 void SceneGameOver::render()
 {
 }
+
+void SceneGameOver::reinit()
+{
+}

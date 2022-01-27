@@ -1,5 +1,7 @@
 #include "InputManager.h"
 
+InputManager* InputManager::pInstance = nullptr;
+
 InputManager::InputManager()
 {
     left = false;
@@ -69,4 +71,11 @@ bool InputManager::getKeyPressed(int key)
         break;
     }
     return false;
+}
+
+InputManager* InputManager::getInstance()
+{
+    if (pInstance == nullptr) pInstance = new InputManager();
+
+    return pInstance;
 }
