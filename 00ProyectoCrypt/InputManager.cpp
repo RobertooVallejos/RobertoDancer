@@ -26,34 +26,44 @@ void InputManager::update()
         switch (teclas.type) {
         case SDL_KEYDOWN:
             if (teclas.key.keysym.scancode == SDL_SCANCODE_A && _sePuedeMover == true) { //RECUERDA: hacer un bool que cuando se mueva a true, el bool pase a false y que hasta que no pasen 250 milisegundos no se vuelva a poner en true.
-                _left = false;
+                _left = true;
                 
                 _sePuedeMover = false;
             }
-            if (teclas.key.keysym.scancode == SDL_SCANCODE_S) {
-                _down = false;
+            if (teclas.key.keysym.scancode == SDL_SCANCODE_S && _sePuedeMover == true) {
+                _down = true;
+
+                _sePuedeMover = false;
             }
-            if (teclas.key.keysym.scancode == SDL_SCANCODE_D) {
-                _right = false;
+            if (teclas.key.keysym.scancode == SDL_SCANCODE_D && _sePuedeMover == true) {
+                _right = true;
+
+                _sePuedeMover = false;
             }
-            if (teclas.key.keysym.scancode == SDL_SCANCODE_W) {
-                _up = false;
+            if (teclas.key.keysym.scancode == SDL_SCANCODE_W && _sePuedeMover == true) {
+                _up = true;
+
+                _sePuedeMover = false;
             }
             break;
         case SDL_KEYUP:
             if (teclas.key.keysym.scancode == SDL_SCANCODE_A) {
-                _left = true;
+                _left = false;
+                _sePuedeMover = true;
 
                 std::cout << "a";
             }
             if (teclas.key.keysym.scancode == SDL_SCANCODE_S) {
-                _down = true;
+                _down = false;
+                _sePuedeMover = true;
             }
             if (teclas.key.keysym.scancode == SDL_SCANCODE_D) {
-                _right = true;
+                _right = false;
+                _sePuedeMover = true;
             }
             if (teclas.key.keysym.scancode == SDL_SCANCODE_W) {
-                _up = true;
+                _up = false;
+                _sePuedeMover = true;
             }
             break;
         }

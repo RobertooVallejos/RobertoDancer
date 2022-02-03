@@ -21,7 +21,8 @@ public:
 	void update();
 	void render();
 
-	void mover();
+	void moverArriba();
+	void moverAbajo();
 	void atacar();
 	void muerte();
 };

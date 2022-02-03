@@ -46,30 +46,7 @@ void Cadence::init()
 
 void Cadence::update()
 {
-	_contadorTiempoEntreFrames += global_elapsed_time;
-	if (_contadorTiempoEntreFrames >= 200) {
-		_frames++;
-		_ritmoJug = true;
-		_contadorTiempoEntreFrames = 0;
-		if (_frames == 3) _frames = 0;
-	}
-	if (sInputManager->getKeyPressed(key_a) && _frames == 0 && _ritmoJug) {
-		_Rect.x -= 46;
-		_ritmoJug = false;
-	}
-	if (sInputManager->getKeyPressed(key_s) && _frames == 0 && _ritmoJug) {
-		_Rect.y += 46;
-		_ritmoJug = false;
-	}
-	if (sInputManager->getKeyPressed(key_d) && _frames == 0 && _ritmoJug) {
-		_Rect.x += 46;
-		_ritmoJug = false;
-	}
-		
-	if (sInputManager->getKeyPressed(key_w) && _frames == 0 && _ritmoJug) {
-		_Rect.y -= 46;
-		_ritmoJug = false;
-	}
+	moverArriba();
 
 }
 
@@ -78,8 +55,38 @@ void Cadence::render()
 	sVideo->renderGraphic(_ID, _Rect.x, _Rect.y, _Rect.width, _Rect.h, 34*_frames, 0);
 }
 
-void Cadence::mover()
+void Cadence::moverArriba()
 {
+	_contadorTiempoEntreFrames += global_elapsed_time;
+	if (_contadorTiempoEntreFrames >= 150) {
+		_frames++;
+		_ritmoJug = true;
+		_contadorTiempoEntreFrames = 0;
+		if (_frames == 4) _frames = 0;
+	}
+	if (sInputManager->getKeyPressed(key_a) && _frames == 0 && _ritmoJug == true) {
+		_Rect.x -= 46;
+		_ritmoJug = false;
+	}
+	if (sInputManager->getKeyPressed(key_s) && _frames == 0 && _ritmoJug == true) {
+		_Rect.y += 46;
+		_ritmoJug = false;
+	}
+	if (sInputManager->getKeyPressed(key_d) && _frames == 0 && _ritmoJug == true) {
+		_Rect.x += 46;
+		_ritmoJug = false;
+	}
+
+	if (sInputManager->getKeyPressed(key_w) && _frames == 0 && _ritmoJug == true) {
+		_Rect.y -= 46;
+		_ritmoJug = false;
+	}
+		
+}
+
+void Cadence::moverAbajo()
+{
+
 }
 
 void Cadence::atacar()
