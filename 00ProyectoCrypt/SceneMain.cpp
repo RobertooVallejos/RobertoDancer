@@ -4,10 +4,9 @@
 #include "InputManager.h"
 #include "SceneMain.h"
 #include "SceneDirector.h"
-#include "Cadence.h"
 
 extern SceneDirector* sDirector;
-extern InputManager* sInputControl;
+extern InputManager* sInputManager;
 extern Video* sVideo;
 extern ResourceManager* sResourceManager;
 
@@ -25,20 +24,20 @@ SceneMain::~SceneMain()
 
 void SceneMain::init()
 {
-	Personaje.init();
-	
+	 title.ponerFoto("mainMenu.jpg");
+	 title.init();
 }
 
 void SceneMain::update()
 {
-	Personaje.update();
+	if (sInputManager->getKeyPressed(key_space)) {
+		sDirector->changeScene(GAME, true);
+	}
 }
 
 void SceneMain::render()
 {
-	sVideo->setColorLimpieza(0, 0, 0);
-	sVideo->rendererClear();
-	Personaje.render();
+	title.render();
 	sVideo->updateScreen();
 }
 

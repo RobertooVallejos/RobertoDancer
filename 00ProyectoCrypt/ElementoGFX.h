@@ -32,6 +32,7 @@ public:
 	void setSizeWidth(int value) { _Rect.width = value; };
 	void setSizeHeight(int value) { _Rect.h = value; };
 	void setSize(int valueW, int valueH) { _Rect.width = valueW; _Rect.h = valueH; };
+	void ponerFoto(const char* img);
 	int getSizeWidth() { return _Rect.width; };
 	int getSizeHeight() { return _Rect.h; };
 

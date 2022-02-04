@@ -1,9 +1,10 @@
 #pragma once
 #include "Scene.h"
-#include "Cadence.h"
+#include "ElementoGFX.h"
+
 class SceneMain : public Scene //pantalla principal
 {
-	Cadence Personaje;
+	ElementoGFX title;
 public:
 	SceneMain();
 	~SceneMain();
