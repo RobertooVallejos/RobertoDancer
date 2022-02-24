@@ -43,6 +43,5 @@ void SceneMain::render()
 
 void SceneMain::reinit()
 {
-	init();
 	mReinit = false;
 }
