@@ -40,7 +40,6 @@ void Cadence::init()
 	_Rect.h = 48;
 	_Rect.x = (SCREEN_WIDTH / 2) - (_Rect.width / 2); //Para que el personaje aparezca en medio de la pantalla
 	_Rect.y = (SCREEN_HEIGHT / 2) - (_Rect.h / 2);
-	sResourceManager->loadAndGetGraphicID(Video::getIntance()->getRenderer(), "Cadencee.png");
 
 }
 
@@ -65,20 +64,20 @@ void Cadence::moverArriba()
 		if (_frames == 4) _frames = 0;
 	}
 	if (sInputManager->getKeyPressed(key_a) && _frames == 0 && _ritmoJug == true) {
-		_Rect.x -= 46;
+		addX(-46);
 		_ritmoJug = false;
 	}
 	if (sInputManager->getKeyPressed(key_s) && _frames == 0 && _ritmoJug == true) {
-		_Rect.y += 46;
+		addY(46);
 		_ritmoJug = false;
 	}
 	if (sInputManager->getKeyPressed(key_d) && _frames == 0 && _ritmoJug == true) {
-		_Rect.x += 46;
+		addX(46);
 		_ritmoJug = false;
 	}
 
 	if (sInputManager->getKeyPressed(key_w) && _frames == 0 && _ritmoJug == true) {
-		_Rect.y -= 46;
+		addY(-46);
 		_ritmoJug = false;
 	}
 		

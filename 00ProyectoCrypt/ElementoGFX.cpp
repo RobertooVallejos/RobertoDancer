@@ -39,5 +39,5 @@ void ElementoGFX::render()
 
 void ElementoGFX::ponerFoto(const char* img)
 {
-	sResourceManager->loadAndGetGraphicID(Video::getIntance()->getRenderer(), img);
+	_ID = sResourceManager->loadAndGetGraphicID(Video::getIntance()->getRenderer(), img);
 }

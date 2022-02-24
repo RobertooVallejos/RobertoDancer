@@ -7,7 +7,7 @@
 #include "Cadence.h"
 
 extern SceneDirector* sDirector;
-extern InputManager* sInputControl;
+extern InputManager* sInputManager;
 extern Video* sVideo;
 extern ResourceManager* sResourceManager;
 
@@ -24,6 +24,7 @@ SceneGame::~SceneGame()
 
 void SceneGame::init()
 {
+	Personaje.ponerFoto("Cadencee.png");
 	Personaje.init();
 }
 
@@ -34,7 +35,7 @@ void SceneGame::update()
 
 void SceneGame::render()
 {
-	sVideo->setColorLimpieza(0, 0, 0);
+	sVideo->setColorLimpieza(255, 0, 0);
 	sVideo->rendererClear();
 	Personaje.render();
 	sVideo->updateScreen();
@@ -42,6 +43,5 @@ void SceneGame::render()
 
 void SceneGame::reinit()
 {
-	init();
 	mReinit = false;
 }
