@@ -149,6 +149,7 @@
     <ClCompile Include="ElementoGFX.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="MainForDirector.cpp" />
+    <ClCompile Include="Mapa.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneDirector.cpp" />
@@ -158,12 +159,14 @@
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="SceneScoreboard.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="Video.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cadence.h" />
     <ClInclude Include="ElementoGFX.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Mapa.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneDirector.h" />
@@ -173,6 +176,7 @@
     <ClInclude Include="SceneMain.h" />
     <ClInclude Include="SceneScoreboard.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="Video.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

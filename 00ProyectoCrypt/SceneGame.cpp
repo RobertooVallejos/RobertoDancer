@@ -5,6 +5,8 @@
 #include "InputManager.h"
 #include "SceneDirector.h"
 #include "Cadence.h"
+#include "Mapa.h"
+#include "tinyxml2.h"
 
 extern SceneDirector* sDirector;
 extern InputManager* sInputManager;
@@ -13,6 +15,8 @@ extern ResourceManager* sResourceManager;
 
 extern bool             gameOn;
 extern Uint32           global_elapsed_time;
+
+using namespace tinyxml2;
 
 SceneGame::SceneGame()
 {
@@ -26,6 +30,7 @@ void SceneGame::init()
 {
 	Personaje.ponerFoto("Cadencee.png");
 	Personaje.init();
+	Nivel.init();
 }
 
 void SceneGame::update()
@@ -35,9 +40,10 @@ void SceneGame::update()
 
 void SceneGame::render()
 {
-	sVideo->setColorLimpieza(255, 0, 0);
+	sVideo->setColorLimpieza(100, 80, 80);
 	sVideo->rendererClear();
 	Personaje.render();
+	Nivel.render();
 	sVideo->updateScreen();
 }
 
