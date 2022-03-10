@@ -42,8 +42,8 @@ void SceneGame::render()
 {
 	sVideo->setColorLimpieza(100, 80, 80);
 	sVideo->rendererClear();
-	Personaje.render();
 	Nivel.render();
+	Personaje.render();
 	sVideo->updateScreen();
 }
 

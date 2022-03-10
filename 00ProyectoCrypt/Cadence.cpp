@@ -64,20 +64,20 @@ void Cadence::moverArriba()
 		if (_frames == 4) _frames = 0;
 	}
 	if (sInputManager->getKeyPressed(key_a) && _frames == 0 && _ritmoJug == true) {
-		addX(-46);
+		addX(-52);
 		_ritmoJug = false;
 	}
 	if (sInputManager->getKeyPressed(key_s) && _frames == 0 && _ritmoJug == true) {
-		addY(46);
+		addY(52);
 		_ritmoJug = false;
 	}
 	if (sInputManager->getKeyPressed(key_d) && _frames == 0 && _ritmoJug == true) {
-		addX(46);
+		addX(52);
 		_ritmoJug = false;
 	}
 
 	if (sInputManager->getKeyPressed(key_w) && _frames == 0 && _ritmoJug == true) {
-		addY(-46);
+		addY(-52);
 		_ritmoJug = false;
 	}
 		

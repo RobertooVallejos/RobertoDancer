@@ -1,6 +1,6 @@
 #pragma once
-#define SCREEN_WIDTH 720
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 1000
+#define SCREEN_HEIGHT 1000
 #include "SDL.h"
 #include "SDL_image.h"
 
