@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "SceneMain.h"
 #include "SceneDirector.h"
+#include "Mapa.h"
 
 extern SceneDirector* sDirector;
 extern InputManager* sInputManager;
@@ -12,7 +13,7 @@ extern ResourceManager* sResourceManager;
 
 extern bool             gameOn;
 extern Uint32           global_elapsed_time;
-
+Mapa a;
 SceneMain::SceneMain()
 {
 
@@ -26,6 +27,10 @@ void SceneMain::init()
 {
 	 title.ponerFoto("mainMenu.jpg");
 	 title.init();
+	 a.init();
+	 a.aBinariopapi();
+	 a.aBinariopapito();
+
 }
 
 void SceneMain::update()

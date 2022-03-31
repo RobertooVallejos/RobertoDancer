@@ -31,6 +31,28 @@ void Video::renderGraphic(int img, int posX, int posY, int width, int height, in
 	target.h = height;
 	SDL_RenderCopy(gRenderer, ResourceManager::getInstance()->getGraphicByID(img), &source, &target);
 }
+
+void Video::renderGraphic(int img, int posX, int posY, int width, int height, int SourceX, int SourceY, bool _girado) {
+	SDL_Rect source, target;
+	source.h = height;
+	source.w = width;
+	source.x = SourceX;
+	source.y = SourceY;
+	target.x = posX;
+	target.y = posY;
+	target.w = width;
+	target.h = height;
+	if (_girado) {
+		SDL_RenderCopyEx(gRenderer, ResourceManager::getInstance()->getGraphicByID(img), &source, &target, 0, 0, SDL_FLIP_HORIZONTAL);
+	}
+	else {
+
+		SDL_RenderCopyEx(gRenderer, ResourceManager::getInstance()->getGraphicByID(img), &source, &target, 0, 0, SDL_FLIP_NONE);
+	}
+}
+
+
+
 void Video::renderGraphic(int img, int posX, int posY, int width, int height) {
 	SDL_Rect r;
 	r.x = posX;

@@ -3,7 +3,15 @@
 #include <string>
 #include <iostream>
 #include "ResourceManager.h"
+#include "InputManager.h"
 #include "Video.h"
+#include <fstream>
+
+extern InputManager* sInputManager;
+extern ResourceManager* sResourceManager;
+extern Video* sVideo;
+
+Mapa* Mapa::pInstance = nullptr;
 
 using namespace std;
 using namespace tinyxml2;
@@ -22,6 +30,12 @@ Mapa::Mapa()
 	tilewidth = 0;
 	tileheight = 0;
 	tilespace = 0;
+	_offsetX = 0;
+	offsetY = 0;
+	camaraX = 0;
+	camaraY = 0;
+	_camaraRemotaX = 0;
+	_camaraRemotaY = 0;
 	_mElement2 = "";
 	_mElement3 = "";
 	_string = "";
@@ -32,6 +46,10 @@ void Mapa::init()
 	tilewidth = 52;
 	tileheight = 52;
 	tilespace = 0;
+	_offsetX = 0;
+	offsetY = 0;
+	camaraX = 0;
+	camaraY = 0;
 	if (_doc.LoadFile("mapaFirst.tmx") != XML_SUCCESS) {
 		cout << "Error XML: " << _doc.ErrorStr();
 	}
@@ -79,15 +97,29 @@ void Mapa::init()
 	}
 	_imagen= ResourceManager::getInstance()->loadAndGetGraphicID(Video::getIntance()->getRenderer(), "SueloYParedes.png");
 }
+/*
+offsetXY = camaraXY/tilewidth y tileheight
+tmx y tmy = offsetXY
+tmx < (tamaño camara width / tilewidth +  offsetX + 1) -> meter en una variable bro (con Y lo mismo)
+*/
+void Mapa::update()
+{
+	camaraX = (instanciaPers->getPositionX() + (instanciaPers->getSizeWidth() / 2)) - (SCREEN_WIDTH / 2);
+	camaraY = (instanciaPers->getPositionY() + (instanciaPers->getSizeHeight() / 2)) - (SCREEN_HEIGHT / 2);
+	_offsetX = camaraX / tilewidth;
+	offsetY = camaraY / tileheight;
+	_camaraRemotaX = SCREEN_WIDTH / tilewidth + _offsetX + 2;
+	_camaraRemotaY = SCREEN_HEIGHT / tileheight + offsetY + 2;
+}
 
 void Mapa::render()
 {
-	for (size_t tmY = 0; tmY < 31; tmY++)
+	for (size_t tmY = offsetY; tmY < _camaraRemotaY; tmY++)
 	{
-		for (size_t tmX = 0; tmX < 41; tmX++)
+		for (size_t tmX = _offsetX; tmX < _camaraRemotaX; tmX++)
 		{
-			_RectT.x = tmX * tilewidth;
-			_RectT.y = tmY * tileheight;
+			_RectT.x = tmX * tilewidth - camaraX;
+			_RectT.y = tmY * tileheight - camaraY;
 			_RectT.w = tilewidth;
 			_RectT.h = tileheight;
 			_id = _background[tmY][tmX] - 1;
@@ -99,12 +131,10 @@ void Mapa::render()
 				_RectS.y = _cellY * tilewidth + tilespace * _cellY;
 				_RectS.w = tilewidth;
 				_RectS.h = tileheight;
-				Video::getIntance()->renderGraphic(_imagen, _RectT.x - 625, _RectT.y - 350, _RectS.w, _RectS.h, _RectS.x, _RectS.y);
-
-
+				Video::getIntance()->renderGraphic(_imagen, _RectT.x, _RectT.y, _RectS.w, _RectS.h, _RectS.x, _RectS.y);
 			}
-			_RectT.x = tmX * tilewidth;
-			_RectT.y = tmY * tileheight;
+			_RectT.x = tmX * tilewidth - camaraX;
+			_RectT.y = tmY * tileheight - camaraY;
 			_RectT.w = tilewidth;
 			_RectT.h = tileheight;
 			_id = _foreground[tmY][tmX] - 1;
@@ -116,9 +146,52 @@ void Mapa::render()
 				_RectS.y = _cellY * tilewidth + tilespace * _cellY;
 				_RectS.w = tilewidth;
 				_RectS.h = tileheight;
-				Video::getIntance()->renderGraphic(_imagen, _RectT.x - 625, _RectT.y - 350, _RectS.w, _RectS.h, _RectS.x, _RectS.y);
+				Video::getIntance()->renderGraphic(_imagen, _RectT.x, _RectT.y, _RectS.w, _RectS.h, _RectS.x, _RectS.y);
 			}
 		}
 
 	}
+}
+
+
+void Mapa::aBinariopapi()
+{
+	fstream _file("mapaFirst.tmx", ios::in | ios::binary);
+	if (_file.is_open()) {
+		_file.seekg(0, _file.end);
+		size = _file.tellg();
+		_file.seekg(0, _file.beg);
+		memblock = new char[size];
+		_file.read(memblock, size);
+		_file.close();
+
+		std::cout << "EL SIZE DEL MAPA ES " << size;
+	}
+	else {
+		cout << "No s'ha pogut obrir el fitxer";
+	}
+	delete[] memblock;
+}
+
+void Mapa::aBinariopapito()
+{
+	int apoyo = 0;
+	fstream _file2("nosequeponerajjajsaludosquierounnombrelargo.ihi", ios::out | ios::binary);
+	_file2.write((char*)&_height, 4);
+	_file2.write((char*)&_width, 4);
+	for (int i = 0; i < sizeof(_background); i++) {
+		for (int o = 0; o < sizeof(_background); o++) {
+			apoyo = _background[i][o];
+
+			_file2.write((char*)&apoyo, 4);
+		}
+	}
+	_file2.close();
+}
+
+Mapa* Mapa::getInstance()
+{
+	if (pInstance == nullptr) pInstance = new Mapa();
+
+	return pInstance;
 }

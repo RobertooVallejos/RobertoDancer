@@ -12,6 +12,7 @@ extern SceneDirector* sDirector;
 extern InputManager* sInputManager;
 extern Video* sVideo;
 extern ResourceManager* sResourceManager;
+extern Mapa* sMapa;
 
 extern bool             gameOn;
 extern Uint32           global_elapsed_time;
@@ -30,19 +31,21 @@ void SceneGame::init()
 {
 	Personaje.ponerFoto("Cadencee.png");
 	Personaje.init();
-	Nivel.init();
+	sMapa->init();
+	sMapa->setPunteroPos(&Personaje);
 }
 
 void SceneGame::update()
 {
 	Personaje.update();
+	sMapa->update();
 }
 
 void SceneGame::render()
 {
 	sVideo->setColorLimpieza(100, 80, 80);
 	sVideo->rendererClear();
-	Nivel.render();
+	sMapa->render();
 	Personaje.render();
 	sVideo->updateScreen();
 }

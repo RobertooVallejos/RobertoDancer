@@ -1,6 +1,7 @@
 #include "SceneDirector.h"
 #include "InputManager.h"
 #include "ElementoGFX.h"
+#include "Mapa.h"
 #include "ResourceManager.h"
 #include "Scene.h"
 #include "SceneGame.h"
@@ -17,6 +18,7 @@ bool		gameOn = true;
 SceneDirector	*sDirector = NULL;
 InputManager*	sInputManager = NULL;
 ResourceManager*	sResourceManager = NULL;
+Mapa* sMapa = NULL;
 Video*	sVideo = NULL;
 
 int main( int argc, char* args[] ) {
@@ -24,6 +26,7 @@ int main( int argc, char* args[] ) {
 	sInputManager = InputManager::getInstance();
 	sResourceManager	= ResourceManager::getInstance();
 	sVideo	= Video::getIntance();
+	sMapa = Mapa::getInstance();
 	sDirector		= SceneDirector::getInstance();
 	
 	//Main Loop

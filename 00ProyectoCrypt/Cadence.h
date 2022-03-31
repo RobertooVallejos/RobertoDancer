@@ -5,7 +5,9 @@
 class Cadence : public ElementoGFX
 {
 private:
+
 	bool _ritmoJug;
+	bool _girado;
 	int _vida;
 	int _dano;
 	int _sourceX;

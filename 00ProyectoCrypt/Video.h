@@ -1,6 +1,6 @@
 #pragma once
-#define SCREEN_WIDTH 1000
-#define SCREEN_HEIGHT 1000
+#define SCREEN_WIDTH 720
+#define SCREEN_HEIGHT 480
 #include "SDL.h"
 #include "SDL_image.h"
 
@@ -12,6 +12,7 @@ public:
 	Video();
 	~Video();
 	void renderGraphic(int img, int posX, int posY, int width, int height, int SourceX, int SourceY);
+	void renderGraphic(int img, int posX, int posY, int width, int height, int SourceX, int SourceY, bool girado);
 	void renderGraphic(int img, int posX, int posY, int width, int height);
 	void setColorLimpieza(int R, int G, int B);
 	void rendererClear();
