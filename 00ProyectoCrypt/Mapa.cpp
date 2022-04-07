@@ -36,6 +36,8 @@ Mapa::Mapa()
 	camaraY = 0;
 	_camaraRemotaX = 0;
 	_camaraRemotaY = 0;
+	_mapaWidth = 0;
+	_mapaHeight = 0;
 	_mElement2 = "";
 	_mElement3 = "";
 	_string = "";
@@ -97,19 +99,30 @@ void Mapa::init()
 	}
 	_imagen= ResourceManager::getInstance()->loadAndGetGraphicID(Video::getIntance()->getRenderer(), "SueloYParedes.png");
 }
-/*
-offsetXY = camaraXY/tilewidth y tileheight
-tmx y tmy = offsetXY
-tmx < (tamaño camara width / tilewidth +  offsetX + 1) -> meter en una variable bro (con Y lo mismo)
-*/
+
 void Mapa::update()
 {
 	camaraX = (instanciaPers->getPositionX() + (instanciaPers->getSizeWidth() / 2)) - (SCREEN_WIDTH / 2);
+	if (camaraX < 0) {
+		camaraX = 0;
+	}
+	else if (camaraX > (getMapaWidth() - SCREEN_WIDTH)) {
+		camaraX = getMapaWidth() - SCREEN_WIDTH;
+	}
+
+
 	camaraY = (instanciaPers->getPositionY() + (instanciaPers->getSizeHeight() / 2)) - (SCREEN_HEIGHT / 2);
+	if (camaraY < 0) {
+		camaraY = 0;
+	}
+	else if (camaraY > (getMapaHeight() - SCREEN_HEIGHT)) {
+		camaraY = getMapaHeight() - SCREEN_HEIGHT;
+	}
+
 	_offsetX = camaraX / tilewidth;
 	offsetY = camaraY / tileheight;
-	_camaraRemotaX = SCREEN_WIDTH / tilewidth + _offsetX + 2;
-	_camaraRemotaY = SCREEN_HEIGHT / tileheight + offsetY + 2;
+	_camaraRemotaX = SCREEN_WIDTH / tilewidth + _offsetX + 1;
+	_camaraRemotaY = SCREEN_HEIGHT / tileheight + offsetY + 1;
 }
 
 void Mapa::render()
@@ -187,6 +200,33 @@ void Mapa::aBinariopapito()
 		}
 	}
 	_file2.close();
+}
+
+int Mapa::getMapaWidth()
+{
+	_mapaWidth = tilewidth * _width;
+	return _mapaWidth;
+}
+
+int Mapa::getMapaHeight()
+{
+	_mapaHeight = _height * tileheight;
+	return _mapaHeight;
+}
+
+
+int Mapa::getIDfromLayer(int layer, int posX, int posY)  //Dependiendo de si layer es 0 o 1, checkea el ID del tile.
+{
+	int TileX = posX / tilewidth;
+	int TileY = posY / tileheight;
+	int Tile = -1;
+	if (layer == 0) {
+		Tile = _background[TileY][TileX];
+	}
+	if (layer == 1) {
+		Tile = _foreground[TileY][TileX];
+	}
+	return Tile;
 }
 
 Mapa* Mapa::getInstance()

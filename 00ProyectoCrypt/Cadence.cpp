@@ -75,26 +75,51 @@ void Cadence::moverArriba()
 		if (_frames == 4) _frames = 0;
 	}
 
-	if (sInputManager->getKeyPressed(key_a) && _frames == 0 && _ritmoJug == true) {
-		addX(-52);
-		_girado = false;
-		_ritmoJug = false;
-	}
-	if (sInputManager->getKeyPressed(key_s) && _frames == 0 && _ritmoJug == true) {
-		addY(52);
-		_ritmoJug = false;
-	}
-	if (sInputManager->getKeyPressed(key_d) && _frames == 0 && _ritmoJug == true) {
-		addX(52);
-		_ritmoJug = false;
-		_girado = true;
-	}
+	int tocaPared;
 
-	if (sInputManager->getKeyPressed(key_w) && _frames == 0 && _ritmoJug == true) {
-		addY(-52);
-		_ritmoJug = false;
-	}
+		if (sInputManager->getKeyPressed(key_a) && _frames == 0 && _ritmoJug == true) {
+			addX(-52);
+			_girado = false;
+			_ritmoJug = false;
+			
+			//comprueba colisión
+			tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
+			if (tocaPared == 5) {
+				addX(52);
+			}
+		}
+		if (sInputManager->getKeyPressed(key_s) && _frames == 0 && _ritmoJug == true) {
+			addY(52);
+			_ritmoJug = false;
 
+			//comprueba colisión
+			tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
+			if (tocaPared == 5) {
+				addY(-52);
+			}
+		}
+		if (sInputManager->getKeyPressed(key_d) && _frames == 0 && _ritmoJug == true) {
+			addX(52);
+			_ritmoJug = false;
+			_girado = true;
+
+			//comprueba colisión
+			tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
+			if (tocaPared == 5) {
+				addX(-52);
+			}
+		}
+
+		if (sInputManager->getKeyPressed(key_w) && _frames == 0 && _ritmoJug == true) {
+			addY(-52);
+			_ritmoJug = false;
+
+			//comprueba colisión
+			tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
+			if (tocaPared == 6) {
+				addY(52);
+			}
+		}
 }
 
 void Cadence::moverAbajo()

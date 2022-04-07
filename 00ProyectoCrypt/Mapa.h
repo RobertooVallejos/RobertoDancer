@@ -38,11 +38,13 @@ private:
 	int camaraY;
 	int _camaraRemotaX;
 	int _camaraRemotaY;
+	int _mapaWidth;
+	int _mapaHeight;
 	string _mElement2;
 	string _mElement3;
 	string _string;
 	vector<vector<int>> _background;
-	vector<vector<int>> _foreground;
+	vector<vector<int>> _foreground; 
 	XMLDocument _doc;
 	
 
@@ -66,8 +68,11 @@ public:
 	int getMapaX() { return camaraX; };
 	int getMapaY() { return camaraY; };
 
-	void setPunteroPos(Cadence* param) { instanciaPers = param; }; //Coge el personaje
+	int getMapaWidth();
+	int getMapaHeight();
 
+	void setPunteroPos(Cadence* param) { instanciaPers = param; }; //Coge el personaje
+	int getIDfromLayer(int layer, int posX, int posY);
 	static Mapa* getInstance();
 };
 
