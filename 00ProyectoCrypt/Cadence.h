@@ -4,11 +4,15 @@
 
 class Cadence : public ElementoGFX
 {
-private:
+protected:
 
+	struct Cubo{
+		int frameY, frameX;
+	};
+	Cubo _rectFrame;
 	bool _ritmoJug;
 	bool _girado;
-	int _vida;
+	float _vida;
 	int _dano;
 	int _sourceX;
 	int _sourceY;

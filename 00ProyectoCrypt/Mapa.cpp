@@ -121,7 +121,7 @@ void Mapa::update()
 
 	_offsetX = camaraX / tilewidth;
 	offsetY = camaraY / tileheight;
-	_camaraRemotaX = SCREEN_WIDTH / tilewidth + _offsetX + 1;
+	_camaraRemotaX = SCREEN_WIDTH / tilewidth + _offsetX + 2;
 	_camaraRemotaY = SCREEN_HEIGHT / tileheight + offsetY + 1;
 }
 
