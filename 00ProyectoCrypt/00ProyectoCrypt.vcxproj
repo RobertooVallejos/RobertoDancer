@@ -159,6 +159,7 @@
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="SceneScoreboard.cpp" />
     <ClCompile Include="SlimeAzul.cpp" />
+    <ClCompile Include="SlimeVerde.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="Video.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="SceneMain.h" />
     <ClInclude Include="SceneScoreboard.h" />
     <ClInclude Include="SlimeAzul.h" />
+    <ClInclude Include="SlimeVerde.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="Video.h" />

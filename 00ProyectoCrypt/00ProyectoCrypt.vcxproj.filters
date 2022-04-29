@@ -69,6 +69,9 @@
     <ClCompile Include="SlimeAzul.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SlimeVerde.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -120,6 +123,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SlimeAzul.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SlimeVerde.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

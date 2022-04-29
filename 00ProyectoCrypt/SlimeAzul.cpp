@@ -75,19 +75,7 @@ void SlimeAzul::update()
 		_contadorTiempoEntreFrames = 0;
 		if (_frames == 4) _frames = 0;
 	}
-	/*
-	_contadorTiempoEntreFrames += global_elapsed_time;
-	if (_contadorTiempoEntreFrames >= 150) {
-		_frames++;
-		_dobleTempo += 0.5f;
-		if (_dobleTempo >= 4.0f) { //que se mueva cada dos tempos
-			_ritmoJug = true;
-			_dobleTempo = 0.0f;
-		}
-		_contadorTiempoEntreFrames = 0;
-		if (_frames == 4) _frames = 0;
-	}
-	*/
+
 	int tocaPared;
 
 	if (_frames == 0 && _ritmoJug == true && _direccion == 1) {

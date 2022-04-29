@@ -3,11 +3,13 @@
 #include "Cadence.h"
 #include "Zombie.h"
 #include "SlimeAzul.h"
+#include "SlimeVerde.h"
 class SceneGame : public Scene //gameplay
 {
 	Cadence Personaje;
 	Zombie EnemigoZombie;
 	SlimeAzul EnemigoSlimeAzul;
+	SlimeVerde EnemigoSlimeVerde;
 public:
 	SceneGame();
 	~SceneGame();
