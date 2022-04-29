@@ -45,7 +45,7 @@ void SlimeAzul::init()
 	_Rect.width = 50;
 	_Rect.h = 50;
 	_Rect.x = 1040;
-	_Rect.y = 910;
+	_Rect.y = 920;
 	_direccion = rand() % 2 + 1;
 	_dobleTempo = 0.0f;
 	_rectFrame.frameX = 0;
@@ -58,26 +58,47 @@ void SlimeAzul::update()
 	if (_contadorTiempoEntreFrames >= 150) {
 		_frames++;
 		_dobleTempo += 0.5f;
+
+		if (_dobleTempo <= 2.0f) {
+			_rectFrame.frameY = 0;
+			_ritmoJug = false;
+		}
+		if (_dobleTempo >= 2.5f) {
+			_rectFrame.frameY = 50;
+		}
 		if (_dobleTempo >= 4.0f) { //que se mueva cada dos tempos
 			_rectFrame.frameY = 50;
+			_ritmoJug = true;
+			_dobleTempo = 0.0f;
+		}
+
+		_contadorTiempoEntreFrames = 0;
+		if (_frames == 4) _frames = 0;
+	}
+	/*
+	_contadorTiempoEntreFrames += global_elapsed_time;
+	if (_contadorTiempoEntreFrames >= 150) {
+		_frames++;
+		_dobleTempo += 0.5f;
+		if (_dobleTempo >= 4.0f) { //que se mueva cada dos tempos
 			_ritmoJug = true;
 			_dobleTempo = 0.0f;
 		}
 		_contadorTiempoEntreFrames = 0;
 		if (_frames == 4) _frames = 0;
 	}
-
+	*/
 	int tocaPared;
 
 	if (_frames == 0 && _ritmoJug == true && _direccion == 1) {
 		addY(52);
 		_ritmoJug = false;
+		_direccion = 2;
 
 		//comprueba colisión
 		tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
 		if (tocaPared == 5) {
 			addY(-52);
-			_direccion = 2;
 			_rectFrame.frameY = 0;
 		}
 	}
@@ -85,12 +106,12 @@ void SlimeAzul::update()
 	if (_frames == 0 && _ritmoJug == true && _direccion == 2) {
 		addY(-52);
 		_ritmoJug = false;
+		_direccion = 1;
 
 		//comprueba colisión
 		tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
 		if (tocaPared == 6) {
 			addY(52);
-			_direccion = 1;
 			_rectFrame.frameY = 0;
 		}
 	}
