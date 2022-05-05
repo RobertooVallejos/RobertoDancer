@@ -9,6 +9,8 @@ protected:
 	struct Cubo{
 		int frameY, frameX;
 	};
+	enum ESTADOS { SINSALTO, ARRIBA, ESPERANDO, ABAJO };
+	ESTADOS _estadoActual;
 	Cubo _rectFrame;
 	bool _ritmoJug;
 	bool _girado;
@@ -18,7 +20,10 @@ protected:
 	int _sourceY;
 	int _frames;
 	int _contadorTiempoEntreFrames;
+	int _alturaSalto;
+	bool _salto;
 
+	float _contadorSalto;
 public:
 	Cadence();
 	~Cadence();

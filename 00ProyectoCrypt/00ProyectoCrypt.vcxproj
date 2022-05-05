@@ -150,6 +150,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="MainForDirector.cpp" />
     <ClCompile Include="Mapa.cpp" />
+    <ClCompile Include="Murcielago.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneDirector.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="ElementoGFX.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Mapa.h" />
+    <ClInclude Include="Murcielago.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneDirector.h" />

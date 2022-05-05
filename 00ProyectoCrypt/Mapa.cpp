@@ -102,7 +102,7 @@ void Mapa::init()
 
 void Mapa::update()
 {
-	camaraX = (instanciaPers->getPositionX() + (instanciaPers->getSizeWidth() / 2)) - (SCREEN_WIDTH / 2);
+	camaraX = (instanciaPers->getPositionX() + (instanciaPers->getSizeWidth() / 2) - 30) - (SCREEN_WIDTH / 2);
 	if (camaraX < 0) {
 		camaraX = 0;
 	}
@@ -121,7 +121,7 @@ void Mapa::update()
 
 	_offsetX = camaraX / tilewidth;
 	offsetY = camaraY / tileheight;
-	_camaraRemotaX = SCREEN_WIDTH / tilewidth + _offsetX + 2;
+	_camaraRemotaX = SCREEN_WIDTH / tilewidth + _offsetX + 1;
 	_camaraRemotaY = SCREEN_HEIGHT / tileheight + offsetY + 1;
 }
 
