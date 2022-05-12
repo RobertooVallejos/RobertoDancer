@@ -27,16 +27,14 @@ void SceneMain::init()
 {
 	 title.ponerFoto("mainMenu.jpg");
 	 title.init();
-	 a.init();
-	 a.aBinariopapi();
-	 a.aBinariopapito();
+	 a.init("menuJugable.tmx");
 
 }
 
 void SceneMain::update()
 {
 	if (sInputManager->getKeyPressed(key_space)) {
-		sDirector->changeScene(GAME, true);
+		sDirector->changeScene(INTRO, true);
 	}
 }
 

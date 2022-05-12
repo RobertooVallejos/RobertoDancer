@@ -85,7 +85,7 @@ void Cadence::moverArriba()
 		_contadorTiempoEntreFrames = 0;
 		if (_frames == 4) _frames = 0;
 	}
-
+	/*
 	while(_salto) {
 		switch (_estadoActual)
 		{
@@ -117,7 +117,7 @@ void Cadence::moverArriba()
 				break;
 		}
 	}
-
+	*/
 	int tocaPared;
 
 		if (sInputManager->getKeyPressed(key_a) && _frames == 0 && _ritmoJug == true) {

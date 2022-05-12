@@ -43,7 +43,7 @@ Mapa::Mapa()
 	_string = "";
 }
 
-void Mapa::init()
+void Mapa::init(const char* nombre)
 {
 	tilewidth = 52;
 	tileheight = 52;
@@ -52,7 +52,7 @@ void Mapa::init()
 	offsetY = 0;
 	camaraX = 0;
 	camaraY = 0;
-	if (_doc.LoadFile("mapaFirst.tmx") != XML_SUCCESS) {
+	if (_doc.LoadFile(nombre) != XML_SUCCESS) {
 		cout << "Error XML: " << _doc.ErrorStr();
 	}
 
@@ -165,7 +165,7 @@ void Mapa::render()
 
 	}
 }
-
+/*
 
 void Mapa::aBinariopapi()
 {
@@ -200,7 +200,7 @@ void Mapa::aBinariopapito()
 		}
 	}
 	_file2.close();
-}
+}*/
 
 int Mapa::getMapaWidth()
 {

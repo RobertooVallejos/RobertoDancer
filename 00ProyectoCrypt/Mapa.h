@@ -58,12 +58,12 @@ private:
 public:
 	Mapa();
 
-	void init();
+	void init(const char* nombre);
 	void update();
 	void render();
 	
-	void aBinariopapi();
-	void aBinariopapito();
+	//void aBinariopapi();
+	//void aBinariopapito();
 
 	int getMapaX() { return camaraX; };
 	int getMapaY() { return camaraY; };

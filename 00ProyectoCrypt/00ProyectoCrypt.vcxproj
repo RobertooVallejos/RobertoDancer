@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="Cadence.cpp" />
     <ClCompile Include="ElementoGFX.cpp" />
+    <ClCompile Include="Fantasma.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="MainForDirector.cpp" />
     <ClCompile Include="Mapa.cpp" />
@@ -169,6 +170,7 @@
   <ItemGroup>
     <ClInclude Include="Cadence.h" />
     <ClInclude Include="ElementoGFX.h" />
+    <ClInclude Include="Fantasma.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Mapa.h" />
     <ClInclude Include="Murcielago.h" />

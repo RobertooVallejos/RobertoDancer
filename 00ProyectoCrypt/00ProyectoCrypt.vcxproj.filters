@@ -75,6 +75,9 @@
     <ClCompile Include="Murcielago.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Fantasma.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -132,6 +135,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Murcielago.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fantasma.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

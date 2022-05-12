@@ -34,12 +34,15 @@ void SceneGame::init()
 	EnemigoSlimeAzul.ponerFoto("SlimeAzul.png");
 	EnemigoSlimeVerde.ponerFoto("SlimeVerde.png");
 	EnemigoMurcielago.ponerFoto("Bats.png");
+	EnemigoFantasma.ponerFoto("Fantasma.png");
 	Personaje.init();
 	EnemigoZombie.init();
 	EnemigoSlimeAzul.init();
 	EnemigoSlimeVerde.init();
 	EnemigoMurcielago.init();
-	sMapa->init();
+	EnemigoFantasma.init();
+	EnemigoFantasma.setPointerPersonaje(&Personaje);
+	sMapa->init("mapaFirst.tmx");
 	sMapa->setPunteroPos(&Personaje);
 }
 
@@ -50,6 +53,7 @@ void SceneGame::update()
 	EnemigoSlimeAzul.update();
 	EnemigoSlimeVerde.update();
 	EnemigoMurcielago.update();
+	EnemigoFantasma.update();
 	sMapa->update();
 }
 
@@ -63,6 +67,7 @@ void SceneGame::render()
 	EnemigoSlimeAzul.render();
 	EnemigoSlimeVerde.render();
 	EnemigoMurcielago.render();
+	EnemigoFantasma.render();
 	sVideo->updateScreen();
 }
 
