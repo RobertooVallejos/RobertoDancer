@@ -144,7 +144,7 @@ void Mapa::render()
 				_RectS.y = _cellY * tilewidth + tilespace * _cellY;
 				_RectS.w = tilewidth;
 				_RectS.h = tileheight;
-				Video::getIntance()->renderGraphic(_imagen, _RectT.x, _RectT.y, _RectS.w, _RectS.h, _RectS.x, _RectS.y);
+				sVideo->getIntance()->renderGraphic(_imagen, _RectT.x, _RectT.y, _RectS.w, _RectS.h, _RectS.x, _RectS.y);
 			}
 			_RectT.x = tmX * tilewidth - camaraX;
 			_RectT.y = tmY * tileheight - camaraY;
@@ -159,7 +159,7 @@ void Mapa::render()
 				_RectS.y = _cellY * tilewidth + tilespace * _cellY;
 				_RectS.w = tilewidth;
 				_RectS.h = tileheight;
-				Video::getIntance()->renderGraphic(_imagen, _RectT.x, _RectT.y, _RectS.w, _RectS.h, _RectS.x, _RectS.y);
+				sVideo->getIntance()->renderGraphic(_imagen, _RectT.x, _RectT.y, _RectS.w, _RectS.h, _RectS.x, _RectS.y);
 			}
 		}
 

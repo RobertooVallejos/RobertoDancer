@@ -14,7 +14,7 @@ protected:
 	Cubo _rectFrame;
 	bool _ritmoJug;
 	bool _girado;
-	float _vida;
+	int _vida;
 	int _dano;
 	int _sourceX;
 	int _sourceY;
@@ -22,7 +22,7 @@ protected:
 	int _contadorTiempoEntreFrames;
 	int _alturaSalto;
 	bool _salto;
-
+	int cd;
 	float _contadorSalto;
 public:
 	Cadence();
@@ -36,6 +36,7 @@ public:
 	void moverAbajo();
 	void atacar();
 	void muerte();
+	int getVida() { return _vida; };
 };
 
 

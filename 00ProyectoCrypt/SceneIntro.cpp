@@ -30,14 +30,11 @@ SceneIntro::~SceneIntro()
 void SceneIntro::init()
 {
 	Personaje.ponerFoto("Cadencee.png");
-	Personaje.init();
-	sMapa->init("menuJugable.tmx");
-	sMapa->setPunteroPos(&Personaje);
 }
 
 void SceneIntro::update()
 {
-	if (Personaje.getPositionX() <= 832 && Personaje.getPositionX() >= 780 && Personaje.getPositionY() <= 312 && Personaje.getPositionY() >= 260) {
+	if (Personaje.getPositionX() <= 832 && Personaje.getPositionX() >= 780 && Personaje.getPositionY() <= 260 && Personaje.getPositionY() >= 208) {
 		sDirector->changeScene(GAME, true);
 	}
 	Personaje.update();
@@ -55,5 +52,8 @@ void SceneIntro::render()
 
 void SceneIntro::reinit()
 {
+	Personaje.init();
+	sMapa->init("menuJugable.tmx");
+	sMapa->setPunteroPos(&Personaje);
 	mReinit = false;
 }

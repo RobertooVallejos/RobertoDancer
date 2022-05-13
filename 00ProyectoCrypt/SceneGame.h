@@ -6,6 +6,7 @@
 #include "SlimeVerde.h"
 #include "Murcielago.h"
 #include "Fantasma.h"
+#include "HUD.h"
 class SceneGame : public Scene //gameplay
 {
 	Cadence Personaje;
@@ -14,6 +15,7 @@ class SceneGame : public Scene //gameplay
 	SlimeVerde EnemigoSlimeVerde;
 	Murcielago EnemigoMurcielago;
 	Fantasma EnemigoFantasma;
+	HUD Hud;
 public:
 	SceneGame();
 	~SceneGame();

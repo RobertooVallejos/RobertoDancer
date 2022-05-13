@@ -29,21 +29,14 @@ SceneGame::~SceneGame()
 
 void SceneGame::init()
 {
+	
 	Personaje.ponerFoto("Cadencee.png");
 	EnemigoZombie.ponerFoto("Zombie.png");
 	EnemigoSlimeAzul.ponerFoto("SlimeAzul.png");
 	EnemigoSlimeVerde.ponerFoto("SlimeVerde.png");
 	EnemigoMurcielago.ponerFoto("Bats.png");
 	EnemigoFantasma.ponerFoto("Fantasma.png");
-	Personaje.init();
-	EnemigoZombie.init();
-	EnemigoSlimeAzul.init();
-	EnemigoSlimeVerde.init();
-	EnemigoMurcielago.init();
-	EnemigoFantasma.init();
-	EnemigoFantasma.setPointerPersonaje(&Personaje);
-	sMapa->init("mapaFirst.tmx");
-	sMapa->setPunteroPos(&Personaje);
+	Hud.ponerFoto("corazones.png");
 }
 
 void SceneGame::update()
@@ -68,10 +61,23 @@ void SceneGame::render()
 	EnemigoSlimeVerde.render();
 	EnemigoMurcielago.render();
 	EnemigoFantasma.render();
+	Hud.render();
 	sVideo->updateScreen();
 }
 
 void SceneGame::reinit()
 {
+	Personaje.init();
+	Personaje.setPositionXY(52 * 20 + 17, 820);
+	EnemigoZombie.init();
+	EnemigoSlimeAzul.init();
+	EnemigoSlimeVerde.init();
+	EnemigoMurcielago.init();
+	EnemigoFantasma.init();
+	Hud.init();
+	EnemigoFantasma.setPointerPersonaje(&Personaje);
+	Hud.setPointerPersonaje(&Personaje);
+	sMapa->init("mapaFirst.tmx");
+	sMapa->setPunteroPos(&Personaje);
 	mReinit = false;
 }
