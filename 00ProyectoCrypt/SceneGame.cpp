@@ -37,6 +37,9 @@ void SceneGame::init()
 	EnemigoMurcielago.ponerFoto("Bats.png");
 	EnemigoFantasma.ponerFoto("Fantasma.png");
 	Hud.ponerFoto("corazones.png");
+	Hud.ponerFoto2("objetosAtaque.png");
+	Hud.ponerFoto3("objetosUtilidad.png");
+	Hud.ponerFoto4("ritmo.png");
 }
 
 void SceneGame::update()
@@ -47,6 +50,7 @@ void SceneGame::update()
 	EnemigoSlimeVerde.update();
 	EnemigoMurcielago.update();
 	EnemigoFantasma.update();
+	Hud.update();
 	sMapa->update();
 }
 
@@ -62,6 +66,10 @@ void SceneGame::render()
 	EnemigoMurcielago.render();
 	EnemigoFantasma.render();
 	Hud.render();
+	Hud.renderArmas();
+	Hud.renderObjetos();
+	Hud.renderRitmoCorazon();
+	Hud.renderRitmoLinea();
 	sVideo->updateScreen();
 }
 

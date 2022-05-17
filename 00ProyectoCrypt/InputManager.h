@@ -21,6 +21,7 @@ public:
 	InputManager();
 	~InputManager();
 	void update();
+	void quit();
 	bool getKeyPressed(int key);
 	static InputManager* getInstance();
 

@@ -11,6 +11,9 @@ protected:
 	Cubo _Rect;
 
 	int _ID;
+	int _ID2;
+	int _ID3;
+	int _ID4;
 	
 public:
 	ElementoGFX();
@@ -33,6 +36,9 @@ public:
 	void setSizeHeight(int value) { _Rect.h = value; };
 	void setSize(int valueW, int valueH) { _Rect.width = valueW; _Rect.h = valueH; };
 	void ponerFoto(const char* img);
+	void ponerFoto2(const char* img);
+	void ponerFoto3(const char* img);
+	void ponerFoto4(const char* img);
 	int getSizeWidth() { return _Rect.width; };
 	int getSizeHeight() { return _Rect.h; };
 

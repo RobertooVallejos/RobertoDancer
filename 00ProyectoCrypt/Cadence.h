@@ -24,6 +24,7 @@ protected:
 	bool _salto;
 	int cd;
 	float _contadorSalto;
+	bool _daga;
 public:
 	Cadence();
 	~Cadence();
@@ -37,6 +38,7 @@ public:
 	void atacar();
 	void muerte();
 	int getVida() { return _vida; };
+	bool getArma() { return _daga; };
 };
 
 

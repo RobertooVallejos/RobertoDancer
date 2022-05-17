@@ -33,6 +33,7 @@ Cadence::Cadence()
 	_salto = false;
 	_rectFrame.frameX = 0;
 	_rectFrame.frameY = 0;
+	_daga = false;
 }
 
 Cadence::~Cadence()
@@ -57,7 +58,7 @@ void Cadence::init()
 	_contadorSalto = 0.0f;
 	_rectFrame.frameX = 0;
 	_rectFrame.frameY = 0;
-
+	_daga = true;
 }
 
 void Cadence::update()
@@ -124,6 +125,12 @@ void Cadence::moverArriba()
 	cd++;
 	if (sInputManager->getKeyPressed(key_space) && cd >= 50) {
 		_vida--;
+		if (_daga == true) {
+			_daga = false;
+		}
+		else {
+			_daga = true;
+		}
 		cd = 0;
 	}
 

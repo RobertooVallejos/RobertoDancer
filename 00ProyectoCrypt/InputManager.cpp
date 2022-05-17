@@ -114,6 +114,11 @@ void InputManager::update()
 
 }
 
+void InputManager::quit()
+{
+    SDL_Quit();
+}
+
 bool InputManager::getKeyPressed(int key)
 {
     

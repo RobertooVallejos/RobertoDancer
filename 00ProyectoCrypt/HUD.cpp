@@ -4,16 +4,38 @@
 
 extern Video* sVideo;
 
+extern Uint32           global_elapsed_time;
+
 HUD::HUD()
 {
 	_Rect.h = 0;
 	_Rect.width = 0;
 	_Rect.x = 0;
 	_Rect.y = 0;
+	_armasRectFrame.x = 0;
+	_armasRectFrame.y = 0;
+	_armasRectFrame.w = 0;
+	_armasRectFrame.h = 0;
+	_armasRectFrame.frameX = 0;
+	_armasRectFrame.frameY = 0;
+	_objetosRectFrame.x = 0;
+	_objetosRectFrame.y = 0;
+	_objetosRectFrame.w = 0;
+	_objetosRectFrame.h = 0;
+	_objetosRectFrame.frameX = 0;
+	_objetosRectFrame.frameY = 0;
+	_ritmoRectFrame.x = 0;
+	_ritmoRectFrame.y = 0;
+	_ritmoRectFrame.w = 0;
+	_ritmoRectFrame.h = 0;
+	_ritmoRectFrame.frameX = 0;
+	_ritmoRectFrame.frameY = 0;
 	_corazonesRectFrame.frameX = 0;
 	_corazonesRectFrame.frameY = 0;
+	_daga = false;
 	_vidaPersonaje = 0;
-
+	_frames = 0;
+	_contadorTiempoEntreFrames = 0;
 }
 
 HUD::~HUD()
@@ -28,16 +50,44 @@ void HUD::init()
 	_Rect.y = 30;
 	_corazonesRectFrame.frameX = 0;
 	_corazonesRectFrame.frameY = 0;
+	_armasRectFrame.x = 30;
+	_armasRectFrame.y = 123;
+	_armasRectFrame.w = 60;
+	_armasRectFrame.h = 63;
+	_armasRectFrame.frameX = 0;
+	_armasRectFrame.frameY = 0;
+	_objetosRectFrame.x = 30;
+	_objetosRectFrame.y = 30;
+	_objetosRectFrame.w = 60;
+	_objetosRectFrame.h = 60;
+	_objetosRectFrame.frameX = 0;
+	_objetosRectFrame.frameY = 0;
+	_ritmoRectFrame.x = 0;
+	_ritmoRectFrame.y = 400;
+	_ritmoRectFrame.w = 40;
+	_ritmoRectFrame.h = 50;
+	_ritmoRectFrame.frameX = 0;
+	_ritmoRectFrame.frameY = 0;
+	_daga = false;
 	_vidaPersonaje = 0;
+	_frames = 0;
+	_contadorTiempoEntreFrames = 0;
 }
 
 void HUD::update()
 {
+	_contadorTiempoEntreFrames += global_elapsed_time;
+	if (_contadorTiempoEntreFrames >= 150) {
+		_frames++;
+		_contadorTiempoEntreFrames = 0;
+		if (_frames == 2) _frames = 0;
+	}
 }
 
 void HUD::render()
 {
  	_vidaPersonaje = personaje->getVida();
+	_daga = personaje->getArma();
 	switch (_vidaPersonaje)
 	{
 	case 0:
@@ -70,5 +120,38 @@ void HUD::render()
 	default:
 		break;
 	}
+
 	sVideo->renderGraphic(_ID, _Rect.x, _Rect.y, _Rect.width, _Rect.h, 0, _corazonesRectFrame.frameY);
+	
+}
+
+void HUD::renderArmas()
+{
+	if (_daga == true) {
+		_armasRectFrame.frameY = 0;
+	}
+	else
+	{
+		_armasRectFrame.frameY = 63;
+	}
+	sVideo->renderGraphic(_ID2, _armasRectFrame.x, _armasRectFrame.y, _armasRectFrame.w, _armasRectFrame.h, 0, _armasRectFrame.frameY);
+}
+
+void HUD::renderObjetos()
+{
+	sVideo->renderGraphic(_ID3, _objetosRectFrame.x, _objetosRectFrame.y, _objetosRectFrame.w, _objetosRectFrame.h, 0, _objetosRectFrame.frameY);
+}
+
+void HUD::renderRitmoCorazon()
+{
+	sVideo->renderGraphic(_ID4, 360, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, _ritmoRectFrame.w * _frames, _ritmoRectFrame.frameY);
+}
+
+void HUD::renderRitmoLinea()
+{
+	_ritmoRectFrame.x += global_elapsed_time;
+	if (_ritmoRectFrame.x >= 400) {
+		_ritmoRectFrame.x = 0;
+	}
+	sVideo->renderGraphic(_ID4, _ritmoRectFrame.x, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, 0, 50);
 }
