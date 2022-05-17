@@ -14,6 +14,7 @@
 #include "Timer.h"
 
 Uint32 		global_elapsed_time = 0;
+Uint32		contadorRitmo = 0;
 bool		gameOn = true;
 SceneDirector	*sDirector = NULL;
 InputManager*	sInputManager = NULL;

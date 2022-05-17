@@ -1,10 +1,12 @@
 #include "HUD.h"
 #include "Cadence.h"
 #include "Video.h"
+#include <iostream>
 
 extern Video* sVideo;
 
 extern Uint32           global_elapsed_time;
+extern Uint32           contadorRitmo;
 
 HUD::HUD()
 {
@@ -62,7 +64,7 @@ void HUD::init()
 	_objetosRectFrame.h = 60;
 	_objetosRectFrame.frameX = 0;
 	_objetosRectFrame.frameY = 0;
-	_ritmoRectFrame.x = 0;
+	_ritmoRectFrame.x = 320;
 	_ritmoRectFrame.y = 400;
 	_ritmoRectFrame.w = 40;
 	_ritmoRectFrame.h = 50;
@@ -149,9 +151,31 @@ void HUD::renderRitmoCorazon()
 
 void HUD::renderRitmoLinea()
 {
-	_ritmoRectFrame.x += global_elapsed_time;
-	if (_ritmoRectFrame.x >= 400) {
+	if (contadorRitmo <= 20) {
 		_ritmoRectFrame.x = 0;
 	}
+	else if (contadorRitmo <= 40) {
+		_ritmoRectFrame.x = 18;
+	}
+	else if (contadorRitmo <= 60) {
+		_ritmoRectFrame.x = 36;
+	}
+	else if (contadorRitmo <= 80) {
+		_ritmoRectFrame.x = 54;
+	}
+	else if (contadorRitmo <= 100) {
+		_ritmoRectFrame.x = 72;
+	}
+	else if (contadorRitmo <= 120) {
+		_ritmoRectFrame.x = 90;
+	}
+	else if (contadorRitmo <= 140) {
+		_ritmoRectFrame.x = 108;
+	}
+	else if (contadorRitmo > 140) {
+		_ritmoRectFrame.x = 126;
+	}
 	sVideo->renderGraphic(_ID4, _ritmoRectFrame.x, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, 0, 50);
+	sVideo->renderGraphic(_ID4, _ritmoRectFrame.x + 126, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, 0, 50);
+	sVideo->renderGraphic(_ID4, _ritmoRectFrame.x + 126 *2, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, 0, 50);
 }

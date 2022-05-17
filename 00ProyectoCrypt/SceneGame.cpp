@@ -16,6 +16,7 @@ extern Mapa* sMapa;
 
 extern bool             gameOn;
 extern Uint32           global_elapsed_time;
+extern Uint32           contadorRitmo;
 
 using namespace tinyxml2;
 
@@ -44,6 +45,10 @@ void SceneGame::init()
 
 void SceneGame::update()
 {
+	contadorRitmo += global_elapsed_time;
+	if (contadorRitmo >= 150) {
+		contadorRitmo = 0;
+	}
 	Personaje.update();
 	EnemigoZombie.update();
 	EnemigoSlimeAzul.update();

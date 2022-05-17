@@ -6,7 +6,6 @@
 
 extern Video* sVideo;
 extern ResourceManager* sResourceManager;
-
 ElementoGFX::ElementoGFX()
 {
 	_Rect.x = 0;
