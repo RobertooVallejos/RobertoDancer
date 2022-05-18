@@ -134,11 +134,7 @@ void Zombie::mover()
 	}
 }
 
-void Zombie::spawnZombies(Mapa puntMapa)
+void Zombie::spawnZombies(Mapa* puntMapa)
 {
-	do {
-		
-
-		_zombiesSpawneados++;
-	} while (!_zombiesSpawneados);
 }
+

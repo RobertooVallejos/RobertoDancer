@@ -17,6 +17,6 @@ public:
 	void render();
 	void mover();
 
-	void spawnZombies(Mapa puntMapa);
+	void spawnZombies(Mapa *puntMapa);
 };
 

@@ -85,6 +85,7 @@ void SceneGame::reinit()
 	EnemigoZombie.init();
 	EnemigoSlimeAzul.init();
 	EnemigoSlimeVerde.init();
+	EnemigoSlimeVerde.setPointerPersonaje(&Personaje);
 	EnemigoMurcielago.init();
 	EnemigoFantasma.init();
 	Hud.init();

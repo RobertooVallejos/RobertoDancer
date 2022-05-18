@@ -46,9 +46,14 @@ void SlimeVerde::update()
 		_contadorTiempoEntreFrames = 0;
 		if (_frames == 4) _frames = 0;
 	}
+	if (personaje->getPositionX() == _Rect.x && personaje->getPositionY() == _Rect.y) {
+			
+	}
+
 }
 
 void SlimeVerde::render()
 {
 	sVideo->renderGraphic(_ID, _Rect.x - sMapa->getMapaX(), _Rect.y - sMapa->getMapaY(), _Rect.width, _Rect.h, _Rect.width * _frames, _rectFrame.frameY);
 }
+
