@@ -134,7 +134,10 @@ void Zombie::mover()
 	}
 }
 
-void Zombie::spawnZombies(Mapa* puntMapa)
+void Zombie::spawnZombie(Mapa* puntMapa)
 {
+	//do 
+	//dentro un random de multiplicar * 52 de rect.x e y
+	//while((sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);))
 }
 
