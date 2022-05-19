@@ -11,12 +11,14 @@ extern Uint32           global_elapsed_time;
 
 SlimeVerde::SlimeVerde()
 {
+	personaje = 0;
 	_contadorTiempoEntreFrames = 0;
 	_ritmoJug = false;
 	_Rect.width = 0;
 	_Rect.h = 0;
 	_Rect.x = 0;
 	_Rect.y = 0;
+	ponerFoto("SlimeVerde.png");
 }
 
 SlimeVerde::~SlimeVerde()
@@ -31,8 +33,8 @@ void SlimeVerde::init()
 	_contadorTiempoEntreFrames = 0;
 	_Rect.width = 52;
 	_Rect.h = 50;
-	_Rect.x = 780;
-	_Rect.y = 920;
+	_Rect.x = rand() % 2110;
+	_Rect.y = rand() % 1610;
 	_rectFrame.frameX = 0;
 	_rectFrame.frameY = 0;
 }
@@ -40,7 +42,7 @@ void SlimeVerde::init()
 void SlimeVerde::update()
 {
 	_contadorTiempoEntreFrames += global_elapsed_time;
-	if (_contadorTiempoEntreFrames >= 150) {
+	if (_contadorTiempoEntreFrames >= 120) {
 		_frames++;
 		_ritmoJug = true;
 		_contadorTiempoEntreFrames = 0;

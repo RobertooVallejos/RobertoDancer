@@ -26,6 +26,7 @@ Zombie::Zombie()
 	_direccion = 0;
 	_zombiesSpawneados = 0;
 	_dobleTempo = 0.0f;
+	_tocaPared = 0;
 }
 
 Zombie::~Zombie()
@@ -43,16 +44,77 @@ void Zombie::init()
 	_ritmoJug = true;
 	_Rect.width = 46;
 	_Rect.h = 50;
-	_Rect.x = 1040;
-	_Rect.y = 810;
+	_Rect.x = rand() % 2110;
+	_Rect.y = rand() % 1610;
 	_direccion = rand() % 4 + 1;
 	_zombiesSpawneados = 5;
 	_dobleTempo = 0.0f;
+	ponerFoto("Zombie.png");
 }
 
 void Zombie::update()
 {
-	mover();
+	_contadorTiempoEntreFrames += global_elapsed_time;
+	if (_contadorTiempoEntreFrames >= 120) {
+		_frames++;
+		_dobleTempo += 0.5f;
+		if (_dobleTempo >= 4.0f) { //que se mueva cada dos tempos
+			_ritmoJug = true;
+			_dobleTempo = 0.0f;
+		}
+		_contadorTiempoEntreFrames = 0;
+		if (_frames == 4) _frames = 0;
+	}
+
+	if (_frames == 0 && _ritmoJug == true && _direccion == 2) {
+		addX(-52);
+		_girado = false;
+		_ritmoJug = false;
+
+		//comprueba colisión
+		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
+		if (_tocaPared == 5) {
+			addX(52);
+			_direccion = 1;
+		}
+	}
+	if (_frames == 0 && _ritmoJug == true && _direccion == 3) {
+		addY(52);
+		_ritmoJug = false;
+
+		//comprueba colisión
+		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
+		if (_tocaPared == 5) {
+			addY(-52);
+			_direccion = 4;
+			_girado = false;
+		}
+	}
+	if (_frames == 0 && _ritmoJug == true && _direccion == 1) {
+		addX(52);
+		_ritmoJug = false;
+		_girado = true;
+
+		//comprueba colisión
+		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
+		if (_tocaPared == 5) {
+			addX(-52);
+			_direccion = 2;
+		}
+	}
+
+	if (_frames == 0 && _ritmoJug == true && _direccion == 4) {
+		addY(-52);
+		_ritmoJug = false;
+
+		//comprueba colisión
+		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
+		if (_tocaPared == 6) {
+			addY(52);
+			_direccion = 3;
+			_girado = true;
+		}
+	}
 }
 
 void Zombie::render()
@@ -69,75 +131,12 @@ void Zombie::render()
 
 void Zombie::mover()
 {
-	_contadorTiempoEntreFrames += global_elapsed_time;
-	if (_contadorTiempoEntreFrames >= 150) {
-		_frames++;
-		_dobleTempo += 0.5f;
-		if (_dobleTempo >= 4.0f) { //que se mueva cada dos tempos
-			_ritmoJug = true;
-			_dobleTempo = 0.0f;
-		}
-		_contadorTiempoEntreFrames = 0;
-		if (_frames == 4) _frames = 0;
-	}
 
-	int tocaPared;
-	
-	if (_frames == 0 && _ritmoJug == true && _direccion == 2) {
-		addX(-52);
-		_girado = false;
-		_ritmoJug = false;
-
-		//comprueba colisión
-		tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
-		if (tocaPared == 5) {
-			addX(52);
-			_direccion = 1;
-		}
-	}
-	if (_frames == 0 && _ritmoJug == true && _direccion == 3) {
-		addY(52);
-		_ritmoJug = false;
-
-		//comprueba colisión
-		tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
-		if (tocaPared == 5) {
-			addY(-52);
-			_direccion = 4;
-			_girado = false;
-		}
-	}
-	if (_frames == 0 && _ritmoJug == true && _direccion == 1) {
-		addX(52);
-		_ritmoJug = false;
-		_girado = true;
-
-		//comprueba colisión
-		tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
-		if (tocaPared == 5) {
-			addX(-52);
-			_direccion = 2;
-		}
-	}
-
-	if (_frames == 0 && _ritmoJug == true && _direccion == 4) {
-		addY(-52);
-		_ritmoJug = false;
-
-		//comprueba colisión
-		tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
-		if (tocaPared == 6) {
-			addY(52);
-			_direccion = 3;
-			_girado = true;
-		}
-	}
 }
 
-void Zombie::spawnZombie(Mapa* puntMapa)
-{
-	//do 
-	//dentro un random de multiplicar * 52 de rect.x e y
-	//while((sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);))
-}
+//Copiar en cadence y no poner virtual aquí
+
+//do 
+//dentro un random de multiplicar * 52 de rect.x e y
+//while((sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);))
 

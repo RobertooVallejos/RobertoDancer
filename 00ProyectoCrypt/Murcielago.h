@@ -4,6 +4,7 @@
 #include <vector>
 class Murcielago : public Cadence
 {
+	Cadence* personaje;
 	int _direccion;
 	int _zombiesSpawneados;
 	float _dobleTempo;
@@ -15,5 +16,6 @@ public:
 	void update();
 	void render();
 	void mover();
+	void setPointerPersonaje(Cadence* nombre) { personaje = nombre; }
 };
 

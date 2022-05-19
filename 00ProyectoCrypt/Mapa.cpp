@@ -223,7 +223,7 @@ int Mapa::getIDfromLayer(int layer, int posX, int posY)  //Dependiendo de si lay
 	if (layer == 0) {
 		Tile = _background[TileY][TileX];
 	}
-	if (layer == 1) {
+	else if (layer == 1) {
 		Tile = _foreground[TileY][TileX];
 	}
 	return Tile;

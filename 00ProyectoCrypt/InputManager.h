@@ -5,6 +5,7 @@
 #define key_d 3
 #define key_w 4
 #define key_space 5
+#define key_p 6
 class InputManager
 {
 	static InputManager* pInstance;
@@ -14,12 +15,14 @@ class InputManager
 	bool _right;
 	bool _up;
 	bool _space;
+	bool _p;
 	int _contador;
 	int _tiempoSinMoverse;
 	bool _sePuedeMover;
 public:
 	InputManager();
 	~InputManager();
+	//void init();
 	void update();
 	void quit();
 	bool getKeyPressed(int key);

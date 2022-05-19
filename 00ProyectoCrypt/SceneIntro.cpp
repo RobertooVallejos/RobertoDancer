@@ -16,6 +16,7 @@ extern Mapa* sMapa;
 
 extern bool             gameOn;
 extern Uint32           global_elapsed_time;
+extern Uint32           contadorRitmo;
 
 using namespace tinyxml2;
 
@@ -34,6 +35,7 @@ void SceneIntro::init()
 
 void SceneIntro::update()
 {
+	contadorRitmo += global_elapsed_time;
 	if (Personaje.getPositionX() <= 832 && Personaje.getPositionX() >= 780 && Personaje.getPositionY() <= 260 && Personaje.getPositionY() >= 208) {
 		sDirector->changeScene(GAME, true);
 	}
@@ -41,6 +43,7 @@ void SceneIntro::update()
 		sInputManager->quit();
 	}
 	Personaje.update();
+	Hud.update();
 	sMapa->update();
 }
 
@@ -50,12 +53,17 @@ void SceneIntro::render()
 	sVideo->rendererClear();
 	sMapa->render();
 	Personaje.render();
+	Hud.renderRitmoCorazon();
+	Hud.renderRitmoLinea();
 	sVideo->updateScreen();
 }
 
 void SceneIntro::reinit()
 {
+	contadorRitmo = 0;
 	Personaje.init();
+	Hud.init();
+	Hud.setPointerPersonaje(&Personaje);
 	sMapa->init("menuJugable.tmx");
 	sMapa->setPunteroPos(&Personaje);
 	mReinit = false;

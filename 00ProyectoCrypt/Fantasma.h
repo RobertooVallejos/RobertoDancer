@@ -9,7 +9,13 @@ class Fantasma : public Cadence
 	int _fantasmasSpawneados;
 	int _personajeCercaX;
 	int _personajeCercaY;
+	int _posicionAtaqueX;
+	int _posicionAtaqueY;
 	bool _activado;
+	bool _atacando;
+	int _vidaPersonaje;
+	bool _ataqueRealizado;
+	int _cd;
 public:
 	Fantasma();
 	~Fantasma();
@@ -18,6 +24,7 @@ public:
 	void update();
 	void render();
 	void compruebaMovimiento();
+	void atacar();
 	void setPointerPersonaje(Cadence* nombre) { personajePrincipal = nombre; } //referencia del personaje para saber donde está
 
 };

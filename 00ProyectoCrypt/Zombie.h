@@ -1,13 +1,12 @@
 #pragma once
 #include "Cadence.h"
 #include "Mapa.h"
-#include <vector>
 class Zombie : public Cadence
 {
+	Cadence* personaje;
 	int _direccion;
 	int _zombiesSpawneados;
 	float _dobleTempo;
-	vector<Zombie> vectorEnemigosZombies;
 public:
 	Zombie();
 	~Zombie();
@@ -16,7 +15,6 @@ public:
 	void update();
 	void render();
 	void mover();
-
-	void spawnZombie(Mapa *puntMapa);
+	void setPointerPersonaje(Cadence* nombre) { personaje = nombre; }
 };
 

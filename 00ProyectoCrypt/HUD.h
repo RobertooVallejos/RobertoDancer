@@ -16,6 +16,10 @@ class HUD : public ElementoGFX
 	bool _daga;
 	int _frames;
 	int _contadorTiempoEntreFrames;
+	bool der = false;
+	bool izq;
+	bool centroDer = false;
+	bool centroIzq = false;
 public:
 	HUD();
 	~HUD();

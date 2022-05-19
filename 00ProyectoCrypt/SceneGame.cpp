@@ -30,31 +30,26 @@ SceneGame::~SceneGame()
 
 void SceneGame::init()
 {
-	
+	vectorEnemigos.resize(0);
 	Personaje.ponerFoto("Cadencee.png");
-	EnemigoZombie.ponerFoto("Zombie.png");
-	EnemigoSlimeAzul.ponerFoto("SlimeAzul.png");
-	EnemigoSlimeVerde.ponerFoto("SlimeVerde.png");
-	EnemigoMurcielago.ponerFoto("Bats.png");
-	EnemigoFantasma.ponerFoto("Fantasma.png");
-	Hud.ponerFoto("corazones.png");
-	Hud.ponerFoto2("objetosAtaque.png");
-	Hud.ponerFoto3("objetosUtilidad.png");
-	Hud.ponerFoto4("ritmo.png");
 }
 
 void SceneGame::update()
 {
 	contadorRitmo += global_elapsed_time;
-	if (contadorRitmo >= 150) {
-		contadorRitmo = 0;
-	}
 	Personaje.update();
-	EnemigoZombie.update();
+	if (Personaje.getVida() <= 0) {
+		sDirector->changeScene(INTRO, true);
+	}
+
+	for (size_t i = 0; i < vectorEnemigos.size(); i++)
+	{
+		vectorEnemigos[i]->update();
+	}
 	EnemigoSlimeAzul.update();
-	EnemigoSlimeVerde.update();
-	EnemigoMurcielago.update();
-	EnemigoFantasma.update();
+	//EnemigoSlimeVerde.update();
+	//EnemigoMurcielago.update();
+	//EnemigoFantasma.update();
 	Hud.update();
 	sMapa->update();
 }
@@ -65,11 +60,14 @@ void SceneGame::render()
 	sVideo->rendererClear();
 	sMapa->render();
 	Personaje.render();
-	EnemigoZombie.render();
-	EnemigoSlimeAzul.render();
-	EnemigoSlimeVerde.render();
-	EnemigoMurcielago.render();
-	EnemigoFantasma.render();
+	for (size_t i = 0; i < vectorEnemigos.size(); i++)
+	{
+		vectorEnemigos[i]->render();
+	}
+	//EnemigoSlimeAzul.render();
+	//EnemigoSlimeVerde.render();
+	//EnemigoMurcielago.render();
+	//EnemigoFantasma.render();
 	Hud.render();
 	Hud.renderArmas();
 	Hud.renderObjetos();
@@ -80,18 +78,49 @@ void SceneGame::render()
 
 void SceneGame::reinit()
 {
-	Personaje.init();
-	Personaje.setPositionXY(52 * 20 + 17, 820);
-	EnemigoZombie.init();
-	EnemigoSlimeAzul.init();
-	EnemigoSlimeVerde.init();
-	EnemigoSlimeVerde.setPointerPersonaje(&Personaje);
-	EnemigoMurcielago.init();
-	EnemigoFantasma.init();
-	Hud.init();
-	EnemigoFantasma.setPointerPersonaje(&Personaje);
-	Hud.setPointerPersonaje(&Personaje);
+	contadorRitmo = 0;
 	sMapa->init("mapaFirst.tmx");
+	Personaje.init();
+	Personaje.setPositionXY(52 * 20 + 17, 52 * 16);
+	Zombie* zombieEnemigo;
+	SlimeVerde* slimeVerdeEnemigo;
+	Fantasma* fantasmaEnemigo;
+	SlimeAzul* slimeAzulEnemigo;
+	Murcielago* murcielagoEnemigo;
+	for (int i = 0; i < 15; i++) {
+		zombieEnemigo = new Zombie();
+		zombieEnemigo->init();
+		zombieEnemigo->spawnEnemies();
+		zombieEnemigo->setPointerPersonaje(&Personaje);
+		vectorEnemigos.push_back(zombieEnemigo);
+		slimeVerdeEnemigo = new SlimeVerde();
+		slimeVerdeEnemigo->init();
+		slimeVerdeEnemigo->spawnEnemies();
+		slimeVerdeEnemigo->setPointerPersonaje(&Personaje);
+		vectorEnemigos.push_back(slimeVerdeEnemigo);
+		fantasmaEnemigo = new Fantasma();
+		fantasmaEnemigo->init();
+		fantasmaEnemigo->spawnEnemies();
+		fantasmaEnemigo->setPointerPersonaje(&Personaje);
+		vectorEnemigos.push_back(fantasmaEnemigo);
+		slimeAzulEnemigo = new SlimeAzul();
+		slimeAzulEnemigo->init();
+		slimeAzulEnemigo->spawnEnemies();
+		slimeAzulEnemigo->setPointerPersonaje(&Personaje);
+		vectorEnemigos.push_back(slimeAzulEnemigo);
+		murcielagoEnemigo = new Murcielago();
+		murcielagoEnemigo->init();
+		murcielagoEnemigo->spawnEnemies();
+		murcielagoEnemigo->setPointerPersonaje(&Personaje);
+		vectorEnemigos.push_back(murcielagoEnemigo);
+	}
+	//EnemigoSlimeAzul.init();
+	//EnemigoSlimeVerde.init();
+	//EnemigoMurcielago.init();
+	//EnemigoFantasma.init();
+	Hud.init();
+	//EnemigoFantasma.setPointerPersonaje(&Personaje);
+	Hud.setPointerPersonaje(&Personaje);
 	sMapa->setPunteroPos(&Personaje);
 	mReinit = false;
 }

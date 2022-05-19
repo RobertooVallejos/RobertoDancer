@@ -38,6 +38,10 @@ HUD::HUD()
 	_vidaPersonaje = 0;
 	_frames = 0;
 	_contadorTiempoEntreFrames = 0;
+	der = false;
+	izq = false;
+	centroDer = false;
+	centroIzq = false;
 }
 
 HUD::~HUD()
@@ -74,12 +78,20 @@ void HUD::init()
 	_vidaPersonaje = 0;
 	_frames = 0;
 	_contadorTiempoEntreFrames = 0;
+	der = false;
+	izq = true;
+	centroDer = false;
+	centroIzq = false;
+	ponerFoto("corazones.png");
+	ponerFoto2("objetosAtaque.png");
+	ponerFoto3("objetosUtilidad.png");
+	ponerFoto4("ritmo.png");
 }
 
 void HUD::update()
 {
 	_contadorTiempoEntreFrames += global_elapsed_time;
-	if (_contadorTiempoEntreFrames >= 150) {
+	if (_contadorTiempoEntreFrames >= 240) {
 		_frames++;
 		_contadorTiempoEntreFrames = 0;
 		if (_frames == 2) _frames = 0;
@@ -141,6 +153,31 @@ void HUD::renderArmas()
 
 void HUD::renderObjetos()
 {
+		switch (personaje->getObjeto())
+		{
+		case 1:
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 0;
+			break;
+		case 2:
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 1;
+			break;
+		case 3:
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 2;
+			break;
+		case 4:
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 3;
+			break;
+		case 5:
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 4;
+			break;
+		case 6:
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 5;
+			break;
+		default:
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 0;
+			break;
+		}
+
 	sVideo->renderGraphic(_ID3, _objetosRectFrame.x, _objetosRectFrame.y, _objetosRectFrame.w, _objetosRectFrame.h, 0, _objetosRectFrame.frameY);
 }
 
@@ -151,7 +188,7 @@ void HUD::renderRitmoCorazon()
 
 void HUD::renderRitmoLinea()
 {
-	if (contadorRitmo <= 20) {
+	/*if (contadorRitmo <= 20) {
 		_ritmoRectFrame.x = 0;
 	}
 	else if (contadorRitmo <= 40) {
@@ -177,5 +214,33 @@ void HUD::renderRitmoLinea()
 	}
 	sVideo->renderGraphic(_ID4, _ritmoRectFrame.x, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, 0, 50);
 	sVideo->renderGraphic(_ID4, _ritmoRectFrame.x + 126, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, 0, 50);
-	sVideo->renderGraphic(_ID4, _ritmoRectFrame.x + 126 *2, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, 0, 50);
+	sVideo->renderGraphic(_ID4, _ritmoRectFrame.x + 126 *2, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, 0, 50);*/
+
+	if (contadorRitmo > 240 && izq == true) {
+			_ritmoRectFrame.x += 63;
+			contadorRitmo = 0;
+			izq = false;
+			centroIzq = true;
+	}
+	if (contadorRitmo > 240 && centroIzq == true) {
+		_ritmoRectFrame.x += 63;
+		contadorRitmo = 0;
+		centroIzq = false;
+		der = true;
+	}
+	if (contadorRitmo > 240 && der == true) {
+		_ritmoRectFrame.x -= 63;
+		contadorRitmo = 0;
+		der = false;
+		centroDer = true;
+	}
+	if (contadorRitmo > 240 && centroDer == true) {
+		_ritmoRectFrame.x -= 63;
+		contadorRitmo = 0;
+		izq = true;
+		centroDer = false;
+	}
+	//63
+	sVideo->renderGraphic(_ID4, _ritmoRectFrame.x, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, 0, 50);
+
 }

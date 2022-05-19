@@ -6,16 +6,17 @@
 #include "SlimeVerde.h"
 #include "Murcielago.h"
 #include "Fantasma.h"
+#include "Mapa.h"
 #include "HUD.h"
 class SceneGame : public Scene //gameplay
 {
 	Cadence Personaje;
-	Zombie EnemigoZombie;
 	SlimeAzul EnemigoSlimeAzul;
 	SlimeVerde EnemigoSlimeVerde;
 	Murcielago EnemigoMurcielago;
 	Fantasma EnemigoFantasma;
 	HUD Hud;
+	vector<Cadence*> vectorEnemigos; //vector de Cadence porque es la clase Padre de todas las clases de enemigos
 public:
 	SceneGame();
 	~SceneGame();

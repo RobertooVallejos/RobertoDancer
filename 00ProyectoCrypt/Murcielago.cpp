@@ -43,17 +43,18 @@ void Murcielago::init()
 	_ritmoJug = true;
 	_Rect.width = 48;
 	_Rect.h = 36;
-	_Rect.x = 840;
-	_Rect.y = 710;
+	_Rect.x = rand() % 2110;
+	_Rect.y = rand() % 1610;
 	_direccion = rand() % 4 + 1;
 	_zombiesSpawneados = 5;
 	_dobleTempo = 0.0f;
+	ponerFoto("Bats.png");
 }
 
 void Murcielago::update()
 {
 	_contadorTiempoEntreFrames += global_elapsed_time;
-	if (_contadorTiempoEntreFrames >= 150) {
+	if (_contadorTiempoEntreFrames >= 120) {
 		_frames++;
 		_dobleTempo += 0.5f;
 		if (_dobleTempo >= 4.0f) { //que se mueva cada dos tempos

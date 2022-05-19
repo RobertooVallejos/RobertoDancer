@@ -44,18 +44,19 @@ void SlimeAzul::init()
 	_ritmoJug = true;
 	_Rect.width = 50;
 	_Rect.h = 50;
-	_Rect.x = 1040;
-	_Rect.y = 920;
+	_Rect.x = rand() % 2110;
+	_Rect.y = rand() % 1610;
 	_direccion = rand() % 2 + 1;
 	_dobleTempo = 0.0f;
 	_rectFrame.frameX = 0;
 	_rectFrame.frameY = 0;
+	ponerFoto("SlimeAzul.png");
 }
 
 void SlimeAzul::update()
 {
 	_contadorTiempoEntreFrames += global_elapsed_time;
-	if (_contadorTiempoEntreFrames >= 150) {
+	if (_contadorTiempoEntreFrames >= 120) {
 		_frames++;
 		_dobleTempo += 0.5f;
 
