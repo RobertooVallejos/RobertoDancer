@@ -1,5 +1,6 @@
 #include <iostream>
 #include "ResourceManager.h"
+#include "SoundManager.h"
 #include "Video.h"
 #include "InputManager.h"
 #include "SceneMain.h"
@@ -10,6 +11,7 @@ extern SceneDirector* sDirector;
 extern InputManager* sInputManager;
 extern Video* sVideo;
 extern ResourceManager* sResourceManager;
+extern SoundManager* sSoundManager;
 
 extern bool             gameOn;
 extern Uint32           global_elapsed_time;
@@ -27,6 +29,9 @@ void SceneMain::init()
 {
 	 title.ponerFoto("mainMenu.jpg");
 	 title.init();
+	 _soundID = sSoundManager->loadAndGetSoindoID("cancionGame.ogg");
+	 _soundID = sSoundManager->loadAndGetSoindoID("cancionMenu.ogg");
+	 _soundID = sSoundManager->loadAndGetSoindoID("cancionTitulo.ogg");
 	 a.init("menuJugable.tmx");
 
 }
@@ -46,5 +51,7 @@ void SceneMain::render()
 
 void SceneMain::reinit()
 {
+	sSoundManager->escucharSonido(_soundID, "cancionTitulo.ogg", -1);
+	sSoundManager->ajustarVolumen(_soundID, 30);
 	mReinit = false;
 }

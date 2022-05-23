@@ -227,5 +227,12 @@ void Cadence::spawnEnemies()
 		_Rect.x = 52 * (rand() % 40);
 		_Rect.y = 52 * (rand() % 30);
 		_tocaPared = sMapa->getIDfromLayer(0, _Rect.x, _Rect.y);
+		_alturaSalto++;
+		if (_alturaSalto == 2) {
+			_girado = !_girado;
+		}
+		if (_alturaSalto %3 == 0) {
+			_girado = !_girado;
+		}
 	} while (!(_tocaPared == 1 || _tocaPared == 2));
 }

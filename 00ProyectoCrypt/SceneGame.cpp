@@ -1,6 +1,7 @@
 #include "SceneGame.h"
 #include <iostream>
 #include "ResourceManager.h"
+#include "SoundManager.h"
 #include "Video.h"
 #include "InputManager.h"
 #include "SceneDirector.h"
@@ -12,6 +13,7 @@ extern SceneDirector* sDirector;
 extern InputManager* sInputManager;
 extern Video* sVideo;
 extern ResourceManager* sResourceManager;
+extern SoundManager* sSoundManager;
 extern Mapa* sMapa;
 
 extern bool             gameOn;
@@ -82,6 +84,12 @@ void SceneGame::reinit()
 	sMapa->init("mapaFirst.tmx");
 	Personaje.init();
 	Personaje.setPositionXY(52 * 20 + 17, 52 * 16);
+	size_t size = vectorEnemigos.size();
+	for (size_t i = 0; i < size; i++)
+	{
+		delete vectorEnemigos[i];
+	}
+	vectorEnemigos.resize(0);
 	Zombie* zombieEnemigo;
 	SlimeVerde* slimeVerdeEnemigo;
 	Fantasma* fantasmaEnemigo;
@@ -114,6 +122,8 @@ void SceneGame::reinit()
 		murcielagoEnemigo->setPointerPersonaje(&Personaje);
 		vectorEnemigos.push_back(murcielagoEnemigo);
 	}
+	sSoundManager->escucharSonido(_soundID, "cancionGame.ogg", 0);
+	sSoundManager->ajustarVolumen(_soundID, 30);
 	//EnemigoSlimeAzul.init();
 	//EnemigoSlimeVerde.init();
 	//EnemigoMurcielago.init();

@@ -3,6 +3,7 @@
 #include "ElementoGFX.h"
 #include "Mapa.h"
 #include "ResourceManager.h"
+#include "SoundManager.h"
 #include "Scene.h"
 #include "SceneGame.h"
 #include "SceneGameOver.h"
@@ -19,6 +20,7 @@ bool		gameOn = true;
 SceneDirector	*sDirector = NULL;
 InputManager*	sInputManager = NULL;
 ResourceManager*	sResourceManager = NULL;
+SoundManager*	sSoundManager = NULL;
 Mapa* sMapa = NULL;
 Video*	sVideo = NULL;
 
@@ -26,6 +28,7 @@ int main( int argc, char* args[] ) {
 	//Init Singletons
 	sInputManager = InputManager::getInstance();
 	sResourceManager	= ResourceManager::getInstance();
+	sSoundManager = SoundManager::getInstance();
 	sVideo	= Video::getIntance();
 	sMapa = Mapa::getInstance();
 	sDirector		= SceneDirector::getInstance();

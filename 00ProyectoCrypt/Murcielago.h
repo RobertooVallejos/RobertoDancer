@@ -1,7 +1,5 @@
 #pragma once
 #include "Cadence.h"
-#include "Mapa.h"
-#include <vector>
 class Murcielago : public Cadence
 {
 	Cadence* personaje;

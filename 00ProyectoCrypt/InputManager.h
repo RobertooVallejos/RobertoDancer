@@ -22,7 +22,7 @@ class InputManager
 public:
 	InputManager();
 	~InputManager();
-	//void init();
+	void init();
 	void update();
 	void quit();
 	bool getKeyPressed(int key);

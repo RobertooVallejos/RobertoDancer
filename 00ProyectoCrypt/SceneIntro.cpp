@@ -1,6 +1,7 @@
 #include "SceneIntro.h"
 #include <iostream>
 #include "ResourceManager.h"
+#include "SoundManager.h"
 #include "Video.h"
 #include "InputManager.h"
 #include "SceneDirector.h"
@@ -12,6 +13,7 @@ extern SceneDirector* sDirector;
 extern InputManager* sInputManager;
 extern Video* sVideo;
 extern ResourceManager* sResourceManager;
+extern SoundManager* sSoundManager;
 extern Mapa* sMapa;
 
 extern bool             gameOn;
@@ -30,6 +32,7 @@ SceneIntro::~SceneIntro()
 
 void SceneIntro::init()
 {
+	sInputManager->init();
 	Personaje.ponerFoto("Cadencee.png");
 }
 
@@ -62,6 +65,8 @@ void SceneIntro::reinit()
 {
 	contadorRitmo = 0;
 	Personaje.init();
+	sSoundManager->escucharSonido(_soundID, "cancionMenu.ogg", -1);
+	sSoundManager->ajustarVolumen(_soundID, 30);
 	Hud.init();
 	Hud.setPointerPersonaje(&Personaje);
 	sMapa->init("menuJugable.tmx");

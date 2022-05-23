@@ -12,8 +12,8 @@ InputManager::InputManager()
     _down = false;
     _space = false;
     _p = false;
-    _sePuedeMover = true;
-    _tiempoSinMoverse = 250;
+    _sePuedeMover = false;
+    _tiempoSinMoverse = 0;
     _contador = 0;
     pInstance = NULL;
 }
@@ -22,11 +22,11 @@ InputManager::~InputManager()
 {
 }
 
-/*void InputManager::init()
+void InputManager::init()
 {
     _sePuedeMover = true;
     _tiempoSinMoverse = 250;
-}*/
+}
 
 void InputManager::update()
 {

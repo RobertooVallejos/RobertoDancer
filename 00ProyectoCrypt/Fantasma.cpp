@@ -46,10 +46,8 @@ void Fantasma::init()
 	_frames = 0;
 	_contadorTiempoEntreFrames = 0;
 	_ritmoJug = true;
-	_Rect.width = 34;
+	_Rect.width = 36;
 	_Rect.h = 40;
-	_Rect.x = rand() % 2110;
-	_Rect.y = rand() % 1610;
 	_activado = false;
 	_direccion = 1;
 	_fantasmasSpawneados = 5;
