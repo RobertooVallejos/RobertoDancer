@@ -164,7 +164,7 @@ void Cadence::moverArriba()
 		}
 
 	cd++;
-	if (sInputManager->getKeyPressed(key_space) && cd >= 50) {
+	/*if (sInputManager->getKeyPressed(key_space) && cd >= 50) {
 		_vida--;
 		if (_daga == true) {
 			_daga = false;
@@ -173,7 +173,7 @@ void Cadence::moverArriba()
 			_daga = true;
 		}
 		cd = 0;
-	}
+	}*/
 
 	if (sInputManager->getKeyPressed(key_p) && cd >= 50) {
 		_objetoEnMano++;

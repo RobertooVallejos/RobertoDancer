@@ -39,6 +39,7 @@ void SceneMain::init()
 void SceneMain::update()
 {
 	if (sInputManager->getKeyPressed(key_space)) {
+		sSoundManager->pararSonido(_soundID);
 		sDirector->changeScene(INTRO, true);
 	}
 }

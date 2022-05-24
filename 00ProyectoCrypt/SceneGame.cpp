@@ -41,6 +41,7 @@ void SceneGame::update()
 	contadorRitmo += global_elapsed_time;
 	Personaje.update();
 	if (Personaje.getVida() <= 0) {
+		sSoundManager->pararSonido(_soundID);
 		sDirector->changeScene(INTRO, true);
 	}
 
@@ -53,6 +54,7 @@ void SceneGame::update()
 	//EnemigoMurcielago.update();
 	//EnemigoFantasma.update();
 	Hud.update();
+	Objetos.ponerBomba();
 	sMapa->update();
 }
 
@@ -95,7 +97,7 @@ void SceneGame::reinit()
 	Fantasma* fantasmaEnemigo;
 	SlimeAzul* slimeAzulEnemigo;
 	Murcielago* murcielagoEnemigo;
-	for (int i = 0; i < 15; i++) {
+	for (int i = 0; i < 10; i++) {
 		zombieEnemigo = new Zombie();
 		zombieEnemigo->init();
 		zombieEnemigo->spawnEnemies();
@@ -129,8 +131,10 @@ void SceneGame::reinit()
 	//EnemigoMurcielago.init();
 	//EnemigoFantasma.init();
 	Hud.init();
+	Objetos.init();
 	//EnemigoFantasma.setPointerPersonaje(&Personaje);
 	Hud.setPointerPersonaje(&Personaje);
+	Objetos.setPointerPersonaje(&Personaje);
 	sMapa->setPunteroPos(&Personaje);
 	mReinit = false;
 }

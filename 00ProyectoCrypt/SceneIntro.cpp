@@ -40,6 +40,7 @@ void SceneIntro::update()
 {
 	contadorRitmo += global_elapsed_time;
 	if (Personaje.getPositionX() <= 832 && Personaje.getPositionX() >= 780 && Personaje.getPositionY() <= 260 && Personaje.getPositionY() >= 208) {
+		sSoundManager->pararSonido(_soundID);
 		sDirector->changeScene(GAME, true);
 	}
 	if (Personaje.getPositionX() <= 52*12 && Personaje.getPositionX() >= 52*11 && Personaje.getPositionY() <= 52*9 && Personaje.getPositionY() >= 52*8) {
