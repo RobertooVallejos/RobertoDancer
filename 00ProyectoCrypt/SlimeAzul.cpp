@@ -25,6 +25,7 @@ SlimeAzul::SlimeAzul()
 	_girado = false;
 	_direccion = 0;
 	_dobleTempo = 0.0f;
+	_tocaPared = 0;
 	_rectFrame.frameX = 0;
 	_rectFrame.frameY = 0;
 }
@@ -35,7 +36,6 @@ SlimeAzul::~SlimeAzul()
 
 void SlimeAzul::init()
 {
-	srand(time(NULL));
 
 	_vida = 3.0f;
 	_dano = 1;
@@ -50,6 +50,7 @@ void SlimeAzul::init()
 	_dobleTempo = 0.0f;
 	_rectFrame.frameX = 0;
 	_rectFrame.frameY = 0;
+	_tocaPared = 0;
 	ponerFoto("SlimeAzul.png");
 }
 
@@ -77,7 +78,6 @@ void SlimeAzul::update()
 		if (_frames == 4) _frames = 0;
 	}
 
-	int tocaPared;
 
 	if (_frames == 0 && _ritmoJug == true && _direccion == 1) {
 		addY(52);
@@ -85,8 +85,8 @@ void SlimeAzul::update()
 		_direccion = 2;
 
 		//comprueba colisión
-		tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
-		if (tocaPared == 5) {
+		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
+		if (_tocaPared == 5) {
 			addY(-52);
 			_rectFrame.frameY = 0;
 		}
@@ -98,8 +98,8 @@ void SlimeAzul::update()
 		_direccion = 1;
 
 		//comprueba colisión
-		tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
-		if (tocaPared == 6) {
+		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
+		if (_tocaPared == 6 || _tocaPared == 5) {
 			addY(52);
 			_rectFrame.frameY = 0;
 		}

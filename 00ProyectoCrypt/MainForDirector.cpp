@@ -25,6 +25,7 @@ Mapa* sMapa = NULL;
 Video*	sVideo = NULL;
 
 int main( int argc, char* args[] ) {
+	srand(time(NULL));
 	//Init Singletons
 	sInputManager = InputManager::getInstance();
 	sResourceManager	= ResourceManager::getInstance();

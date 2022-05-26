@@ -35,7 +35,7 @@ Zombie::~Zombie()
 
 void Zombie::init()
 {
-	srand(time(NULL));
+	
 
 	_vida = 3.0f;
 	_dano = 1;
@@ -109,7 +109,7 @@ void Zombie::update()
 
 		//comprueba colisión
 		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
-		if (_tocaPared == 6) {
+		if (_tocaPared == 6 || _tocaPared == 5) {
 			addY(52);
 			_direccion = 3;
 			_girado = true;

@@ -8,6 +8,7 @@
 #include "Fantasma.h"
 #include "Mapa.h"
 #include "HUD.h"
+#include "Bomba.h"
 #include "Objetos.h"
 class SceneGame : public Scene //gameplay
 {
@@ -17,8 +18,9 @@ class SceneGame : public Scene //gameplay
 	Murcielago EnemigoMurcielago;
 	Fantasma EnemigoFantasma;
 	HUD Hud;
-	Objetos Objetos;
+	Bomba Bombs;
 	vector<Cadence*> vectorEnemigos; //vector de Cadence porque es la clase Padre de todas las clases de enemigos
+	vector<Objetos*> vectorObjetos;
 public:
 	SceneGame();
 	~SceneGame();

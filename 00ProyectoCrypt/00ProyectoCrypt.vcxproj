@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bomba.cpp" />
     <ClCompile Include="Cadence.cpp" />
     <ClCompile Include="ElementoGFX.cpp" />
     <ClCompile Include="Fantasma.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bomba.h" />
     <ClInclude Include="Cadence.h" />
     <ClInclude Include="ElementoGFX.h" />
     <ClInclude Include="Fantasma.h" />

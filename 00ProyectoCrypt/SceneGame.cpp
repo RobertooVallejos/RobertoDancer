@@ -7,6 +7,7 @@
 #include "SceneDirector.h"
 #include "Cadence.h"
 #include "Mapa.h"
+#include "Bomba.h"
 #include "tinyxml2.h"
 
 extern SceneDirector* sDirector;
@@ -54,7 +55,10 @@ void SceneGame::update()
 	//EnemigoMurcielago.update();
 	//EnemigoFantasma.update();
 	Hud.update();
-	Objetos.ponerBomba();
+	if (sInputManager->getKeyPressed(key_space)) {
+		Bombs.ponerBomba();
+		
+	}
 	sMapa->update();
 }
 
@@ -68,6 +72,10 @@ void SceneGame::render()
 	{
 		vectorEnemigos[i]->render();
 	}
+	for (size_t j = 0; j < vectorObjetos.size(); j++)
+	{
+		vectorObjetos[j]->render();
+	}
 	//EnemigoSlimeAzul.render();
 	//EnemigoSlimeVerde.render();
 	//EnemigoMurcielago.render();
@@ -77,6 +85,9 @@ void SceneGame::render()
 	Hud.renderObjetos();
 	Hud.renderRitmoCorazon();
 	Hud.renderRitmoLinea();
+	if (sInputManager->getKeyPressed(key_space)) {
+		Bombs.render();
+	}
 	sVideo->updateScreen();
 }
 
@@ -97,7 +108,7 @@ void SceneGame::reinit()
 	Fantasma* fantasmaEnemigo;
 	SlimeAzul* slimeAzulEnemigo;
 	Murcielago* murcielagoEnemigo;
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 5; i++) {
 		zombieEnemigo = new Zombie();
 		zombieEnemigo->init();
 		zombieEnemigo->spawnEnemies();
@@ -124,6 +135,14 @@ void SceneGame::reinit()
 		murcielagoEnemigo->setPointerPersonaje(&Personaje);
 		vectorEnemigos.push_back(murcielagoEnemigo);
 	}
+	Bomba* bombasMapa;
+	for (int i = 0; i < 3; i++) {
+		bombasMapa = new Bomba();
+		bombasMapa->init();
+		bombasMapa->spawnBombas();
+		bombasMapa->setPointerPersonaje(&Personaje);
+		vectorObjetos.push_back(bombasMapa);
+	}
 	sSoundManager->escucharSonido(_soundID, "cancionGame.ogg", 0);
 	sSoundManager->ajustarVolumen(_soundID, 30);
 	//EnemigoSlimeAzul.init();
@@ -131,10 +150,8 @@ void SceneGame::reinit()
 	//EnemigoMurcielago.init();
 	//EnemigoFantasma.init();
 	Hud.init();
-	Objetos.init();
 	//EnemigoFantasma.setPointerPersonaje(&Personaje);
 	Hud.setPointerPersonaje(&Personaje);
-	Objetos.setPointerPersonaje(&Personaje);
 	sMapa->setPunteroPos(&Personaje);
 	mReinit = false;
 }

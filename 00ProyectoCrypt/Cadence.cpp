@@ -46,6 +46,7 @@ Cadence::~Cadence()
 
 void Cadence::init()
 {
+
 	cd = 0;
 	_vida = 6;
 	_dano = 1;
@@ -63,6 +64,7 @@ void Cadence::init()
 	_rectFrame.frameX = 0;
 	_rectFrame.frameY = 0;
 	_daga = true;
+	_tocaPared = 0;
 	_objetoEnMano = 1;
 }
 
@@ -227,12 +229,5 @@ void Cadence::spawnEnemies()
 		_Rect.x = 52 * (rand() % 40);
 		_Rect.y = 52 * (rand() % 30);
 		_tocaPared = sMapa->getIDfromLayer(0, _Rect.x, _Rect.y);
-		_alturaSalto++;
-		if (_alturaSalto == 2) {
-			_girado = !_girado;
-		}
-		if (_alturaSalto %3 == 0) {
-			_girado = !_girado;
-		}
 	} while (!(_tocaPared == 1 || _tocaPared == 2));
 }

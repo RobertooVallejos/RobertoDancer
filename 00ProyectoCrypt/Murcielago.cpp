@@ -26,6 +26,7 @@ Murcielago::Murcielago()
 	_direccion = 0;
 	_zombiesSpawneados = 0;
 	_dobleTempo = 0.0f;
+	_tocaPared = 0;
 }
 
 Murcielago::~Murcielago()
@@ -34,7 +35,6 @@ Murcielago::~Murcielago()
 
 void Murcielago::init()
 {
-	srand(time(NULL));
 
 	_vida = 3.0f;
 	_dano = 1;
@@ -48,6 +48,7 @@ void Murcielago::init()
 	_direccion = rand() % 4 + 1;
 	_zombiesSpawneados = 5;
 	_dobleTempo = 0.0f;
+	_tocaPared = 0;
 	ponerFoto("Bats.png");
 }
 
@@ -66,16 +67,14 @@ void Murcielago::update()
 		if (_frames == 4) _frames = 0;
 	}
 
-	int tocaPared;
-
 	if (_frames == 0 && _ritmoJug == true && _direccion == 2) {
 		addX(-52);
 		_girado = false;
 		_ritmoJug = false;
 
 		//comprueba colisión
-		tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
-		if (tocaPared == 5) {
+		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
+		if (_tocaPared == 5) {
 			addX(52);
 			_direccion = 1;
 		}
@@ -85,8 +84,8 @@ void Murcielago::update()
 		_ritmoJug = false;
 
 		//comprueba colisión
-		tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
-		if (tocaPared == 5) {
+		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
+		if (_tocaPared == 5) {
 			addY(-52);
 			_direccion = 4;
 			_girado = false;
@@ -98,8 +97,8 @@ void Murcielago::update()
 		_girado = true;
 
 		//comprueba colisión
-		tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
-		if (tocaPared == 5) {
+		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
+		if (_tocaPared == 5) {
 			addX(-52);
 			_direccion = 2;
 		}
@@ -110,8 +109,8 @@ void Murcielago::update()
 		_ritmoJug = false;
 
 		//comprueba colisión
-		tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
-		if (tocaPared == 6) {
+		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
+		if (_tocaPared == 6 || _tocaPared == 5) {
 			addY(52);
 			_direccion = 3;
 			_girado = true;
