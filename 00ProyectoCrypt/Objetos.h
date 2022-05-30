@@ -4,7 +4,7 @@
 class Objetos : public ElementoGFX
 {
 protected:
-	Cadence* personaje;
+	ElementoGFX* personaje;
 	int _tocaPared;
 public:
 	Objetos();

@@ -1,10 +1,11 @@
 #pragma once
 #include "ElementoGFX.h"
-
+#include "Objetos.h"
+#include <vector>
 class Cadence : public ElementoGFX
 {
 protected:
-
+	vector<Objetos*>* itemsEnMapa;
 	struct Cubo{
 		int frameY, frameX;
 	};
@@ -49,6 +50,7 @@ public:
 	bool getArma() { return _daga; };
 	int getObjeto() { return _objetoEnMano; };
 	void setDano(int value) { _dano = value; };
+	void setPointerVectorObjetos(vector<Objetos*>* nombre) { itemsEnMapa = nombre; }
 	//int getDano() { return _dano; };
 };
 

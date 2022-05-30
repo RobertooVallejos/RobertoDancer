@@ -45,7 +45,7 @@ void SceneGame::update()
 	Personaje.update();
 	if (Personaje.getVida() <= 0) {
 		sSoundManager->pararSonido(_soundID);
-		sDirector->changeScene(INTRO, true);
+		sDirector->changeScene(GAMEOVER, true);
 	}
 
 	for (size_t i = 0; i < vectorEnemigos.size(); i++)

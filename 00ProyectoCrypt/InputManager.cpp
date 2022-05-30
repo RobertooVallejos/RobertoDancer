@@ -12,6 +12,7 @@ InputManager::InputManager()
     _down = false;
     _space = false;
     _p = false;
+    _r = false;
     _sePuedeMover = false;
     _tiempoSinMoverse = 0;
     _contador = 0;
@@ -59,6 +60,9 @@ void InputManager::update()
             if (teclas.key.keysym.scancode == SDL_SCANCODE_P) {
                 _p = true;
             }
+            if (teclas.key.keysym.scancode == SDL_SCANCODE_R) {
+                _r = true;
+            }
             if (teclas.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
                 SDL_Quit();
             }
@@ -85,6 +89,9 @@ void InputManager::update()
             }
             if (teclas.key.keysym.scancode == SDL_SCANCODE_P) {
                 _p = false;
+            }
+            if (teclas.key.keysym.scancode == SDL_SCANCODE_R) {
+                _r = false;
             }
             break;
         }
@@ -131,7 +138,13 @@ void InputManager::update()
             _contador = 0;
         }
     }
-
+    if (_r) {
+        _contador = _contador + global_elapsed_time;
+        if (_contador >= 250) {
+            _r = false;
+            _contador = 0;
+        }
+    }
 }
 
 void InputManager::quit()
@@ -160,6 +173,9 @@ bool InputManager::getKeyPressed(int key)
         break;
     case 6:
         return _p;
+        break;
+    case 7:
+        return _r;
         break;
     default:
         break;
