@@ -3,15 +3,17 @@
 #include "ElementoGFX.h"
 class Objetos : public ElementoGFX
 {
+protected:
 	Cadence* personaje;
-
+	int _tocaPared;
 public:
 	Objetos();
 	~Objetos();
 
-	volatile void init();
-	volatile void update();
-	volatile void render();
-	void setPointerPersonaje(Cadence* nombre) { personaje = nombre; }
+	virtual void init();
+	virtual void update();
+	virtual void render();
+
+	void spawnObjetos();
 };
 

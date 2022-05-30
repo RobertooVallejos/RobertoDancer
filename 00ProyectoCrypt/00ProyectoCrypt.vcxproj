@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="Bomba.cpp" />
     <ClCompile Include="Cadence.cpp" />
+    <ClCompile Include="Comida.cpp" />
     <ClCompile Include="ElementoGFX.cpp" />
     <ClCompile Include="Fantasma.cpp" />
     <ClCompile Include="HUD.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="Mapa.cpp" />
     <ClCompile Include="Murcielago.cpp" />
     <ClCompile Include="Objetos.cpp" />
+    <ClCompile Include="Pergaminos.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneDirector.cpp" />
@@ -174,6 +176,7 @@
   <ItemGroup>
     <ClInclude Include="Bomba.h" />
     <ClInclude Include="Cadence.h" />
+    <ClInclude Include="Comida.h" />
     <ClInclude Include="ElementoGFX.h" />
     <ClInclude Include="Fantasma.h" />
     <ClInclude Include="HUD.h" />
@@ -181,6 +184,7 @@
     <ClInclude Include="Mapa.h" />
     <ClInclude Include="Murcielago.h" />
     <ClInclude Include="Objetos.h" />
+    <ClInclude Include="Pergaminos.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneDirector.h" />

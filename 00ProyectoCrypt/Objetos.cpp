@@ -11,20 +11,34 @@ extern Uint32           global_elapsed_time;
 Objetos::Objetos()
 {
 	personaje = nullptr;
+	_tocaPared = 0;
+	_Rect.width = 0;
+	_Rect.h = 0;
+	//_frameY = 0;
 }
 
 Objetos::~Objetos()
 {
 }
 
-volatile void Objetos::init()
+void Objetos::init()
 {
 }
 
-volatile void Objetos::update()
+void Objetos::update()
 {
 }
 
-volatile void Objetos::render()
+void Objetos::render()
 {
+}
+
+
+void Objetos::spawnObjetos()
+{
+	do {
+		_Rect.x = 52 * (rand() % 40);
+		_Rect.y = 52 * (rand() % 30);
+		_tocaPared = sMapa->getIDfromLayer(0, _Rect.x, _Rect.y);
+	} while (!(_tocaPared == 1 || _tocaPared == 2));
 }

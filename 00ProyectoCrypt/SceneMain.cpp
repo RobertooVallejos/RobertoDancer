@@ -52,7 +52,7 @@ void SceneMain::render()
 
 void SceneMain::reinit()
 {
-	sSoundManager->escucharSonido(_soundID, "cancionTitulo.ogg", -1);
+	//sSoundManager->escucharSonido(_soundID, "cancionTitulo.ogg", -1);
 	sSoundManager->ajustarVolumen(_soundID, 30);
 	mReinit = false;
 }

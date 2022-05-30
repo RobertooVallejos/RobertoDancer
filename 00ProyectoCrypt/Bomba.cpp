@@ -10,6 +10,8 @@ extern Uint32           global_elapsed_time;
 
 Bomba::Bomba()
 {
+	_Rect.h = 0;
+	_Rect.width = 0;
 	_posicionesBomba.x = 0;
 	_posicionesBomba.y = 0;
 	_posicionesBomba.h = 0;
@@ -36,6 +38,8 @@ Bomba::~Bomba()
 
 void Bomba::init()
 {
+	_Rect.h = 48;
+	_Rect.width = 230 / 5;
 	_posicionesBomba.x = 0;
 	_posicionesBomba.y = 0;
 	_posicionesBomba.h = 48;
@@ -63,11 +67,13 @@ void Bomba::update()
 
 void Bomba::render()
 {
-	sVideo->renderGraphic(_ID, _posicionesBomba.x - sMapa->getMapaX(), _posicionesBomba.y - sMapa->getMapaY(), _posicionesBomba.w, _posicionesBomba.h, _Rect.width * _frames, 0);
+	//sVideo->renderGraphic(_ID, _posicionesBomba.x - sMapa->getMapaX(), _posicionesBomba.y - sMapa->getMapaY(), _posicionesBomba.w, _posicionesBomba.h, _Rect.width * _frames, 0);
+	sVideo->renderGraphic(_ID, _Rect.x - sMapa->getMapaX(), _Rect.y - sMapa->getMapaY(), _Rect.width, _Rect.h, 0, 0);
 }
 
 void Bomba::renderBombaMapa()
 {
+	sVideo->renderGraphic(_ID, _posicionesBomba.x - sMapa->getMapaX(), _posicionesBomba.y - sMapa->getMapaY(), _posicionesBomba.w, _posicionesBomba.h, 0, 0);
 }
 
 void Bomba::renderExplosion()
@@ -93,13 +99,4 @@ void Bomba::danyoBomba()
 		_vidaRestante = _vidaRestante - _dano;
 		personaje->setVida(_vidaRestante);
 	}
-}
-
-void Bomba::spawnBombas()
-{
-	do {
-		_Rect.x = 52 * (rand() % 40);
-		_Rect.y = 52 * (rand() % 30);
-		_tocaPared = sMapa->getIDfromLayer(0, _Rect.x, _Rect.y);
-	} while (!(_tocaPared == 1 || _tocaPared == 2));
 }

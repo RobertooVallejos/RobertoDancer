@@ -65,7 +65,7 @@ void Cadence::init()
 	_rectFrame.frameY = 0;
 	_daga = true;
 	_tocaPared = 0;
-	_objetoEnMano = 1;
+	_objetoEnMano = 2;
 }
 
 void Cadence::update()
@@ -185,25 +185,28 @@ void Cadence::moverArriba()
 			_rectFrame.frameY = _Rect.h * 0;
 			break;
 		case 2:
-			_rectFrame.frameY = _Rect.h * 3;
-			break;
-		case 3:
-			_rectFrame.frameY = _Rect.h * 2;
-			break;
-		case 4:
-			_rectFrame.frameY = _Rect.h * 1;
-			break;
-		case 5:
 			_rectFrame.frameY = _Rect.h * 0;
 			break;
+		case 3:
+			_rectFrame.frameY = _Rect.h * 3;
+			break;
+		case 4:
+			_rectFrame.frameY = _Rect.h * 2;
+			break;
+		case 5:
+			_rectFrame.frameY = _Rect.h * 1;
+			break;
 		case 6:
+			_rectFrame.frameY = _Rect.h * 0;
+			break;
+		case 7:
 			_rectFrame.frameY = _Rect.h * 0;
 			break;
 		default:
 			_rectFrame.frameY = _Rect.h * 0;
 			break;
 		}
-		if (_objetoEnMano > 6) {
+		if (_objetoEnMano > 7) {
 			_objetoEnMano = 1;
 		}
 		cd = 0;

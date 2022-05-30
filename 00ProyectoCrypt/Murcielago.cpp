@@ -13,6 +13,7 @@ extern Uint32           global_elapsed_time;
 
 Murcielago::Murcielago()
 {
+	personaje = nullptr;
 	_vida = 0.0f;
 	_dano = 0;
 	_frames = 0;
@@ -26,6 +27,11 @@ Murcielago::Murcielago()
 	_direccion = 0;
 	_zombiesSpawneados = 0;
 	_dobleTempo = 0.0f;
+	_posicionAtaqueX = 0;
+	_posicionAtaqueY = 0;
+	_vidaPersonaje = 0;
+	_ataqueRealizado = false;
+	_atacando = false;
 	_tocaPared = 0;
 }
 
@@ -48,6 +54,10 @@ void Murcielago::init()
 	_direccion = rand() % 4 + 1;
 	_zombiesSpawneados = 5;
 	_dobleTempo = 0.0f;
+	_posicionAtaqueX = 0;
+	_posicionAtaqueY = 0;
+	_vidaPersonaje = 0;
+	_ataqueRealizado = false;
 	_tocaPared = 0;
 	ponerFoto("Bats.png");
 }
@@ -61,6 +71,7 @@ void Murcielago::update()
 		if (_dobleTempo >= 4.0f) { //que se mueva cada dos tempos
 			_direccion = rand() % 4 + 1;
 			_ritmoJug = true;
+			_atacando = true;
 			_dobleTempo = 0.0f;
 		}
 		_contadorTiempoEntreFrames = 0;
@@ -69,9 +80,9 @@ void Murcielago::update()
 
 	if (_frames == 0 && _ritmoJug == true && _direccion == 2) {
 		addX(-52);
+		atacar();
 		_girado = false;
 		_ritmoJug = false;
-
 		//comprueba colisión
 		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
 		if (_tocaPared == 5) {
@@ -81,8 +92,8 @@ void Murcielago::update()
 	}
 	if (_frames == 0 && _ritmoJug == true && _direccion == 3) {
 		addY(52);
+		atacar();
 		_ritmoJug = false;
-
 		//comprueba colisión
 		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
 		if (_tocaPared == 5) {
@@ -93,9 +104,9 @@ void Murcielago::update()
 	}
 	if (_frames == 0 && _ritmoJug == true && _direccion == 1) {
 		addX(52);
+		atacar();
 		_ritmoJug = false;
 		_girado = true;
-
 		//comprueba colisión
 		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
 		if (_tocaPared == 5) {
@@ -107,7 +118,7 @@ void Murcielago::update()
 	if (_frames == 0 && _ritmoJug == true && _direccion == 4) {
 		addY(-52);
 		_ritmoJug = false;
-
+		atacar();
 		//comprueba colisión
 		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
 		if (_tocaPared == 6 || _tocaPared == 5) {
@@ -130,6 +141,16 @@ void Murcielago::render()
 	}
 }
 
-void Murcielago::mover()
+void Murcielago::atacar()
 {
+	_posicionAtaqueX = personaje->getPositionX();
+	_posicionAtaqueY = personaje->getPositionY();
+	_vidaPersonaje = personaje->getVida();
+	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == true && _ataqueRealizado == false) {
+		_vidaPersonaje = _vidaPersonaje - _dano;
+		if (_vidaPersonaje < 0) {
+			_vidaPersonaje = 0;
+		}
+		personaje->setVida(_vidaPersonaje);
+	}
 }

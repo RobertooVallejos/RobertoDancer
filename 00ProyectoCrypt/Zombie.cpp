@@ -60,6 +60,7 @@ void Zombie::update()
 		_dobleTempo += 0.5f;
 		if (_dobleTempo >= 4.0f) { //que se mueva cada dos tempos
 			_ritmoJug = true;
+			_atacando = true;
 			_dobleTempo = 0.0f;
 		}
 		_contadorTiempoEntreFrames = 0;
@@ -68,6 +69,7 @@ void Zombie::update()
 
 	if (_frames == 0 && _ritmoJug == true && _direccion == 2) {
 		addX(-52);
+		atacar();
 		_girado = false;
 		_ritmoJug = false;
 
@@ -80,6 +82,7 @@ void Zombie::update()
 	}
 	if (_frames == 0 && _ritmoJug == true && _direccion == 3) {
 		addY(52);
+		atacar();
 		_ritmoJug = false;
 
 		//comprueba colisión
@@ -92,6 +95,7 @@ void Zombie::update()
 	}
 	if (_frames == 0 && _ritmoJug == true && _direccion == 1) {
 		addX(52);
+		atacar();
 		_ritmoJug = false;
 		_girado = true;
 
@@ -105,6 +109,7 @@ void Zombie::update()
 
 	if (_frames == 0 && _ritmoJug == true && _direccion == 4) {
 		addY(-52);
+		atacar();
 		_ritmoJug = false;
 
 		//comprueba colisión
@@ -129,10 +134,20 @@ void Zombie::render()
 	}
 }
 
-void Zombie::mover()
+void Zombie::atacar()
 {
-
+	_posicionAtaqueX = personaje->getPositionX();
+	_posicionAtaqueY = personaje->getPositionY();
+	_vidaPersonaje = personaje->getVida();
+	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == true && _ataqueRealizado == false) {
+		_vidaPersonaje = _vidaPersonaje - _dano;
+		if (_vidaPersonaje < 0) {
+			_vidaPersonaje = 0;
+		}
+		personaje->setVida(_vidaPersonaje);
+	}
 }
+
 
 //Copiar en cadence y no poner virtual aquí
 

@@ -8,6 +8,8 @@
 #include "Cadence.h"
 #include "Mapa.h"
 #include "Bomba.h"
+#include "Pergaminos.h"
+#include "Comida.h"
 #include "tinyxml2.h"
 
 extern SceneDirector* sDirector;
@@ -50,10 +52,16 @@ void SceneGame::update()
 	{
 		vectorEnemigos[i]->update();
 	}
-	EnemigoSlimeAzul.update();
+	EnemigoSlimeAzul.update();		
+
+	for (size_t j = 0; j < vectorObjetos.size(); j++)
+	{
+		vectorObjetos[j]->update();
+	}
 	//EnemigoSlimeVerde.update();
 	//EnemigoMurcielago.update();
 	//EnemigoFantasma.update();
+	Bombs.update();
 	Hud.update();
 	if (sInputManager->getKeyPressed(key_space)) {
 		Bombs.ponerBomba();
@@ -136,20 +144,35 @@ void SceneGame::reinit()
 		vectorEnemigos.push_back(murcielagoEnemigo);
 	}
 	Bomba* bombasMapa;
+	Pergaminos* pergaminoAleatorio;
+	Comida* comidaAleatoria;
 	for (int i = 0; i < 3; i++) {
 		bombasMapa = new Bomba();
 		bombasMapa->init();
-		bombasMapa->spawnBombas();
+		bombasMapa->spawnObjetos();
 		bombasMapa->setPointerPersonaje(&Personaje);
 		vectorObjetos.push_back(bombasMapa);
 	}
-	sSoundManager->escucharSonido(_soundID, "cancionGame.ogg", 0);
+	pergaminoAleatorio = new Pergaminos();
+	pergaminoAleatorio->init();
+	pergaminoAleatorio->spawnObjetos();
+	pergaminoAleatorio->setPointerPersonaje(&Personaje);
+	vectorObjetos.push_back(pergaminoAleatorio);
+	comidaAleatoria = new Comida();
+	comidaAleatoria->init();
+	comidaAleatoria->spawnObjetos();
+	comidaAleatoria->setPointerPersonaje(&Personaje);
+	vectorObjetos.push_back(comidaAleatoria);
+
+	//sSoundManager->escucharSonido(_soundID, "cancionGame.ogg", 0);
 	sSoundManager->ajustarVolumen(_soundID, 30);
 	//EnemigoSlimeAzul.init();
 	//EnemigoSlimeVerde.init();
 	//EnemigoMurcielago.init();
 	//EnemigoFantasma.init();
 	Hud.init();
+	Bombs.init();
+	Bombs.setPointerPersonaje(&Personaje);
 	//EnemigoFantasma.setPointerPersonaje(&Personaje);
 	Hud.setPointerPersonaje(&Personaje);
 	sMapa->setPunteroPos(&Personaje);

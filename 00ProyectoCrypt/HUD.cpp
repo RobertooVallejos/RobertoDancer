@@ -102,6 +102,12 @@ void HUD::render()
 {
  	_vidaPersonaje = personaje->getVida();
 	_daga = personaje->getArma();
+	if (personaje->getObjeto() == 4) {
+		_Rect.width = 48 * 4;
+	}
+	else {
+		_Rect.width = 48 * 3;
+	}
 	switch (_vidaPersonaje)
 	{
 	case 0:
@@ -156,25 +162,28 @@ void HUD::renderObjetos()
 		switch (personaje->getObjeto())
 		{
 		case 1:
-			_objetosRectFrame.frameY = _objetosRectFrame.h * 0;
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 0; //ningun objeto en mano
 			break;
 		case 2:
-			_objetosRectFrame.frameY = _objetosRectFrame.h * 1;
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 1; //bomba 
 			break;
 		case 3:
-			_objetosRectFrame.frameY = _objetosRectFrame.h * 2;
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 2; //scroll rosa
 			break;
 		case 4:
-			_objetosRectFrame.frameY = _objetosRectFrame.h * 3;
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 3; //scroll rojo
 			break;
 		case 5:
-			_objetosRectFrame.frameY = _objetosRectFrame.h * 4;
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 4; //scroll blanco
 			break;
 		case 6:
-			_objetosRectFrame.frameY = _objetosRectFrame.h * 5;
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 5; //queso
+			break;
+		case 7:
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 6; //manzana
 			break;
 		default:
-			_objetosRectFrame.frameY = _objetosRectFrame.h * 0;
+			_objetosRectFrame.frameY = _objetosRectFrame.h * 0; //ningun objeto en mano
 			break;
 		}
 

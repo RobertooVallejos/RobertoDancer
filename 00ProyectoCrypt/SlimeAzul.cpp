@@ -13,6 +13,7 @@ extern Uint32           global_elapsed_time;
 
 SlimeAzul::SlimeAzul()
 {
+	personaje = nullptr;
 	_vida = 0.0f;
 	_dano = 0;
 	_frames = 0;
@@ -26,6 +27,11 @@ SlimeAzul::SlimeAzul()
 	_direccion = 0;
 	_dobleTempo = 0.0f;
 	_tocaPared = 0;
+	_posicionAtaqueX = 0;
+	_posicionAtaqueY = 0;
+	_vidaPersonaje = 0;
+	_ataqueRealizado = false;
+	_atacando = false;
 	_rectFrame.frameX = 0;
 	_rectFrame.frameY = 0;
 }
@@ -71,6 +77,7 @@ void SlimeAzul::update()
 		if (_dobleTempo >= 4.0f) { //que se mueva cada dos tempos
 			_rectFrame.frameY = 50;
 			_ritmoJug = true;
+			_atacando = true;
 			_dobleTempo = 0.0f;
 		}
 
@@ -81,6 +88,7 @@ void SlimeAzul::update()
 
 	if (_frames == 0 && _ritmoJug == true && _direccion == 1) {
 		addY(52);
+		atacar();
 		_ritmoJug = false;
 		_direccion = 2;
 
@@ -94,6 +102,7 @@ void SlimeAzul::update()
 
 	if (_frames == 0 && _ritmoJug == true && _direccion == 2) {
 		addY(-52);
+		atacar();
 		_ritmoJug = false;
 		_direccion = 1;
 
@@ -111,4 +120,18 @@ void SlimeAzul::render()
 
 	sVideo->renderGraphic(_ID, _Rect.x - sMapa->getMapaX(), _Rect.y - sMapa->getMapaY(), _Rect.width, _Rect.h, _Rect.width * _frames, _rectFrame.frameY);
 
+}
+
+void SlimeAzul::atacar()
+{
+	_posicionAtaqueX = personaje->getPositionX();
+	_posicionAtaqueY = personaje->getPositionY();
+	_vidaPersonaje = personaje->getVida();
+	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == true && _ataqueRealizado == false) {
+		_vidaPersonaje = _vidaPersonaje - _dano;
+		if (_vidaPersonaje < 0) {
+			_vidaPersonaje = 0;
+		}
+		personaje->setVida(_vidaPersonaje);
+	}
 }

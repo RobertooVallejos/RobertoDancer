@@ -10,6 +10,7 @@
 #include "HUD.h"
 #include "Bomba.h"
 #include "Objetos.h"
+
 class SceneGame : public Scene //gameplay
 {
 	Cadence Personaje;

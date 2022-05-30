@@ -28,10 +28,6 @@ Fantasma::Fantasma()
 	_personajeCercaX = 0;
 	_personajeCercaY = 0;
 	_dobleTempo = 0.0f;
-	_posicionAtaqueX = 0;
-	_posicionAtaqueY = 0;
-	_vidaPersonaje = 0;
-	_ataqueRealizado = false;
 	_cd = 0;
 }
 
