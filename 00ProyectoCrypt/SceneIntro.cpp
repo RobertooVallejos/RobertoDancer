@@ -32,7 +32,6 @@ SceneIntro::~SceneIntro()
 
 void SceneIntro::init()
 {
-	Personaje.setPointerVectorObjetos(&vectorObjetos);
 	sInputManager->init();
 	Personaje.ponerFoto("Cadencee.png");
 }
@@ -40,19 +39,22 @@ void SceneIntro::init()
 void SceneIntro::update()
 {
 	contadorRitmo += global_elapsed_time;
+
+	Personaje.update();
+	Hud.update();
+	sMapa->update();
+
 	if (Personaje.getPositionX() <= 832 && Personaje.getPositionX() >= 780 && Personaje.getPositionY() <= 260 && Personaje.getPositionY() >= 208) {
 		sSoundManager->pararSonido(_soundID);
+		Personaje.setJugando(true);
 		sDirector->changeScene(GAME, true);
 	}
-	if (Personaje.getPositionX() <= 52*12 && Personaje.getPositionX() >= 52*11 && Personaje.getPositionY() <= 52*9 && Personaje.getPositionY() >= 52*8) {
+	if (Personaje.getPositionX() <= 52 * 12 && Personaje.getPositionX() >= 52 * 11 && Personaje.getPositionY() <= 52 * 9 && Personaje.getPositionY() >= 52 * 8) {
 		sInputManager->quit();
 	}
 	if (sInputManager->getKeyPressed(key_esc)) {
 		sInputManager->quit();
 	}
-	Personaje.update();
-	Hud.update();
-	sMapa->update();
 }
 
 void SceneIntro::render()

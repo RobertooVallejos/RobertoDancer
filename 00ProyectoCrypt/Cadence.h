@@ -37,6 +37,7 @@ protected:
 	int _posicionAnterior;			//variable que se usa para determinar si el enemigo ha atacado desde arriba(1), abajo(2), izquierda(3) o derecha(4) del personaje
 	int _posicionObjetoX;
 	int _posicionObjetoY;
+	bool _jugando;
 public:
 	Cadence();
 	~Cadence();
@@ -58,6 +59,7 @@ public:
 	bool getMuerto() { return _muerto; };
 	virtual bool getAtacado() { return false; };
 	void setAtacado() { _atacado = false; };
+	void setJugando(bool jugando) { _jugando = jugando; };
 
 	void setPointerVectorObjetos(std::vector<Objetos*>* nombre) { itemsEnMapa = nombre; }
 	//int getDano() { return _dano; };
