@@ -2,7 +2,7 @@
 #include "Objetos.h"
 class Pergaminos : public Objetos
 {
-	Cadence* personaje;
+	ElementoGFX* personaje;
 	int _frameY;
 	int _dano;
 	int _contador;
@@ -19,6 +19,6 @@ public:
 	void render();
 	void ponerBomba();  //contador para que explote la bomba
 	void danyoBomba();   //render de la explosión y daño
-	void setPointerPersonaje(Cadence* nombre) { personaje = nombre; }
+	void setPointerPersonaje(ElementoGFX* nombre) { personaje = nombre; }
 };
 

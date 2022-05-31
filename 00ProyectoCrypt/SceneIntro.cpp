@@ -46,6 +46,9 @@ void SceneIntro::update()
 	if (Personaje.getPositionX() <= 52*12 && Personaje.getPositionX() >= 52*11 && Personaje.getPositionY() <= 52*9 && Personaje.getPositionY() >= 52*8) {
 		sInputManager->quit();
 	}
+	if (sInputManager->getKeyPressed(key_esc)) {
+		sInputManager->quit();
+	}
 	Personaje.update();
 	Hud.update();
 	sMapa->update();
@@ -66,7 +69,7 @@ void SceneIntro::reinit()
 {
 	contadorRitmo = 0;
 	Personaje.init();
-	//sSoundManager->escucharSonido(_soundID, "cancionMenu.ogg", -1);
+	sSoundManager->escucharSonido(_soundID, "cancionMenu.ogg", -1);
 	sSoundManager->ajustarVolumen(_soundID, 30);
 	Hud.init();
 	Hud.setPointerPersonaje(&Personaje);

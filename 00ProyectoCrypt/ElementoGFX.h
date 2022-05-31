@@ -14,6 +14,7 @@ protected:
 	int _ID2;
 	int _ID3;
 	int _ID4;
+	int _vida;
 	
 public:
 	ElementoGFX();
@@ -45,4 +46,8 @@ public:
 	void setID(int id) { _ID = id; };
 	int getID() { return _ID; };
 
+	virtual void setVida(int value);
+	virtual int getVida();
+	virtual int getObjeto();
+	virtual void setDano(int value);
 };

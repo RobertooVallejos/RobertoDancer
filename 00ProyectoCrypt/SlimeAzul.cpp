@@ -85,10 +85,10 @@ void SlimeAzul::update()
 		if (_frames == 4) _frames = 0;
 	}
 
-
 	if (_frames == 0 && _ritmoJug == true && _direccion == 1) {
 		addY(52);
 		atacar();
+		_atacando = false;
 		_ritmoJug = false;
 		_direccion = 2;
 
@@ -103,6 +103,7 @@ void SlimeAzul::update()
 	if (_frames == 0 && _ritmoJug == true && _direccion == 2) {
 		addY(-52);
 		atacar();
+		_atacando = false;
 		_ritmoJug = false;
 		_direccion = 1;
 
@@ -113,6 +114,7 @@ void SlimeAzul::update()
 			_rectFrame.frameY = 0;
 		}
 	}
+	
 }
 
 void SlimeAzul::render()
@@ -133,5 +135,17 @@ void SlimeAzul::atacar()
 			_vidaPersonaje = 0;
 		}
 		personaje->setVida(_vidaPersonaje);
+	}
+}
+
+void SlimeAzul::recibirDano()
+{
+	_posicionAtaqueX = personaje->getPositionX();
+	_posicionAtaqueY = personaje->getPositionY();
+	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY) {
+		_vida -= 1;
+		if (_vida <= 0) {
+			_muerto = true;
+		}
 	}
 }

@@ -58,3 +58,22 @@ void ElementoGFX::ponerFoto4(const char* img)
 {
 	_ID4 = sResourceManager->loadAndGetGraphicID(Video::getIntance()->getRenderer(), img);
 }
+
+void ElementoGFX::setVida(int value)
+{
+}
+
+int ElementoGFX::getVida()
+{
+	return 0;
+}
+
+int ElementoGFX::getObjeto()
+{
+	return 0;
+}
+
+void ElementoGFX::setDano(int value)
+{
+}
+

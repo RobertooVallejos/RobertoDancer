@@ -26,6 +26,9 @@ void SceneGameOver::update()
 	if (sInputManager->getKeyPressed(key_r)) {
 		sDirector->changeScene(INTRO, true);
 	}
+	if (sInputManager->getKeyPressed(key_esc)) {
+		sInputManager->quit();
+	}
 }
 
 void SceneGameOver::render()

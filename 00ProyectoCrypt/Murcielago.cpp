@@ -2,19 +2,21 @@
 #include "ResourceManager.h"
 #include "Video.h"
 #include "Mapa.h"
+#include "SoundManager.h"
 #include <cstdlib>
 #include <ctime>
 
 extern ResourceManager* sResourceManager;
 extern Video* sVideo;
 extern Mapa* sMapa;
+extern SoundManager* sSoundManager;
 
 extern Uint32           global_elapsed_time;
 
 Murcielago::Murcielago()
 {
 	personaje = nullptr;
-	_vida = 0.0f;
+	_vida = 0;
 	_dano = 0;
 	_frames = 0;
 	_contadorTiempoEntreFrames = 0;
@@ -32,6 +34,10 @@ Murcielago::Murcielago()
 	_vidaPersonaje = 0;
 	_ataqueRealizado = false;
 	_atacando = false;
+	_posicionAnterior = 0;
+	_posicionAnteriorX = 0;
+	_posicionAnteriorY = 0;
+	_muerto = false;
 	_tocaPared = 0;
 }
 
@@ -42,7 +48,7 @@ Murcielago::~Murcielago()
 void Murcielago::init()
 {
 
-	_vida = 3.0f;
+	_vida = 1;
 	_dano = 1;
 	_frames = 0;
 	_contadorTiempoEntreFrames = 0;
@@ -59,6 +65,8 @@ void Murcielago::init()
 	_vidaPersonaje = 0;
 	_ataqueRealizado = false;
 	_tocaPared = 0;
+	_posicionAnteriorX = _Rect.x;
+	_posicionAnteriorY = _Rect.y;
 	ponerFoto("Bats.png");
 }
 
@@ -78,11 +86,14 @@ void Murcielago::update()
 		if (_frames == 4) _frames = 0;
 	}
 
+	recibirDano();
+
 	if (_frames == 0 && _ritmoJug == true && _direccion == 2) {
 		addX(-52);
 		atacar();
 		_girado = false;
 		_ritmoJug = false;
+		_atacando = false;
 		//comprueba colisión
 		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
 		if (_tocaPared == 5) {
@@ -94,6 +105,7 @@ void Murcielago::update()
 		addY(52);
 		atacar();
 		_ritmoJug = false;
+		_atacando = false;
 		//comprueba colisión
 		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
 		if (_tocaPared == 5) {
@@ -107,6 +119,7 @@ void Murcielago::update()
 		atacar();
 		_ritmoJug = false;
 		_girado = true;
+		_atacando = false;
 		//comprueba colisión
 		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
 		if (_tocaPared == 5) {
@@ -117,8 +130,9 @@ void Murcielago::update()
 
 	if (_frames == 0 && _ritmoJug == true && _direccion == 4) {
 		addY(-52);
-		_ritmoJug = false;
 		atacar();
+		_ritmoJug = false;
+		_atacando = false;
 		//comprueba colisión
 		_tocaPared = sMapa->getIDfromLayer(1, _Rect.x + _Rect.width / 2, _Rect.y + _Rect.h / 2);
 		if (_tocaPared == 6 || _tocaPared == 5) {
@@ -126,6 +140,37 @@ void Murcielago::update()
 			_direccion = 3;
 			_girado = true;
 		}
+	}
+
+	//Averiguando la posición anterior del enemigo (52 es lo que mide un tile)
+	if (_posicionAnteriorX < _Rect.x)
+	{
+		_posicionAnteriorX = _Rect.x - 52;
+	}
+
+	if (_posicionAnteriorX > _Rect.x)
+	{
+		_posicionAnteriorX = _Rect.x + 52;
+	}
+
+	if (_posicionAnteriorY < _Rect.y)
+	{
+		_posicionAnteriorY = _Rect.y - 52;
+	}
+
+	if (_posicionAnteriorY > _Rect.y)
+	{
+		_posicionAnteriorY = _Rect.y + 52;
+	}
+
+	if (personaje->getPositionY() == _Rect.y)
+	{
+		_posicionAnteriorY = _Rect.y;
+	}
+
+	if (personaje->getPositionX() == _Rect.x)
+	{
+		_posicionAnteriorX = _Rect.x;
 	}
 }
 
@@ -146,11 +191,68 @@ void Murcielago::atacar()
 	_posicionAtaqueX = personaje->getPositionX();
 	_posicionAtaqueY = personaje->getPositionY();
 	_vidaPersonaje = personaje->getVida();
+
+	//comprobando posición anterior del enemigo al atacar y moviendolo a esa posición
+	if (_posicionAnteriorX > _posicionAtaqueX && _posicionAnteriorY == _posicionAtaqueY) {
+		_posicionAnterior = 1;
+
+	}
+	if (_posicionAnteriorX < _posicionAtaqueX && _posicionAnteriorY == _posicionAtaqueY) {
+		_posicionAnterior = 2;
+
+	}
+	if (_posicionAnteriorY > _posicionAtaqueY && _posicionAnteriorX + 17 == _posicionAtaqueX) { //+17 por la mitad de lo que mide el width de Cadence
+		_posicionAnterior = 3;
+
+	}
+	if (_posicionAnteriorY < _posicionAtaqueY && _posicionAnteriorX + 17 == _posicionAtaqueX) {
+		_posicionAnterior = 4;
+
+	}
+
 	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == true && _ataqueRealizado == false) {
+		//Sonido de ataque
+		sSoundManager->escucharSonido(_soundID2, "sonidoAtaque.ogg", 0);
+		sSoundManager->ajustarVolumen(_soundID2, 30);
+		
+		//Daño al personaje
 		_vidaPersonaje = _vidaPersonaje - _dano;
-		if (_vidaPersonaje < 0) {
-			_vidaPersonaje = 0;
-		}
 		personaje->setVida(_vidaPersonaje);
+
+		//Enemigo vuelve a la posición donde estaba
+		switch (_posicionAnterior)
+		{
+		case 1:
+			_Rect.x += 52;
+			break;
+		case 2:
+			_Rect.x -= 52;
+			break;
+		case 3:
+			_Rect.y += 52;
+			break;
+		case 4:
+			_Rect.y -= 52;
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void Murcielago::recibirDano()
+{
+	_posicionAtaqueX = personaje->getPositionX();
+	_posicionAtaqueY = personaje->getPositionY();
+	_vidaPersonaje = personaje->getVida();
+	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == false) {
+		//Sonido de ataque
+		sSoundManager->escucharSonido(_soundID2, "sonidoAtaque.ogg", 0);
+		sSoundManager->ajustarVolumen(_soundID2, 30);
+
+		_vida -= 1;
+		if (_vida <= 0) {
+			_muerto = true;
+		}
 	}
 }

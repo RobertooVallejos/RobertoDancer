@@ -21,6 +21,7 @@ public:
 	void render();
 	void compruebaMovimiento();
 	void atacar();
+	void recibirDano();
 	void setPointerPersonaje(Cadence* nombre) { personajePrincipal = nombre; } //referencia del personaje para saber donde está
 
 };

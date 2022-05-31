@@ -2,17 +2,19 @@
 #include "ResourceManager.h"
 #include "Video.h"
 #include "Mapa.h"
+#include "SoundManager.h"
 #include <iostream>
 
 extern ResourceManager* sResourceManager;
 extern Video* sVideo;
 extern Mapa* sMapa;
+extern SoundManager* sSoundManager;
 
 extern Uint32           global_elapsed_time;
 
 Fantasma::Fantasma()
 {
-	_vida = 0.0f;
+	_vida = 0;
 	_dano = 0;
 	_frames = 0;
 	_contadorTiempoEntreFrames = 0;
@@ -28,6 +30,10 @@ Fantasma::Fantasma()
 	_personajeCercaX = 0;
 	_personajeCercaY = 0;
 	_dobleTempo = 0.0f;
+	_muerto = false;
+	_posicionAnterior = 0;
+	_posicionAnteriorX = 0;
+	_posicionAnteriorY = 0;
 	_cd = 0;
 }
 
@@ -37,7 +43,7 @@ Fantasma::~Fantasma()
 
 void Fantasma::init()
 {
-	_vida = 3.0f;
+	_vida = 1;
 	_dano = 1;
 	_frames = 0;
 	_contadorTiempoEntreFrames = 0;
@@ -54,6 +60,8 @@ void Fantasma::init()
 	_posicionAtaqueY = 0;
 	_vidaPersonaje = 0;
 	_ataqueRealizado = false;
+	_posicionAnteriorX = _Rect.x;
+	_posicionAnteriorY = _Rect.y;
 	_cd = 0;
 	ponerFoto("Fantasma.png");
 }
@@ -74,24 +82,19 @@ void Fantasma::update()
 	}
 	_cd += global_elapsed_time;
 	compruebaMovimiento();
+	recibirDano();
 	if (_direccion == 1 && _activado == true)
 	{
 		if (_frames == 0 && _ritmoJug == true && personajePrincipal->getPositionX() < _Rect.x && _atacando == true) { //movimiento izquierda
 			addX(-52);
-			if (_cd >= 500) {
-				atacar();
-				_cd = 0;
-			}
+			atacar();
 			_girado = false;
 			_ritmoJug = false;
 			_atacando = false;
 		}
 		if (_frames == 0 && _ritmoJug == true && personajePrincipal->getPositionX() > _Rect.x && _atacando == true) { //movimiento derecha
 			addX(52);
-			if (_cd >= 500) {
-				atacar();
-				_cd = 0;
-			}
+			atacar();
 			_ritmoJug = false;
 			_girado = true;
 			_atacando = false;
@@ -105,10 +108,7 @@ void Fantasma::update()
 	{
 		if (_frames == 0 && _ritmoJug == true && personajePrincipal->getPositionY() > _Rect.y && _atacando == true) {
 			addY(52);
-			if (_cd >= 500) {
-				atacar();
-				_cd = 0;
-			}
+			atacar();
 			_ritmoJug = false;
 			_atacando = false;
 			_direccion = 1;
@@ -117,14 +117,42 @@ void Fantasma::update()
 
 		if (_frames == 0 && _ritmoJug == true && personajePrincipal->getPositionY() < _Rect.y && _atacando == true) {
 			addY(-52);
-			if (_cd >= 500) {
-				atacar();
-				_cd = 0;
-			}
+			atacar();
 			_ritmoJug = false;
 			_atacando = false;
 			_direccion = 1;
 		}
+	}
+
+	//Averiguando la posición anterior del enemigo (52 es lo que mide un tile)
+	if (_posicionAnteriorX < _Rect.x)
+	{
+		_posicionAnteriorX = _Rect.x - 52;
+	}
+
+	if (_posicionAnteriorX > _Rect.x)
+	{
+		_posicionAnteriorX = _Rect.x + 52;
+	}
+
+	if (_posicionAnteriorY < _Rect.y)
+	{
+		_posicionAnteriorY = _Rect.y - 52;
+	}
+
+	if (_posicionAnteriorY > _Rect.y)
+	{
+		_posicionAnteriorY = _Rect.y + 52;
+	}
+
+	if (personajePrincipal->getPositionY() == _Rect.y)
+	{
+		_posicionAnteriorY = _Rect.y;
+	}
+
+	if (personajePrincipal->getPositionX() == _Rect.x + 17)
+	{
+		_posicionAnteriorX = _Rect.x;
 	}
 }
 
@@ -144,10 +172,10 @@ void Fantasma::compruebaMovimiento()
 {
 	_personajeCercaX = _Rect.x - personajePrincipal->getPositionX();
 	_personajeCercaY = _Rect.y - personajePrincipal->getPositionY();
-	if(_personajeCercaX >= -300 && _personajeCercaX < 0 && _personajeCercaY >= -300 && _personajeCercaY < 0){  //Cadence está a la derecha
+	if(_personajeCercaX >= -300 && _personajeCercaX < 0 && _personajeCercaY >= -300 && _personajeCercaY < 300){  //Cadence está a la derecha
 		_activado = true;
 	}
-	if (_personajeCercaX <= 300 && _personajeCercaX > 0 && _personajeCercaY <= 300 && _personajeCercaY > 0) {  //Cadence está a la derecha
+	if (_personajeCercaX <= 300 && _personajeCercaX > 0 && _personajeCercaY <= 300 && _personajeCercaY > -300) {  //Cadence está a la derecha
 		_activado = true;
 	}
 }
@@ -157,13 +185,69 @@ void Fantasma::atacar()
 	_posicionAtaqueX = personajePrincipal->getPositionX();
 	_posicionAtaqueY = personajePrincipal->getPositionY();
 	_vidaPersonaje = personajePrincipal->getVida();
-	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == true && _ataqueRealizado == false) {
-		_vidaPersonaje = _vidaPersonaje - _dano;
-		if (_vidaPersonaje < 0) {
-			_vidaPersonaje = 0;
-		}
-		personajePrincipal->setVida(_vidaPersonaje);
+
+	//comprobando posición anterior del enemigo al atacar y moviendolo a esa posición
+	if (_posicionAnteriorX > _posicionAtaqueX && _posicionAnteriorY == _posicionAtaqueY) {
+		_posicionAnterior = 1;
+		
 	}
-	std::cout << _vidaPersonaje;
+	if (_posicionAnteriorX < _posicionAtaqueX && _posicionAnteriorY == _posicionAtaqueY) {
+		_posicionAnterior = 2;
+		
+	}
+	if (_posicionAnteriorY > _posicionAtaqueY && _posicionAnteriorX + 17 == _posicionAtaqueX) { //+17 por la mitad de lo que mide el width de Cadence
+		_posicionAnterior = 3;
+		
+	}
+	if (_posicionAnteriorY < _posicionAtaqueY && _posicionAnteriorX + 17 == _posicionAtaqueX) {
+		_posicionAnterior = 4;
+		
+	}
+
+	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == true) {
+		//Sonido de ataque
+		sSoundManager->escucharSonido(_soundID2, "sonidoAtaque.ogg", 0);
+		sSoundManager->ajustarVolumen(_soundID2, 30);
+		
+		//resta de vida al personaje
+		_vidaPersonaje = _vidaPersonaje - _dano;
+		personajePrincipal->setVida(_vidaPersonaje);
+		
+		switch (_posicionAnterior)
+		{
+		case 1:
+			_Rect.x += 52;
+			break;
+		case 2:
+			_Rect.x -= 52;
+			break;
+		case 3:
+			_Rect.y += 52;
+			break;
+		case 4:
+			_Rect.y -= 52;
+			break;
+		default:
+			break;
+		}
+	}
+
+}
+
+void Fantasma::recibirDano()
+{
+	_posicionAtaqueX = personajePrincipal->getPositionX();
+	_posicionAtaqueY = personajePrincipal->getPositionY();
+	_vidaPersonaje = personajePrincipal->getVida();
+	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == false) {
+		//Sonido de ataque
+		sSoundManager->escucharSonido(_soundID2, "sonidoAtaque.ogg", 0);
+		sSoundManager->ajustarVolumen(_soundID2, 30);
+
+		_vida -= 1;
+		if (_vida <= 0) {
+			_muerto = true;
+		}
+	}
 }
 	

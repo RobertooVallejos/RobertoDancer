@@ -51,6 +51,10 @@ void SceneGame::update()
 	for (size_t i = 0; i < vectorEnemigos.size(); i++)
 	{
 		vectorEnemigos[i]->update();
+		if (vectorEnemigos[i]->getMuerto() == true) {
+			delete vectorEnemigos[i];
+			vectorEnemigos.erase(vectorEnemigos.begin() + i);
+		}
 	}
 	EnemigoSlimeAzul.update();		
 
@@ -66,6 +70,10 @@ void SceneGame::update()
 	if (sInputManager->getKeyPressed(key_space)) {
 		Bombs.ponerBomba();
 		
+	}
+	if (sInputManager->getKeyPressed(key_esc)) {
+		sSoundManager->pararSonido(_soundID);
+		sDirector->changeScene(INTRO, true);
 	}
 	sMapa->update();
 }
@@ -164,7 +172,7 @@ void SceneGame::reinit()
 	comidaAleatoria->setPointerPersonaje(&Personaje);
 	vectorObjetos.push_back(comidaAleatoria);
 
-	//sSoundManager->escucharSonido(_soundID, "cancionGame.ogg", 0);
+	sSoundManager->escucharSonido(_soundID, "cancionGame.ogg", 0);
 	sSoundManager->ajustarVolumen(_soundID, 30);
 	//EnemigoSlimeAzul.init();
 	//EnemigoSlimeVerde.init();

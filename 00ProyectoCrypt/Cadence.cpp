@@ -5,12 +5,14 @@
 #include "Mapa.h"
 #include "ResourceManager.h"
 #include "SceneDirector.h"
+#include "SoundManager.h"
 #include <iostream>
 
 extern InputManager* sInputManager;
 extern ResourceManager* sResourceManager;
 extern Video* sVideo;
 extern Mapa* sMapa;
+extern SoundManager* sSoundManager;
 
 extern Uint32           global_elapsed_time;
 extern Uint32           contadorRitmo;
@@ -38,6 +40,7 @@ Cadence::Cadence()
 	_daga = false;
 	_tocaPared = 0;
 	_objetoEnMano = 0;
+	_soundID2 = 0;
 }
 
 Cadence::~Cadence()
@@ -66,6 +69,7 @@ void Cadence::init()
 	_daga = true;
 	_tocaPared = 0;
 	_objetoEnMano = 2;
+	_soundID2 = sSoundManager->loadAndGetSoindoID("sonidoAtaque.ogg");
 }
 
 void Cadence::update()

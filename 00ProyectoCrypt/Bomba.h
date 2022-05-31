@@ -1,9 +1,8 @@
 #pragma once
-#include "Cadence.h"
 #include "Objetos.h"
 class Bomba : public Objetos
 {
-	Cadence* personaje;
+	ElementoGFX* personaje;
 	struct Cubo {
 		int frameY, frameX;
 		int x, y, h, w;
@@ -26,6 +25,6 @@ public:
 	void renderExplosion();
 	void ponerBomba();  //contador para que explote la bomba
 	void danyoBomba();   //render de la explosión y daño
-	void setPointerPersonaje(Cadence* nombre) { personaje = nombre; }
+	void setPointerPersonaje(ElementoGFX* nombre) { personaje = nombre; }
 };
 

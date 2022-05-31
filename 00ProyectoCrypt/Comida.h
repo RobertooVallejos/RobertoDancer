@@ -2,7 +2,7 @@
 #include "Objetos.h"
 class Comida : public Objetos
 {
-	Cadence* personaje;
+	ElementoGFX* personaje;
 	int _frameY;
 	int _vidaRestante;
 	short _comidaAleatoria;
@@ -13,5 +13,5 @@ public:
 	void init();
 	void update();
 	void render();
-	void setPointerPersonaje(Cadence* nombre) { personaje = nombre; }
+	void setPointerPersonaje(ElementoGFX* nombre) { personaje = nombre; }
 };

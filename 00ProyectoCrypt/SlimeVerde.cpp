@@ -2,22 +2,26 @@
 #include "ResourceManager.h"
 #include "Video.h"
 #include "Mapa.h"
+#include "SoundManager.h"
 
 extern ResourceManager* sResourceManager;
 extern Video* sVideo;
 extern Mapa* sMapa;
+extern SoundManager* sSoundManager;
 
 extern Uint32           global_elapsed_time;
 
 SlimeVerde::SlimeVerde()
 {
-	personaje = 0;
+	personaje = nullptr;
+	_vida = 0;
 	_contadorTiempoEntreFrames = 0;
 	_ritmoJug = false;
 	_Rect.width = 0;
 	_Rect.h = 0;
 	_Rect.x = 0;
 	_Rect.y = 0;
+	_muerto = false;
 	ponerFoto("SlimeVerde.png");
 }
 
@@ -27,7 +31,7 @@ SlimeVerde::~SlimeVerde()
 
 void SlimeVerde::init()
 {
-	_vida = 3.0f;
+	_vida = 1;
 	_dano = 1;
 	_frames = 0;
 	_contadorTiempoEntreFrames = 0;
@@ -48,14 +52,29 @@ void SlimeVerde::update()
 		_contadorTiempoEntreFrames = 0;
 		if (_frames == 4) _frames = 0;
 	}
-	if (personaje->getPositionX() == _Rect.x && personaje->getPositionY() == _Rect.y) {
-			
-	}
+
+	recibirDano();
 
 }
 
 void SlimeVerde::render()
 {
 	sVideo->renderGraphic(_ID, _Rect.x - sMapa->getMapaX(), _Rect.y - sMapa->getMapaY(), _Rect.width, _Rect.h, _Rect.width * _frames, _rectFrame.frameY);
+}
+
+void SlimeVerde::recibirDano()
+{
+	_posicionAtaqueX = personaje->getPositionX();
+	_posicionAtaqueY = personaje->getPositionY();
+	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY) {
+		//sonido ataque jugador
+		sSoundManager->escucharSonido(_soundID2, "sonidoAtaque.ogg", 0);
+		sSoundManager->ajustarVolumen(_soundID2, 30);
+
+		_vida -= 1;
+		if (_vida <= 0) {
+			_muerto = true;
+		}
+	}
 }
 

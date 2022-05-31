@@ -7,6 +7,7 @@
 #define key_space 5
 #define key_p 6
 #define key_r 7
+#define key_esc 8
 class InputManager
 {
 	static InputManager* pInstance;
@@ -18,6 +19,7 @@ class InputManager
 	bool _space;
 	bool _p;
 	bool _r;
+	bool _esc;
 	int _contador;
 	int _tiempoSinMoverse;
 	bool _sePuedeMover;

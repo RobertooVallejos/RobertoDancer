@@ -1,5 +1,4 @@
 #pragma once
-#include "Cadence.h"
 #include "ElementoGFX.h"
 class Objetos : public ElementoGFX
 {

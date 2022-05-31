@@ -1,11 +1,9 @@
 #pragma once
 #include "Cadence.h"
-#include <vector>
 class SlimeAzul : public Cadence
 {
 	Cadence* personaje;
 	int _direccion;
-	int _zombiesSpawneados;
 	float _dobleTempo;
 public:
 	SlimeAzul();
@@ -15,6 +13,7 @@ public:
 	void update();
 	void render();
 	void atacar();
+	void recibirDano();
 	void setPointerPersonaje(Cadence* nombre) { personaje = nombre; }
 };
 

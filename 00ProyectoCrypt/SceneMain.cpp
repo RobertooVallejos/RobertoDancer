@@ -42,6 +42,9 @@ void SceneMain::update()
 		sSoundManager->pararSonido(_soundID);
 		sDirector->changeScene(INTRO, true);
 	}
+	if (sInputManager->getKeyPressed(key_esc)) {
+		sInputManager->quit();
+	}
 }
 
 void SceneMain::render()
@@ -52,7 +55,7 @@ void SceneMain::render()
 
 void SceneMain::reinit()
 {
-	//sSoundManager->escucharSonido(_soundID, "cancionTitulo.ogg", -1);
+	sSoundManager->escucharSonido(_soundID, "cancionTitulo.ogg", -1);
 	sSoundManager->ajustarVolumen(_soundID, 30);
 	mReinit = false;
 }
