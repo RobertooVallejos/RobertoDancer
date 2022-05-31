@@ -34,6 +34,11 @@ void Objetos::render()
 }
 
 
+int Objetos::getObjetoID()
+{
+	return 0;
+}
+
 void Objetos::spawnObjetos()
 {
 	do {

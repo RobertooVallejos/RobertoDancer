@@ -34,6 +34,7 @@ SlimeAzul::SlimeAzul()
 	_atacando = false;
 	_rectFrame.frameX = 0;
 	_rectFrame.frameY = 0;
+	_atacado = false;
 }
 
 SlimeAzul::~SlimeAzul()
@@ -85,6 +86,8 @@ void SlimeAzul::update()
 		if (_frames == 4) _frames = 0;
 	}
 
+	recibirDano();
+
 	if (_frames == 0 && _ritmoJug == true && _direccion == 1) {
 		addY(52);
 		atacar();
@@ -115,6 +118,22 @@ void SlimeAzul::update()
 		}
 	}
 	
+	//Averiguando la posición anterior del enemigo (52 es lo que mide un tile)
+	if (_posicionAnteriorY < _Rect.y)
+	{
+		_posicionAnteriorY = _Rect.y - 52;
+	}
+
+	if (_posicionAnteriorY > _Rect.y)
+	{
+		_posicionAnteriorY = _Rect.y + 52;
+	}
+
+	if (personaje->getPositionY() == _Rect.y)
+	{
+		_posicionAnteriorY = _Rect.y;
+	}
+
 }
 
 void SlimeAzul::render()
@@ -129,12 +148,37 @@ void SlimeAzul::atacar()
 	_posicionAtaqueX = personaje->getPositionX();
 	_posicionAtaqueY = personaje->getPositionY();
 	_vidaPersonaje = personaje->getVida();
+
+	//comprobando posición anterior del enemigo al atacar y moviendolo a esa posición
+	if (_posicionAnteriorY > _posicionAtaqueY) { //+17 por la mitad de lo que mide el width de Cadence
+		_posicionAnterior = 1;
+
+	}
+	if (_posicionAnteriorY < _posicionAtaqueY) {
+		_posicionAnterior = 2;
+
+	}
+
 	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == true && _ataqueRealizado == false) {
+		//resta de vida al jugador
 		_vidaPersonaje = _vidaPersonaje - _dano;
-		if (_vidaPersonaje < 0) {
-			_vidaPersonaje = 0;
-		}
 		personaje->setVida(_vidaPersonaje);
+		
+		//variable para el sonido
+		_atacado = true;
+
+		//Enemigo vuelve a la posición donde estaba
+		switch (_posicionAnterior)
+		{
+		case 1:
+			_Rect.y += 52;
+			break;
+		case 2:
+			_Rect.y -= 52;
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -143,6 +187,7 @@ void SlimeAzul::recibirDano()
 	_posicionAtaqueX = personaje->getPositionX();
 	_posicionAtaqueY = personaje->getPositionY();
 	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY) {
+		_atacado = true;
 		_vida -= 1;
 		if (_vida <= 0) {
 			_muerto = true;

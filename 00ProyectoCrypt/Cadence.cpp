@@ -40,7 +40,8 @@ Cadence::Cadence()
 	_daga = false;
 	_tocaPared = 0;
 	_objetoEnMano = 0;
-	_soundID2 = 0;
+	_posicionObjetoX = 0;
+	_posicionObjetoY = 0;
 }
 
 Cadence::~Cadence()
@@ -69,12 +70,20 @@ void Cadence::init()
 	_daga = true;
 	_tocaPared = 0;
 	_objetoEnMano = 2;
-	_soundID2 = sSoundManager->loadAndGetSoindoID("sonidoAtaque.ogg");
 }
 
 void Cadence::update()
 {
 	moverArriba();
+
+	for (size_t i = 0; i < itemsEnMapa->size(); i++)
+	{
+		_posicionObjetoX = itemsEnMapa->at(i)->getPositionX();
+		_posicionObjetoY = itemsEnMapa->at(i)->getPositionY();
+		if (_Rect.x <= _posicionObjetoX + 17 && _Rect.x + 17 >= _posicionObjetoX && _Rect.y <= _posicionObjetoY + 17 && _Rect.y + 17 >= _posicionObjetoY) {
+			_objetoEnMano = itemsEnMapa->at(i)->getObjetoID();
+		}
+	}
 
 }
 

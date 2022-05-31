@@ -32,6 +32,7 @@ SceneIntro::~SceneIntro()
 
 void SceneIntro::init()
 {
+	Personaje.setPointerVectorObjetos(&vectorObjetos);
 	sInputManager->init();
 	Personaje.ponerFoto("Cadencee.png");
 }

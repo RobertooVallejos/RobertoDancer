@@ -15,6 +15,7 @@ public:
 	void render();
 	void atacar();
 	void recibirDano();
+	bool getAtacado() { return _atacado; }
 	void setPointerPersonaje(Cadence* nombre) { personaje = nombre; }
 };
 

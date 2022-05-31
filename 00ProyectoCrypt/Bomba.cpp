@@ -30,6 +30,7 @@ Bomba::Bomba()
 	_frames = 0;
 	_vidaRestante = 0;
 	_tocaPared = 0;
+	_objetoID = 0;
 }
 
 Bomba::~Bomba()
@@ -53,6 +54,7 @@ void Bomba::init()
 	_dano = 1;
 	_contador = 0;
 	_tocaPared = 0;
+	_objetoID = 1;
 	ponerFoto("Bomba.png");
 }
 

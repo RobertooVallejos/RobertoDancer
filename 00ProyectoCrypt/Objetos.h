@@ -13,6 +13,7 @@ public:
 	virtual void update();
 	virtual void render();
 
+	virtual int getObjetoID(); //pilla el número que le corresponde al objeto
 	void spawnObjetos();
 };
 

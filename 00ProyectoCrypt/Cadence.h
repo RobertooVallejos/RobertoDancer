@@ -5,7 +5,7 @@
 class Cadence : public ElementoGFX
 {
 protected:
-	//vector<Objetos*>* itemsEnMapa;
+	std::vector<Objetos*>* itemsEnMapa;
 	struct Cubo{
 		int frameY, frameX;
 	};
@@ -35,7 +35,8 @@ protected:
 	int _posicionAnteriorX;			//variable para saber la posicion X antes de que el enemigo ataque a Cadence
 	int _posicionAnteriorY;			//variable para saber la posicion Y antes de que el enemigo ataque a Cadence
 	int _posicionAnterior;			//variable que se usa para determinar si el enemigo ha atacado desde arriba(1), abajo(2), izquierda(3) o derecha(4) del personaje
-	int	_soundID2;					//Efectos de sonido
+	int _posicionObjetoX;
+	int _posicionObjetoY;
 public:
 	Cadence();
 	~Cadence();
@@ -55,7 +56,10 @@ public:
 	int getObjeto() { return _objetoEnMano; };
 	void setDano(int value) { _dano = value; };
 	bool getMuerto() { return _muerto; };
-	//void setPointerVectorObjetos(vector<Objetos*>* nombre) { itemsEnMapa = nombre; }
+	virtual bool getAtacado() { return false; };
+	void setAtacado() { _atacado = false; };
+
+	void setPointerVectorObjetos(std::vector<Objetos*>* nombre) { itemsEnMapa = nombre; }
 	//int getDano() { return _dano; };
 };
 

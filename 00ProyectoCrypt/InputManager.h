@@ -30,6 +30,7 @@ public:
 	void update();
 	void quit();
 	bool getKeyPressed(int key);
+	void setEscToFalse();
 	static InputManager* getInstance();
 
 

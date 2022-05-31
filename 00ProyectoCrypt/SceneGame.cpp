@@ -35,8 +35,11 @@ SceneGame::~SceneGame()
 
 void SceneGame::init()
 {
+
+	//Personaje.setPointerVectorObjetos(&vectorObjetos);
 	vectorEnemigos.resize(0);
 	Personaje.ponerFoto("Cadencee.png");
+	_soundID2 = sSoundManager->loadAndGetSoindoID("sonidoAtaque.ogg");
 }
 
 void SceneGame::update()
@@ -51,13 +54,23 @@ void SceneGame::update()
 	for (size_t i = 0; i < vectorEnemigos.size(); i++)
 	{
 		vectorEnemigos[i]->update();
+		if (vectorEnemigos[i]->getAtacado() == true)
+		{
+			//sonido ataque jugador
+			sSoundManager->escucharSonido(_soundID2, "sonidoAtaque.ogg", 0);
+			sSoundManager->ajustarVolumen(_soundID2, 60);
+			vectorEnemigos[i]->setAtacado();
+		}
 		if (vectorEnemigos[i]->getMuerto() == true) {
 			delete vectorEnemigos[i];
 			vectorEnemigos.erase(vectorEnemigos.begin() + i);
 		}
 	}
-	EnemigoSlimeAzul.update();		
 
+	if (vectorEnemigos.size() <= 0)
+	{
+		sDirector->changeScene(INTRO, true);
+	}
 	for (size_t j = 0; j < vectorObjetos.size(); j++)
 	{
 		vectorObjetos[j]->update();
@@ -73,6 +86,7 @@ void SceneGame::update()
 	}
 	if (sInputManager->getKeyPressed(key_esc)) {
 		sSoundManager->pararSonido(_soundID);
+		sInputManager->setEscToFalse();
 		sDirector->changeScene(INTRO, true);
 	}
 	sMapa->update();

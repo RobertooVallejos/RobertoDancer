@@ -14,6 +14,7 @@ class Bomba : public Objetos
 	int _contadorTiempoEntreFrames;
 	int _frames;
 	int _vidaRestante;
+	int _objetoID;
 public:
 	Bomba();
 	~Bomba();
@@ -25,6 +26,7 @@ public:
 	void renderExplosion();
 	void ponerBomba();  //contador para que explote la bomba
 	void danyoBomba();   //render de la explosión y daño
+	int getObjetoID() { return _objetoID; };
 	void setPointerPersonaje(ElementoGFX* nombre) { personaje = nombre; }
 };
 

@@ -34,6 +34,7 @@ Fantasma::Fantasma()
 	_posicionAnterior = 0;
 	_posicionAnteriorX = 0;
 	_posicionAnteriorY = 0;
+	_atacado = false;
 	_cd = 0;
 }
 
@@ -205,10 +206,7 @@ void Fantasma::atacar()
 	}
 
 	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == true) {
-		//Sonido de ataque
-		sSoundManager->escucharSonido(_soundID2, "sonidoAtaque.ogg", 0);
-		sSoundManager->ajustarVolumen(_soundID2, 30);
-		
+		_atacado = true;
 		//resta de vida al personaje
 		_vidaPersonaje = _vidaPersonaje - _dano;
 		personajePrincipal->setVida(_vidaPersonaje);
@@ -240,9 +238,7 @@ void Fantasma::recibirDano()
 	_posicionAtaqueY = personajePrincipal->getPositionY();
 	_vidaPersonaje = personajePrincipal->getVida();
 	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == false) {
-		//Sonido de ataque
-		sSoundManager->escucharSonido(_soundID2, "sonidoAtaque.ogg", 0);
-		sSoundManager->ajustarVolumen(_soundID2, 30);
+		_atacado = true;
 
 		_vida -= 1;
 		if (_vida <= 0) {

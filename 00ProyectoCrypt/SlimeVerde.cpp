@@ -22,6 +22,7 @@ SlimeVerde::SlimeVerde()
 	_Rect.x = 0;
 	_Rect.y = 0;
 	_muerto = false;
+	_atacado = false;
 	ponerFoto("SlimeVerde.png");
 }
 
@@ -67,9 +68,7 @@ void SlimeVerde::recibirDano()
 	_posicionAtaqueX = personaje->getPositionX();
 	_posicionAtaqueY = personaje->getPositionY();
 	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY) {
-		//sonido ataque jugador
-		sSoundManager->escucharSonido(_soundID2, "sonidoAtaque.ogg", 0);
-		sSoundManager->ajustarVolumen(_soundID2, 30);
+		_atacado = true;
 
 		_vida -= 1;
 		if (_vida <= 0) {

@@ -33,6 +33,7 @@ Zombie::Zombie()
 	_posicionAnteriorX = 0;
 	_posicionAnteriorY = 0;
 	_muerto = false;
+	_atacado = false;
 }
 
 Zombie::~Zombie()
@@ -200,10 +201,7 @@ void Zombie::atacar()
 	}
 
 	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == true && _ataqueRealizado == false) {
-		//Sonido de ataque
-		sSoundManager->escucharSonido(_soundID2, "sonidoAtaque.ogg", 0);
-		sSoundManager->ajustarVolumen(_soundID2, 30);
-		
+		_atacado = true;
 		//Daño a Cadence
 		_vidaPersonaje = _vidaPersonaje - _dano;
 		personaje->setVida(_vidaPersonaje);
@@ -235,10 +233,7 @@ void Zombie::recibirDano()
 	_posicionAtaqueY = personaje->getPositionY();
 	_vidaPersonaje = personaje->getVida();
 	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == false) {
-		//sonido ataque jugador
-		sSoundManager->escucharSonido(_soundID2, "sonidoAtaque.ogg", 0);
-		sSoundManager->ajustarVolumen(_soundID2, 30);
-		
+		_atacado = true;
 		_vida -= 1;
 		if (_vida <= 0) {
 			_muerto = true;
