@@ -15,6 +15,8 @@ Pergaminos::Pergaminos()
 	_frameY = 0;
 	_scrollAleatorio = 0;
 	_danoConObjeto = 0;
+	_objetoID = 0;
+	_pergaminoRojoPrimeraVez = false;
 }
 
 Pergaminos::~Pergaminos()
@@ -30,6 +32,7 @@ void Pergaminos::init()
 	_Rect.y = 0;
 	_scrollAleatorio = rand() % 3 + 1;
 	_danoConObjeto = 2;
+	_objetoID = 0;
 }
 
 void Pergaminos::update()
@@ -42,7 +45,10 @@ void Pergaminos::update()
 		break;
 	case 4:
 		_vidaRestante = personaje->getVida();
-		personaje->setVida(_vidaRestante += 2);
+		if (_vidaRestante == 6 && _pergaminoRojoPrimeraVez == false) {
+			personaje->setVida(_vidaRestante += 2);
+			_pergaminoRojoPrimeraVez = true;
+		}
 		break;
 	case 5:
 		_vidaRestante = personaje->getVida();
@@ -61,12 +67,15 @@ void Pergaminos::render()
 	{
 	case 1:
 		_frameY = _Rect.h * 1; //aparece scroll rosa
+		_objetoID = 3;
 		break;
 	case 2:
 		_frameY = _Rect.h * 2; //aparece scroll rojo 
+		_objetoID = 4;
 		break;
 	case 3:
 		_frameY = _Rect.h * 3; //aparece scroll blanco
+		_objetoID = 5;
 		break;
 	default:
 		break;

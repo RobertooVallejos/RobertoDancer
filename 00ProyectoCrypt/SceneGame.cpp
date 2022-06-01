@@ -36,7 +36,7 @@ SceneGame::~SceneGame()
 void SceneGame::init()
 {
 
-	//Personaje.setPointerVectorObjetos(&vectorObjetos);
+	Personaje.setPointerVectorObjetos(&vectorObjetos);
 	vectorEnemigos.resize(0);
 	Personaje.ponerFoto("Cadencee.png");
 	_soundID2 = sSoundManager->loadAndGetSoindoID("sonidoAtaque.ogg");
@@ -127,6 +127,7 @@ void SceneGame::reinit()
 	sMapa->init("mapaFirst.tmx");
 	Personaje.init();
 	Personaje.setPositionXY(52 * 20 + 17, 52 * 16);
+	Personaje.setJugando(true);
 	size_t size = vectorEnemigos.size();
 	for (size_t i = 0; i < size; i++)
 	{

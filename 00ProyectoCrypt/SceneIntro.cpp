@@ -72,6 +72,7 @@ void SceneIntro::reinit()
 {
 	contadorRitmo = 0;
 	Personaje.init();
+	Personaje.setJugando(false);
 	sSoundManager->escucharSonido(_soundID, "cancionMenu.ogg", -1);
 	sSoundManager->ajustarVolumen(_soundID, 30);
 	Hud.init();

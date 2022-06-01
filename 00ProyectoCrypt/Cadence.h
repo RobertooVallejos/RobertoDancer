@@ -59,7 +59,7 @@ public:
 	bool getMuerto() { return _muerto; };
 	virtual bool getAtacado() { return false; };
 	void setAtacado() { _atacado = false; };
-	void setJugando(bool jugando) { _jugando = jugando; };
+	void setJugando(bool jugando);
 
 	void setPointerVectorObjetos(std::vector<Objetos*>* nombre) { itemsEnMapa = nombre; }
 	//int getDano() { return _dano; };

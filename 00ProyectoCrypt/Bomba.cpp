@@ -54,7 +54,7 @@ void Bomba::init()
 	_dano = 1;
 	_contador = 0;
 	_tocaPared = 0;
-	_objetoID = 1;
+	_objetoID = 2;
 	ponerFoto("Bomba.png");
 }
 

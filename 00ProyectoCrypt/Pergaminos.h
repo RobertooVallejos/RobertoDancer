@@ -10,6 +10,7 @@ class Pergaminos : public Objetos
 	int _vidaRestante;
 	short _scrollAleatorio;
 	int _danoConObjeto;
+	bool _pergaminoRojoPrimeraVez;
 public:
 	Pergaminos();
 	~Pergaminos();
@@ -20,5 +21,6 @@ public:
 	void ponerBomba();  //contador para que explote la bomba
 	void danyoBomba();   //render de la explosión y daño
 	void setPointerPersonaje(ElementoGFX* nombre) { personaje = nombre; }
+	int getObjetoID() { return _objetoID; };
 };
 

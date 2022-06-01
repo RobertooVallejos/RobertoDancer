@@ -77,7 +77,7 @@ void Cadence::update()
 {
 	moverArriba();
 
-	if(_jugando) {
+ 	if(_jugando) {
 		for (size_t i = 0; i < itemsEnMapa->size(); i++)
 		{
 			_posicionObjetoX = itemsEnMapa->at(i)->getPositionX();
@@ -248,4 +248,8 @@ void Cadence::spawnEnemies()
 		_Rect.y = 52 * (rand() % 30);
 		_tocaPared = sMapa->getIDfromLayer(0, _Rect.x, _Rect.y);
 	} while (!(_tocaPared == 1 || _tocaPared == 2));
+}
+
+void Cadence::setJugando(bool jugando) {
+	_jugando = jugando;
 }

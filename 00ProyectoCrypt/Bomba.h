@@ -14,7 +14,6 @@ class Bomba : public Objetos
 	int _contadorTiempoEntreFrames;
 	int _frames;
 	int _vidaRestante;
-	int _objetoID;
 public:
 	Bomba();
 	~Bomba();

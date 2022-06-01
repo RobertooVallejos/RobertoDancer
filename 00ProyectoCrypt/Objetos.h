@@ -5,6 +5,7 @@ class Objetos : public ElementoGFX
 protected:
 	ElementoGFX* personaje;
 	int _tocaPared;
+	int _objetoID;
 public:
 	Objetos();
 	~Objetos();
