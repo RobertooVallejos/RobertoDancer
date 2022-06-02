@@ -43,6 +43,7 @@ Cadence::Cadence()
 	_posicionObjetoX = 0;
 	_posicionObjetoY = 0;
 	_jugando = false;
+	_puntuacion = 0;
 }
 
 Cadence::~Cadence()
@@ -71,6 +72,7 @@ void Cadence::init()
 	_daga = true;
 	_tocaPared = 0;
 	_objetoEnMano = 2;
+	_puntuacion = 0;
 }
 
 void Cadence::update()
@@ -192,8 +194,6 @@ void Cadence::moverArriba()
 		cd = 0;
 	}*/
 
-	if (sInputManager->getKeyPressed(key_p) && cd >= 50) {
-		_objetoEnMano++;
 		switch (_objetoEnMano)
 		{
 		case 1:
@@ -221,11 +221,6 @@ void Cadence::moverArriba()
 			_rectFrame.frameY = _Rect.h * 0;
 			break;
 		}
-		if (_objetoEnMano > 7) {
-			_objetoEnMano = 1;
-		}
-		cd = 0;
-	}
 }
 
 void Cadence::moverAbajo()

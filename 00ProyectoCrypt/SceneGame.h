@@ -9,15 +9,15 @@
 #include "Mapa.h"
 #include "HUD.h"
 #include "Bomba.h"
+#include "Lanza.h"
 #include "Objetos.h"
 
 class SceneGame : public Scene //gameplay
 {
+	int _contadorMuerte;
+	int _puertaFinalID;
 	Cadence Personaje;
-	SlimeAzul EnemigoSlimeAzul;
-	SlimeVerde EnemigoSlimeVerde;
-	Murcielago EnemigoMurcielago;
-	Fantasma EnemigoFantasma;
+	Lanza armaLanza;
 	HUD Hud;
 	Bomba Bombs;
 	vector<Cadence*> vectorEnemigos; //vector de Cadence porque es la clase Padre de todas las clases de enemigos

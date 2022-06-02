@@ -6,6 +6,7 @@ protected:
 	ElementoGFX* personaje;
 	int _tocaPared;
 	int _objetoID;
+	bool _usado;
 public:
 	Objetos();
 	~Objetos();
@@ -16,5 +17,6 @@ public:
 
 	virtual int getObjetoID(); //pilla el número que le corresponde al objeto
 	void spawnObjetos();
+	bool getUsado() { return _usado; };
 };
 

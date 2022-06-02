@@ -152,6 +152,7 @@
     <ClCompile Include="Fantasma.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Lanza.cpp" />
     <ClCompile Include="MainForDirector.cpp" />
     <ClCompile Include="Mapa.cpp" />
     <ClCompile Include="Murcielago.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Fantasma.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Lanza.h" />
     <ClInclude Include="Mapa.h" />
     <ClInclude Include="Murcielago.h" />
     <ClInclude Include="Objetos.h" />

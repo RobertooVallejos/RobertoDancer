@@ -50,10 +50,6 @@ void Pergaminos::update()
 			_pergaminoRojoPrimeraVez = true;
 		}
 		break;
-	case 5:
-		_vidaRestante = personaje->getVida();
-		personaje->setVida(_vidaRestante += 2);
-		break;
 	default:
 		_frameY = _Rect.h * 0; //ningun objeto en mano
 		break;

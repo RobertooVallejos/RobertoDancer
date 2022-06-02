@@ -10,6 +10,7 @@
 #include "Bomba.h"
 #include "Pergaminos.h"
 #include "Comida.h"
+#include "Lanza.h"
 #include "tinyxml2.h"
 
 extern SceneDirector* sDirector;
@@ -22,11 +23,14 @@ extern Mapa* sMapa;
 extern bool             gameOn;
 extern Uint32           global_elapsed_time;
 extern Uint32           contadorRitmo;
+extern Uint32           contadorCancion;
 
 using namespace tinyxml2;
 
 SceneGame::SceneGame()
 {
+	_contadorMuerte = 0;
+	_puertaFinalID = 0;
 }
 
 SceneGame::~SceneGame()
@@ -45,12 +49,20 @@ void SceneGame::init()
 void SceneGame::update()
 {
 	contadorRitmo += global_elapsed_time;
+	contadorCancion += global_elapsed_time;
+	_contadorMuerte += global_elapsed_time;
 	Personaje.update();
 	if (Personaje.getVida() <= 0) {
 		sSoundManager->pararSonido(_soundID);
 		sDirector->changeScene(GAMEOVER, true);
 	}
 
+	if (_contadorMuerte >= 180000) {
+		Personaje.setVida(0);
+	}
+
+	_puertaFinalID = sMapa->getIDfromLayer(0, Personaje.getPositionX() + 34 / 2, Personaje.getPositionY() + 46 / 2);  //veo cual es el ID de la casilla donde está el personaje 
+																													  //(34 es width y 46 height y se dividen entre 2 para que sea el centro de la casilla)
 	for (size_t i = 0; i < vectorEnemigos.size(); i++)
 	{
 		vectorEnemigos[i]->update();
@@ -67,17 +79,24 @@ void SceneGame::update()
 		}
 	}
 
-	if (vectorEnemigos.size() <= 0)
-	{
+	if (vectorEnemigos.size() <= 0 && _puertaFinalID == 3) {
+		sSoundManager->pararSonido(_soundID);
 		sDirector->changeScene(INTRO, true);
 	}
 	for (size_t j = 0; j < vectorObjetos.size(); j++)
 	{
 		vectorObjetos[j]->update();
+		if (vectorObjetos[j]->getUsado() == true) {
+			delete vectorObjetos[j];
+			vectorObjetos.erase(vectorObjetos.begin() + j);
+		}
 	}
 	//EnemigoSlimeVerde.update();
 	//EnemigoMurcielago.update();
 	//EnemigoFantasma.update();
+
+	armaLanza.update();
+
 	Bombs.update();
 	Hud.update();
 	if (sInputManager->getKeyPressed(key_space)) {
@@ -110,6 +129,7 @@ void SceneGame::render()
 	//EnemigoSlimeVerde.render();
 	//EnemigoMurcielago.render();
 	//EnemigoFantasma.render();
+	armaLanza.render();
 	Hud.render();
 	Hud.renderArmas();
 	Hud.renderObjetos();
@@ -124,22 +144,31 @@ void SceneGame::render()
 void SceneGame::reinit()
 {
 	contadorRitmo = 0;
+	_contadorMuerte = 0;
+	contadorCancion = 0;
+	_puertaFinalID = 0;
 	sMapa->init("mapaFirst.tmx");
 	Personaje.init();
 	Personaje.setPositionXY(52 * 20 + 17, 52 * 16);
 	Personaje.setJugando(true);
-	size_t size = vectorEnemigos.size();
-	for (size_t i = 0; i < size; i++)
+	size_t sizeVectorEnemigos = vectorEnemigos.size();
+	for (size_t i = 0; i < sizeVectorEnemigos; i++)
 	{
 		delete vectorEnemigos[i];
 	}
 	vectorEnemigos.resize(0);
+	size_t sizeVectorObjetos = vectorObjetos.size();
+	for (size_t i = 0; i < sizeVectorObjetos; i++)
+	{
+		delete vectorObjetos[i];
+	}
+	vectorObjetos.resize(0);
 	Zombie* zombieEnemigo;
 	SlimeVerde* slimeVerdeEnemigo;
 	Fantasma* fantasmaEnemigo;
 	SlimeAzul* slimeAzulEnemigo;
 	Murcielago* murcielagoEnemigo;
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 2; i++) {
 		zombieEnemigo = new Zombie();
 		zombieEnemigo->init();
 		zombieEnemigo->spawnEnemies();
@@ -169,6 +198,7 @@ void SceneGame::reinit()
 	Bomba* bombasMapa;
 	Pergaminos* pergaminoAleatorio;
 	Comida* comidaAleatoria;
+	Lanza* lanzaAleatoria;
 	for (int i = 0; i < 3; i++) {
 		bombasMapa = new Bomba();
 		bombasMapa->init();
@@ -187,6 +217,9 @@ void SceneGame::reinit()
 	comidaAleatoria->setPointerPersonaje(&Personaje);
 	vectorObjetos.push_back(comidaAleatoria);
 
+	armaLanza.init();
+	armaLanza.spawnObjetos();
+	armaLanza.setPointerPersonaje(&Personaje);
 	sSoundManager->escucharSonido(_soundID, "cancionGame.ogg", 0);
 	sSoundManager->ajustarVolumen(_soundID, 30);
 	//EnemigoSlimeAzul.init();

@@ -68,6 +68,10 @@ int ElementoGFX::getVida()
 	return 0;
 }
 
+void ElementoGFX::setObjeto(int value)
+{
+}
+
 int ElementoGFX::getObjeto()
 {
 	return 0;

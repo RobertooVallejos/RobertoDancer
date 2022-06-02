@@ -18,8 +18,6 @@ public:
 	void init();
 	void update();
 	void render();
-	void ponerBomba();  //contador para que explote la bomba
-	void danyoBomba();   //render de la explosión y daño
 	void setPointerPersonaje(ElementoGFX* nombre) { personaje = nombre; }
 	int getObjetoID() { return _objetoID; };
 };

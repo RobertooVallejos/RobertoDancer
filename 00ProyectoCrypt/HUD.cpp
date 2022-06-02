@@ -7,6 +7,7 @@ extern Video* sVideo;
 
 extern Uint32           global_elapsed_time;
 extern Uint32           contadorRitmo;
+extern Uint32           contadorCancion;
 
 HUD::HUD()
 {
@@ -250,6 +251,9 @@ void HUD::renderRitmoLinea()
 		centroDer = false;
 	}
 	//63
-	sVideo->renderGraphic(_ID4, _ritmoRectFrame.x, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, 0, 50);
-
+	if (contadorCancion >= 150000) {
+		_ritmoRectFrame.frameX = 40;
+	}
+	sVideo->renderGraphic(_ID4, _ritmoRectFrame.x, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, _ritmoRectFrame.frameX, 50);
+	
 }

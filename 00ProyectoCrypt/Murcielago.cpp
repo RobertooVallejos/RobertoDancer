@@ -243,6 +243,22 @@ void Murcielago::recibirDano()
 	_posicionAtaqueX = personaje->getPositionX();
 	_posicionAtaqueY = personaje->getPositionY();
 	_vidaPersonaje = personaje->getVida();
+	if (personaje->getObjeto() == 5) {
+		if (_posicionAtaqueX >= -104 && _posicionAtaqueX < 0 && _posicionAtaqueY >= -104 && _posicionAtaqueY < 104 && _atacando == false) {  //Cadence está a la derecha
+			_atacado = true;
+			_vida -= 1;
+			if (_vida <= 0) {
+				_muerto = true;
+			}
+		}
+		if (_posicionAtaqueX <= 104 && _posicionAtaqueX > 0 && _posicionAtaqueY <= 104 && _posicionAtaqueY > -104 && _atacando == false) {  //Cadence está a la derecha
+			_atacado = true;
+			_vida -= 1;
+			if (_vida <= 0) {
+				_muerto = true;
+			}
+		}
+	}
 	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == false) {
 		_atacado = true;
 		_vida -= 1;

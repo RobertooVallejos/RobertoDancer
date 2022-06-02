@@ -15,7 +15,8 @@
 #include "Timer.h"
 
 Uint32 		global_elapsed_time = 0;
-Uint32		contadorRitmo = 0;
+Uint32		contadorRitmo = 0;	 //Variable hecha para que la barra de ritmo se mueva acorde a la canción
+Uint32		contadorCancion = 0; //Variable hecha para que cuando pase buena parte de la canción el color de la barra de ritmo cambie a rojo (observar render de HUD)
 bool		gameOn = true;
 SceneDirector	*sDirector = NULL;
 InputManager*	sInputManager = NULL;

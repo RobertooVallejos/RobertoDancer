@@ -52,10 +52,6 @@ void SoundManager::pararSonido(int canal)
     Mix_HaltChannel(canal);
 }
 
-void SoundManager::muertePorTiempo()
-{
-}
-
 Sint32 SoundManager::loadAndGetSoindoID(const char* file)
 {
     std::map<std::string, int>::iterator it;

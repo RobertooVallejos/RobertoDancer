@@ -48,6 +48,7 @@ public:
 
 	virtual void setVida(int value);
 	virtual int getVida();
+	virtual void setObjeto(int value);
 	virtual int getObjeto();
 	virtual void setDano(int value);
 };

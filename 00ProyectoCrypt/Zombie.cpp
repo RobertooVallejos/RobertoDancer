@@ -232,6 +232,10 @@ void Zombie::recibirDano()
 	_posicionAtaqueX = personaje->getPositionX();
 	_posicionAtaqueY = personaje->getPositionY();
 	_vidaPersonaje = personaje->getVida();
+	if (personaje->getObjeto() == 5) {
+		_posicionAtaqueX = _posicionAtaqueX * 2;
+		_posicionAtaqueY = _posicionAtaqueY * 2;
+	}
 	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == false) {
 		_atacado = true;
 		_vida -= 1;

@@ -1,7 +1,9 @@
 #include "Comida.h"
 #include "Video.h"
 #include "Mapa.h"
+#include "InputManager.h"
 
+extern InputManager* sInputManager;
 extern Mapa* sMapa;
 extern Video* sVideo;
 Comida::Comida()
@@ -13,6 +15,8 @@ Comida::Comida()
 	_Rect.y = 0;
 	_frameY = 0;
 	_comidaAleatoria = 0;
+	_objetoID = 0;
+	_usado = false;
 }
 
 Comida::~Comida()
@@ -29,6 +33,7 @@ void Comida::init()
 	_comidaAleatoria = rand() % 2 + 4;
 	_frameY = 0;
 	_vidaRestante = 0;
+	_usado = false;
 }
 
 void Comida::update()
@@ -36,12 +41,29 @@ void Comida::update()
 	switch (personaje->getObjeto())  //esto debería ser para el spawn y también se puede usar para el comportamiento
 	{
 	case 6:
-		_vidaRestante = personaje->getVida();
-		personaje->setVida(_vidaRestante += 1);
+		if (sInputManager->getKeyPressed(key_space) && _usado == false) {
+			_vidaRestante = personaje->getVida();
+			if (_vidaRestante != 6) {
+				personaje->setVida(_vidaRestante += 1);
+			}
+			_usado = true;
+			personaje->setObjeto(1);
+		}
 		break;
 	case 7:
-		_vidaRestante = personaje->getVida();
-		personaje->setVida(_vidaRestante += 2);
+		if (sInputManager->getKeyPressed(key_space) && _usado == false) {
+			_vidaRestante = personaje->getVida();
+			if (_vidaRestante != 6) {
+				if (_vidaRestante == 5) {
+					personaje->setVida(_vidaRestante += 1);
+				}else{
+					personaje->setVida(_vidaRestante += 2);
+				}
+				
+			}
+			_usado = true;
+			personaje->setObjeto(1);
+		}
 		break;
 	default:
 		_frameY = _Rect.h * 0; //ningun objeto en mano
@@ -55,9 +77,11 @@ void Comida::render()
 	{
 	case 4:
 		_frameY = _Rect.h * 4; //queso
+		_objetoID = 6;
 		break;
 	case 5:
 		_frameY = _Rect.h * 5; //manzana
+		_objetoID = 7;
 		break;
 	default:
 		break;

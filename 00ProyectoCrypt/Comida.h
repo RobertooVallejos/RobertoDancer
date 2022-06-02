@@ -14,4 +14,5 @@ public:
 	void update();
 	void render();
 	void setPointerPersonaje(ElementoGFX* nombre) { personaje = nombre; }
+	int getObjetoID() { return _objetoID; };
 };

@@ -35,9 +35,10 @@ protected:
 	int _posicionAnteriorX;			//variable para saber la posicion X antes de que el enemigo ataque a Cadence
 	int _posicionAnteriorY;			//variable para saber la posicion Y antes de que el enemigo ataque a Cadence
 	int _posicionAnterior;			//variable que se usa para determinar si el enemigo ha atacado desde arriba(1), abajo(2), izquierda(3) o derecha(4) del personaje
-	int _posicionObjetoX;
-	int _posicionObjetoY;
-	bool _jugando;
+	int _posicionObjetoX;			//variable para saber la posición de los objetos en el mapa (X)
+	int _posicionObjetoY;			//variable para saber la posición de los objetos en el mapa (Y)
+	bool _jugando;					//boolean para saber si el jugador ha empezado a jugar
+	int _puntuacion;
 public:
 	Cadence();
 	~Cadence();
@@ -53,7 +54,9 @@ public:
 	void spawnEnemies();
 	void setVida(int value) { _vida = value; };
 	int getVida() { return _vida; };
+	void setArma(bool daga) { _daga = daga; };
 	bool getArma() { return _daga; };
+	void setObjeto(int value) { _objetoEnMano = value; };
 	int getObjeto() { return _objetoEnMano; };
 	void setDano(int value) { _dano = value; };
 	bool getMuerto() { return _muerto; };
