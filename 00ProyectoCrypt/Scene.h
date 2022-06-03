@@ -33,6 +33,8 @@ class Scene
 		bool		mReinit;			/*!<  Reload when returning to scene*/
 		int			_soundID;
 		int			_soundID2;
+		int			_soundID3;
+		int			_soundID4;
 };
 
 #endif

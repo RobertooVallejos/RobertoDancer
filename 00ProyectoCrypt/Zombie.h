@@ -5,8 +5,9 @@ class Zombie : public Cadence
 {
 	Cadence* personaje;
 	int _direccion;
-	int _zombiesSpawneados;
 	float _dobleTempo;
+	int _rangoAtaqueNegativo;
+	int _rangoAtaquePositivo;
 public:
 	Zombie();
 	~Zombie();

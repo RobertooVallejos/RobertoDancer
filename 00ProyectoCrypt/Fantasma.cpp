@@ -26,7 +26,6 @@ Fantasma::Fantasma()
 	_activado = false;
 	_girado = false;
 	_direccion = 0;
-	_fantasmasSpawneados = 0;
 	_personajeCercaX = 0;
 	_personajeCercaY = 0;
 	_dobleTempo = 0.0f;
@@ -36,6 +35,8 @@ Fantasma::Fantasma()
 	_posicionAnteriorY = 0;
 	_atacado = false;
 	_cd = 0;
+	_rangoAtaquePositivo = 0;
+	_rangoAtaqueNegativo = 0;
 }
 
 Fantasma::~Fantasma()
@@ -53,7 +54,6 @@ void Fantasma::init()
 	_Rect.h = 40;
 	_activado = false;
 	_direccion = 1;
-	_fantasmasSpawneados = 5;
 	_personajeCercaX = 1000;
 	_personajeCercaY = 1000;
 	_dobleTempo = 0.0f;
@@ -173,10 +173,10 @@ void Fantasma::compruebaMovimiento()
 {
 	_personajeCercaX = _Rect.x - personajePrincipal->getPositionX();
 	_personajeCercaY = _Rect.y - personajePrincipal->getPositionY();
-	if(_personajeCercaX >= -300 && _personajeCercaX < 0 && _personajeCercaY >= -300 && _personajeCercaY < 300){  //Cadence está a la derecha
+	if(_personajeCercaX >= -52 * 5 && _personajeCercaX < 0 && _personajeCercaY >= -52 * 5 && _personajeCercaY < 52 * 5){  //Cadence está a la derecha
 		_activado = true;
 	}
-	if (_personajeCercaX <= 300 && _personajeCercaX > 0 && _personajeCercaY <= 300 && _personajeCercaY > -300) {  //Cadence está a la derecha
+	if (_personajeCercaX <= 52 * 5 && _personajeCercaX > 0 && _personajeCercaY <= 52 * 5 && _personajeCercaY > -52 * 5) {  //Cadence está a la derecha
 		_activado = true;
 	}
 }
@@ -234,16 +234,32 @@ void Fantasma::atacar()
 
 void Fantasma::recibirDano()
 {
-	_posicionAtaqueX = personajePrincipal->getPositionX();
-	_posicionAtaqueY = personajePrincipal->getPositionY();
-	_vidaPersonaje = personajePrincipal->getVida();
-	if (personajePrincipal->getObjeto() == 5) {
-		_posicionAtaqueX = _posicionAtaqueX * 2;
-		_posicionAtaqueY = _posicionAtaqueY * 2;
-	}
-	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY && _atacando == false) {
-		_atacado = true;
+	_posicionAtaqueX = _Rect.x - personajePrincipal->getPositionX();
+	_posicionAtaqueY = _Rect.y - personajePrincipal->getPositionY();
 
+	//CONDICIONES PARA AUMENTAR EL RANGO
+	if (personajePrincipal->getObjeto() == 5 && personajePrincipal->getArma() == false) {				 //Objetos que duplican el rango de ataque (2 a la vez)
+		_rangoAtaqueNegativo = -52 * 2;
+		_rangoAtaquePositivo = 52 * 2;
+	}
+	if (personajePrincipal->getObjeto() == 5 || personajePrincipal->getArma() == false) {				 //Objetos que duplican el rango de ataque (1 solo)
+		_rangoAtaqueNegativo = -52;
+		_rangoAtaquePositivo = 52;
+	}
+	else {
+		_rangoAtaqueNegativo = -17;
+		_rangoAtaquePositivo = 17;
+	}
+
+
+	if (_posicionAtaqueX >= _rangoAtaqueNegativo && _posicionAtaqueX < 0 && _posicionAtaqueY >= _rangoAtaqueNegativo && _posicionAtaqueY < _rangoAtaquePositivo && _atacando == false) {  //Cadence está a la derecha
+		_atacado = true;
+	}
+	if (_posicionAtaqueX <= _rangoAtaquePositivo && _posicionAtaqueX > 0 && _posicionAtaqueY <= _rangoAtaquePositivo && _posicionAtaqueY > _rangoAtaqueNegativo && _atacando == false) {  //Cadence está a la derecha
+		_atacado = true;
+	}
+
+	if (_atacado == true) {
 		_vida -= 1;
 		if (_vida <= 0) {
 			_muerto = true;

@@ -14,8 +14,10 @@
 
 class SceneGame : public Scene //gameplay
 {
-	int _contadorMuerte;
 	int _puertaFinalID;
+	bool _sonidoInicioHecho;
+	bool _sonidoLoopHecho;
+	int _contadorSegundos;
 	Cadence Personaje;
 	Lanza armaLanza;
 	HUD Hud;

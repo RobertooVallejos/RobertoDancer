@@ -44,6 +44,11 @@ Cadence::Cadence()
 	_posicionObjetoY = 0;
 	_jugando = false;
 	_puntuacion = 0;
+	_objetoAnterior = 0;
+	_caminaFueraCasilla = true;
+	_cambiazo = false;
+	_posicionAnteriorX = 0;
+	_posicionAnteriorY = 0;
 }
 
 Cadence::~Cadence()
@@ -71,7 +76,7 @@ void Cadence::init()
 	_rectFrame.frameY = 0;
 	_daga = true;
 	_tocaPared = 0;
-	_objetoEnMano = 2;
+	_objetoEnMano = 1;
 	_puntuacion = 0;
 }
 
@@ -79,14 +84,39 @@ void Cadence::update()
 {
 	moverArriba();
 
+	//Recojo y dejo objetos en el suelo. También me espero a salir de la casilla para poder volver a cambiar de objeto.
  	if(_jugando) {
 		for (size_t i = 0; i < itemsEnMapa->size(); i++)
 		{
 			_posicionObjetoX = itemsEnMapa->at(i)->getPositionX();
 			_posicionObjetoY = itemsEnMapa->at(i)->getPositionY();
-			if (_Rect.x <= _posicionObjetoX + 17 && _Rect.x + 17 >= _posicionObjetoX && _Rect.y <= _posicionObjetoY + 17 && _Rect.y + 17 >= _posicionObjetoY) {
+			if (_Rect.x <= _posicionObjetoX + 17 && _Rect.x + 17 >= _posicionObjetoX && _Rect.y <= _posicionObjetoY + 17 && _Rect.y + 17 >= _posicionObjetoY && _cambiazo == false) {
+				if (itemsEnMapa->at(i)->getObjetoID() == 1)
+				{
+					_cambiazo = true;
+
+				}
 				_objetoEnMano = itemsEnMapa->at(i)->getObjetoID();
+				itemsEnMapa->at(i)->cambiarObjeto(_objetoAnterior);
+				_objetoAnterior = _objetoEnMano;
+				_posicionAnteriorX = _Rect.x;
+				_posicionAnteriorY = _Rect.y;
+				_cambiazo = true;
+				
 			}
+			if (_posicionAnteriorX != _Rect.x || _posicionAnteriorY != _Rect.y) {  //cuando el jugador se mueve fuera de la casilla
+				_caminaFueraCasilla = true;
+			}
+			else
+			{
+				_caminaFueraCasilla = false;									  //el jugador está dentro de la casilla donde hay un objeto
+			}
+
+			if (_caminaFueraCasilla == true)
+			{
+				_cambiazo = false;												 //Se vuelve a permitir el poder coger un objeto
+			}
+
 		}
 	}
 }
@@ -228,9 +258,6 @@ void Cadence::moverAbajo()
 
 }
 
-void Cadence::atacar()
-{
-}
 
 void Cadence::muerte()
 {

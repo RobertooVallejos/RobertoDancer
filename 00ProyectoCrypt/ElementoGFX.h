@@ -51,4 +51,5 @@ public:
 	virtual void setObjeto(int value);
 	virtual int getObjeto();
 	virtual void setDano(int value);
+	virtual void setObjetoAnterior(int value);
 };

@@ -31,6 +31,7 @@ Bomba::Bomba()
 	_vidaRestante = 0;
 	_tocaPared = 0;
 	_objetoID = 0;
+	_inicialID = 0;
 }
 
 Bomba::~Bomba()
@@ -39,12 +40,12 @@ Bomba::~Bomba()
 
 void Bomba::init()
 {
-	_Rect.h = 48;
-	_Rect.width = 230 / 5;
+	_Rect.h = 60;
+	_Rect.width = 60;
 	_posicionesBomba.x = 0;
 	_posicionesBomba.y = 0;
-	_posicionesBomba.h = 48;
-	_posicionesBomba.w = 230 / 5;
+	_posicionesBomba.h = 60;
+	_posicionesBomba.w = 60;
 	_posicionesBomba.frameX = 0;
 	_posicionesBomba.frameY = 0;
 	_posicionExplosionBomba.x = 0;
@@ -55,7 +56,7 @@ void Bomba::init()
 	_contador = 0;
 	_tocaPared = 0;
 	_objetoID = 2;
-	ponerFoto("Bomba.png");
+	ponerFoto("objetosUtilidadBorderless.png");
 }
 
 void Bomba::update()
@@ -65,12 +66,46 @@ void Bomba::update()
 		_frames++;
 		_contadorTiempoEntreFrames = 0;
 	}
+
 }
 
 void Bomba::render()
 {
 	//sVideo->renderGraphic(_ID, _posicionesBomba.x - sMapa->getMapaX(), _posicionesBomba.y - sMapa->getMapaY(), _posicionesBomba.w, _posicionesBomba.h, _Rect.width * _frames, 0);
-	sVideo->renderGraphic(_ID, _Rect.x - sMapa->getMapaX(), _Rect.y - sMapa->getMapaY(), _Rect.width, _Rect.h, 0, 0);
+
+	if (_inicialID == 0) {
+		_objetoID = 2;
+		_inicialID = 1;
+	}
+
+	switch (_objetoID)
+	{
+	case 1:
+		sVideo->renderGraphic(_ID, _Rect.x - sMapa->getMapaX(), _Rect.y - sMapa->getMapaY(), _Rect.width, _Rect.h, 0, 60 * 6);
+		break;
+	case 2:
+		sVideo->renderGraphic(_ID, _Rect.x - sMapa->getMapaX(), _Rect.y - sMapa->getMapaY(), _Rect.width, _Rect.h, 0, 0);
+		break;
+	case 3:
+		sVideo->renderGraphic(_ID, _Rect.x - sMapa->getMapaX(), _Rect.y - sMapa->getMapaY(), _Rect.width, _Rect.h, 0, 60);
+		break;
+	case 4:
+		sVideo->renderGraphic(_ID, _Rect.x - sMapa->getMapaX(), _Rect.y - sMapa->getMapaY(), _Rect.width, _Rect.h, 0, 60 * 2);
+		break;
+	case 5:
+		sVideo->renderGraphic(_ID, _Rect.x - sMapa->getMapaX(), _Rect.y - sMapa->getMapaY(), _Rect.width, _Rect.h, 0, 60 * 3);
+		break;
+	case 6:
+		sVideo->renderGraphic(_ID, _Rect.x - sMapa->getMapaX(), _Rect.y - sMapa->getMapaY(), _Rect.width, _Rect.h, 0, 60 * 4);
+		break;
+	case 7:
+		sVideo->renderGraphic(_ID, _Rect.x - sMapa->getMapaX(), _Rect.y - sMapa->getMapaY(), _Rect.width, _Rect.h, 0, 60 * 5);
+		break;
+
+	default:
+		sVideo->renderGraphic(_ID, _Rect.x - sMapa->getMapaX(), _Rect.y - sMapa->getMapaY(), _Rect.width, _Rect.h, 0, 60 * 6);
+		break;
+	}
 }
 
 void Bomba::renderBombaMapa()

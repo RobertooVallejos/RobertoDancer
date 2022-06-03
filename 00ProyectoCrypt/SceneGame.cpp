@@ -29,7 +29,6 @@ using namespace tinyxml2;
 
 SceneGame::SceneGame()
 {
-	_contadorMuerte = 0;
 	_puertaFinalID = 0;
 }
 
@@ -44,20 +43,24 @@ void SceneGame::init()
 	vectorEnemigos.resize(0);
 	Personaje.ponerFoto("Cadencee.png");
 	_soundID2 = sSoundManager->loadAndGetSoindoID("sonidoAtaque.ogg");
+	_soundID3 = sSoundManager->loadAndGetSoindoID("sonidoSaiyanInicio.ogg");
+	_soundID4 = sSoundManager->loadAndGetSoindoID("sonidoSaiyanLoop.ogg");
 }
 
 void SceneGame::update()
 {
-	contadorRitmo += global_elapsed_time;
-	contadorCancion += global_elapsed_time;
-	_contadorMuerte += global_elapsed_time;
+	contadorRitmo += global_elapsed_time;			//contador global para las líneas del ritmo
+	contadorCancion += global_elapsed_time;			//contador para que llegado cierto punto de la canción (2:30) las líneas cambien de color
 	Personaje.update();
-	if (Personaje.getVida() <= 0) {
+
+	if (Personaje.getVida() <= 0) {					//vida del personaje llega a 0. Se paran las músicas, contadorCancion se reinicia y se cambia a la escena de GAMEOVER.
 		sSoundManager->pararSonido(_soundID);
+		sSoundManager->pararSonido(_soundID4);
+		contadorCancion = 0;						//es necesario que se reinicie porque sino la línea sería roja durante SceneIntro
 		sDirector->changeScene(GAMEOVER, true);
 	}
 
-	if (_contadorMuerte >= 180000) {
+	if (contadorCancion >= 175000) {
 		Personaje.setVida(0);
 	}
 
@@ -81,16 +84,36 @@ void SceneGame::update()
 
 	if (vectorEnemigos.size() <= 0 && _puertaFinalID == 3) {
 		sSoundManager->pararSonido(_soundID);
+		sSoundManager->pararSonido(_soundID4);
 		sDirector->changeScene(INTRO, true);
 	}
 	for (size_t j = 0; j < vectorObjetos.size(); j++)
 	{
 		vectorObjetos[j]->update();
-		if (vectorObjetos[j]->getUsado() == true) {
-			delete vectorObjetos[j];
-			vectorObjetos.erase(vectorObjetos.begin() + j);
+	}
+
+	if (Personaje.getObjeto() < 3 || Personaje.getObjeto() > 5) {
+		sSoundManager->pararSonido(_soundID4);
+		_sonidoInicioHecho = false;
+		_sonidoLoopHecho = false;
+		_contadorSegundos = 0;
+	}
+
+	if (Personaje.getObjeto() >= 3 && Personaje.getObjeto() <= 5 && _sonidoInicioHecho == false) {
+		sSoundManager->escucharSonido(_soundID3, "sonidoSaiyanInicio.ogg", 0);
+		sSoundManager->ajustarVolumen(_soundID3, 70);
+
+		_sonidoInicioHecho = true;
+	}
+	if(_sonidoInicioHecho == true){
+		_contadorSegundos += global_elapsed_time;
+		if (_contadorSegundos >= 2000 && _sonidoLoopHecho == false) {
+			sSoundManager->escucharSonido(_soundID4, "sonidoSaiyanLoop.ogg", -1);
+			sSoundManager->ajustarVolumen(_soundID4, 70);
+			_sonidoLoopHecho = true;
 		}
 	}
+
 	//EnemigoSlimeVerde.update();
 	//EnemigoMurcielago.update();
 	//EnemigoFantasma.update();
@@ -105,6 +128,7 @@ void SceneGame::update()
 	}
 	if (sInputManager->getKeyPressed(key_esc)) {
 		sSoundManager->pararSonido(_soundID);
+		sSoundManager->pararSonido(_soundID4);
 		sInputManager->setEscToFalse();
 		sDirector->changeScene(INTRO, true);
 	}
@@ -143,14 +167,16 @@ void SceneGame::render()
 
 void SceneGame::reinit()
 {
+	sMapa->init("mapaFirst.tmx");
+	sSoundManager->escucharSonido(_soundID, "cancionGame.ogg", 0);
+	sSoundManager->ajustarVolumen(_soundID, 5);
 	contadorRitmo = 0;
-	_contadorMuerte = 0;
 	contadorCancion = 0;
 	_puertaFinalID = 0;
-	sMapa->init("mapaFirst.tmx");
 	Personaje.init();
 	Personaje.setPositionXY(52 * 20 + 17, 52 * 16);
 	Personaje.setJugando(true);
+	Personaje.setObjetoAnterior(1);
 	size_t sizeVectorEnemigos = vectorEnemigos.size();
 	for (size_t i = 0; i < sizeVectorEnemigos; i++)
 	{
@@ -198,7 +224,6 @@ void SceneGame::reinit()
 	Bomba* bombasMapa;
 	Pergaminos* pergaminoAleatorio;
 	Comida* comidaAleatoria;
-	Lanza* lanzaAleatoria;
 	for (int i = 0; i < 3; i++) {
 		bombasMapa = new Bomba();
 		bombasMapa->init();
@@ -216,12 +241,11 @@ void SceneGame::reinit()
 	comidaAleatoria->spawnObjetos();
 	comidaAleatoria->setPointerPersonaje(&Personaje);
 	vectorObjetos.push_back(comidaAleatoria);
-
+	
 	armaLanza.init();
 	armaLanza.spawnObjetos();
 	armaLanza.setPointerPersonaje(&Personaje);
-	sSoundManager->escucharSonido(_soundID, "cancionGame.ogg", 0);
-	sSoundManager->ajustarVolumen(_soundID, 30);
+	
 	//EnemigoSlimeAzul.init();
 	//EnemigoSlimeVerde.init();
 	//EnemigoMurcielago.init();
@@ -232,5 +256,8 @@ void SceneGame::reinit()
 	//EnemigoFantasma.setPointerPersonaje(&Personaje);
 	Hud.setPointerPersonaje(&Personaje);
 	sMapa->setPunteroPos(&Personaje);
+	_sonidoInicioHecho = false;
+	_sonidoLoopHecho = false;
+	_contadorSegundos = 0;
 	mReinit = false;
 }

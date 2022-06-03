@@ -3,6 +3,8 @@
 class SlimeVerde : public Cadence
 {
 	Cadence* personaje;
+	int _rangoAtaqueNegativo;
+	int _rangoAtaquePositivo;
 public:
 	SlimeVerde();
 	~SlimeVerde();

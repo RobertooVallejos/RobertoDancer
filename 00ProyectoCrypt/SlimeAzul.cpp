@@ -35,6 +35,8 @@ SlimeAzul::SlimeAzul()
 	_rectFrame.frameX = 0;
 	_rectFrame.frameY = 0;
 	_atacado = false;
+	_rangoAtaqueNegativo = 0;
+	_rangoAtaquePositivo = 0;
 }
 
 SlimeAzul::~SlimeAzul()
@@ -184,14 +186,31 @@ void SlimeAzul::atacar()
 
 void SlimeAzul::recibirDano()
 {
-	_posicionAtaqueX = personaje->getPositionX();
-	_posicionAtaqueY = personaje->getPositionY();
-	if (personaje->getObjeto() == 5) {
-		_posicionAtaqueX = _posicionAtaqueX * 2;
-		_posicionAtaqueY = _posicionAtaqueY * 2;
+	_posicionAtaqueX = _Rect.x - personaje->getPositionX();
+	_posicionAtaqueY = _Rect.y - personaje->getPositionY();
+
+	if (personaje->getObjeto() == 5 && personaje->getArma() == false) {				 //Objetos que duplica el rango de ataque
+		_rangoAtaqueNegativo = -52 * 2;
+		_rangoAtaquePositivo = 52 * 2;
 	}
-	if (_Rect.x <= _posicionAtaqueX + 17 && _Rect.x + 17 >= _posicionAtaqueX && _Rect.y <= _posicionAtaqueY + 17 && _Rect.y + 17 >= _posicionAtaqueY) {
+	if (personaje->getObjeto() == 5 || personaje->getArma() == false) {				 //Objetos que duplica el rango de ataque
+		_rangoAtaqueNegativo = -52;
+		_rangoAtaquePositivo = 52;
+	}
+	else {
+		_rangoAtaqueNegativo = -17;
+		_rangoAtaquePositivo = 17;
+	}
+
+
+	if (_posicionAtaqueX >= _rangoAtaqueNegativo && _posicionAtaqueX < 0 && _posicionAtaqueY >= _rangoAtaqueNegativo && _posicionAtaqueY < _rangoAtaquePositivo && _atacando == false) {  //Cadence está a la derecha
 		_atacado = true;
+	}
+	if (_posicionAtaqueX <= _rangoAtaquePositivo && _posicionAtaqueX > 0 && _posicionAtaqueY <= _rangoAtaquePositivo && _posicionAtaqueY > _rangoAtaqueNegativo && _atacando == false) {  //Cadence está a la derecha
+		_atacado = true;
+	}
+
+	if (_atacado == true) {
 		_vida -= 1;
 		if (_vida <= 0) {
 			_muerto = true;

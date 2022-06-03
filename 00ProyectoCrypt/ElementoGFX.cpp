@@ -81,3 +81,7 @@ void ElementoGFX::setDano(int value)
 {
 }
 
+void ElementoGFX::setObjetoAnterior(int value)
+{
+}
+

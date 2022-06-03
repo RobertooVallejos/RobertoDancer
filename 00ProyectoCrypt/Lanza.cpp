@@ -25,6 +25,7 @@ void Lanza::init()
 	_Rect.h = 63;
 	_Rect.x = 0;
 	_Rect.y = 0;
+	_tocaPared = 0;
 	ponerFoto("objetosAtaqueBorderless.png");
 }
 
@@ -45,7 +46,8 @@ void Lanza::render()
 }
 
 void Lanza::spawnObjetos() {
-	{
+	
+	do {
 		_Rect.x = 52 * (rand() % 40);
 		_Rect.y = 52 * (rand() % 30);
 		_tocaPared = sMapa->getIDfromLayer(0, _Rect.x, _Rect.y);

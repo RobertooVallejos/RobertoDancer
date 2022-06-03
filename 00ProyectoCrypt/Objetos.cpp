@@ -34,6 +34,15 @@ void Objetos::render()
 }
 
 
+bool Objetos::getUsado()
+{
+	return false;
+}
+
+void Objetos::cambiarObjeto(int objeto)
+{
+}
+
 int Objetos::getObjetoID()
 {
 	return 0;
@@ -47,3 +56,5 @@ void Objetos::spawnObjetos()
 		_tocaPared = sMapa->getIDfromLayer(0, _Rect.x, _Rect.y);
 	} while (!(_tocaPared == 1 || _tocaPared == 2));
 }
+
+

@@ -26,6 +26,9 @@ protected:
 	bool _daga;
 	int _tocaPared;
 	int _objetoEnMano;
+	int _objetoAnterior;
+	bool _caminaFueraCasilla;
+	bool _cambiazo;
 	int _posicionAtaqueX;			//posicion X que pillan los enemigos del personaje para saber si están en el rango de ataque
 	int _posicionAtaqueY;			//posicion Y que pillan los enemigos del personaje para saber si están en el rango de ataque
 	bool _atacando;					//estado de los enemigos para saber si atacan
@@ -49,7 +52,6 @@ public:
 
 	void moverArriba();
 	void moverAbajo();
-	void atacar();
 	void muerte();
 	void spawnEnemies();
 	void setVida(int value) { _vida = value; };
@@ -63,6 +65,7 @@ public:
 	virtual bool getAtacado() { return false; };
 	void setAtacado() { _atacado = false; };
 	void setJugando(bool jugando);
+	void setObjetoAnterior(int value) { _objetoAnterior = value; };
 
 	void setPointerVectorObjetos(std::vector<Objetos*>* nombre) { itemsEnMapa = nombre; }
 	//int getDano() { return _dano; };
