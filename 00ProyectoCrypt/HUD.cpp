@@ -198,33 +198,6 @@ void HUD::renderRitmoCorazon()
 
 void HUD::renderRitmoLinea()
 {
-	/*if (contadorRitmo <= 20) {
-		_ritmoRectFrame.x = 0;
-	}
-	else if (contadorRitmo <= 40) {
-		_ritmoRectFrame.x = 18;
-	}
-	else if (contadorRitmo <= 60) {
-		_ritmoRectFrame.x = 36;
-	}
-	else if (contadorRitmo <= 80) {
-		_ritmoRectFrame.x = 54;
-	}
-	else if (contadorRitmo <= 100) {
-		_ritmoRectFrame.x = 72;
-	}
-	else if (contadorRitmo <= 120) {
-		_ritmoRectFrame.x = 90;
-	}
-	else if (contadorRitmo <= 140) {
-		_ritmoRectFrame.x = 108;
-	}
-	else if (contadorRitmo > 140) {
-		_ritmoRectFrame.x = 126;
-	}
-	sVideo->renderGraphic(_ID4, _ritmoRectFrame.x, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, 0, 50);
-	sVideo->renderGraphic(_ID4, _ritmoRectFrame.x + 126, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, 0, 50);
-	sVideo->renderGraphic(_ID4, _ritmoRectFrame.x + 126 *2, _ritmoRectFrame.y, _ritmoRectFrame.w, _ritmoRectFrame.h, 0, 50);*/
 
 	if (contadorRitmo > 240 && izq == true) {
 			_ritmoRectFrame.x += 63;

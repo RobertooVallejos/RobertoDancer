@@ -19,6 +19,7 @@ extern Mapa* sMapa;
 extern bool             gameOn;
 extern Uint32           global_elapsed_time;
 extern Uint32           contadorRitmo;
+extern Uint32           contadorCancion;
 
 using namespace tinyxml2;
 
@@ -39,7 +40,7 @@ void SceneIntro::init()
 void SceneIntro::update()
 {
 	contadorRitmo += global_elapsed_time;
-
+	
 	Personaje.update();
 	Hud.update();
 	sMapa->update();
@@ -71,6 +72,7 @@ void SceneIntro::render()
 void SceneIntro::reinit()
 {
 	contadorRitmo = 0;
+	contadorCancion = 0;
 	Personaje.init();
 	Personaje.setJugando(false);
 	sSoundManager->escucharSonido(_soundID, "cancionMenu.ogg", -1);

@@ -55,8 +55,7 @@ void SceneGame::update()
 
 	if (Personaje.getVida() <= 0) {					//vida del personaje llega a 0. Se paran las músicas, contadorCancion se reinicia y se cambia a la escena de GAMEOVER.
 		sSoundManager->pararSonido(_soundID);
-		sSoundManager->pararSonido(_soundID4);
-		contadorCancion = 0;						//es necesario que se reinicie porque sino la línea sería roja durante SceneIntro
+		sSoundManager->pararSonido(_soundID4);					
 		sDirector->changeScene(GAMEOVER, true);
 	}
 
@@ -169,7 +168,7 @@ void SceneGame::reinit()
 {
 	sMapa->init("mapaFirst.tmx");
 	sSoundManager->escucharSonido(_soundID, "cancionGame.ogg", 0);
-	sSoundManager->ajustarVolumen(_soundID, 5);
+	sSoundManager->ajustarVolumen(_soundID, 30);
 	contadorRitmo = 0;
 	contadorCancion = 0;
 	_puertaFinalID = 0;
@@ -194,7 +193,7 @@ void SceneGame::reinit()
 	Fantasma* fantasmaEnemigo;
 	SlimeAzul* slimeAzulEnemigo;
 	Murcielago* murcielagoEnemigo;
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 5; i++) {
 		zombieEnemigo = new Zombie();
 		zombieEnemigo->init();
 		zombieEnemigo->spawnEnemies();

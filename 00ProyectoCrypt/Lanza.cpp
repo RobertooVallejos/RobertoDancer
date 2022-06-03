@@ -32,7 +32,7 @@ void Lanza::init()
 void Lanza::update()
 {
 	if (_Rect.x <= personaje->getPositionX() + 17 && _Rect.x + 17 >= personaje->getPositionX() && _Rect.y <= personaje->getPositionY() + 17 && _Rect.y + 17 >= personaje->getPositionY()) {
-		personaje->setArma(false);
+		personaje->setArma(false);		//Cambiamos de arma y la daga desaparece.
 	}
 }
 

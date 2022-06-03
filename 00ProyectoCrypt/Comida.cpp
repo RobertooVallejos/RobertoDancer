@@ -44,7 +44,7 @@ void Comida::update()
 	case 6:
 		if (sInputManager->getKeyPressed(key_space) && _usado == false) {
 			_vidaRestante = personaje->getVida();
-			if (_vidaRestante != 6) {
+			if (_vidaRestante != 6) {										//Nos aseguramos de que no cure más de la cuenta
 				personaje->setVida(_vidaRestante += 1);
 			}
 			personaje->setObjeto(1);
@@ -55,7 +55,7 @@ void Comida::update()
 	case 7:
 		if (sInputManager->getKeyPressed(key_space) && _usado == false) {
 			_vidaRestante = personaje->getVida();
-			if (_vidaRestante != 6) {
+			if (_vidaRestante != 6) {										//Nos aseguramos de que no cure más de la cuenta
 				if (_vidaRestante == 5) {
 					personaje->setVida(_vidaRestante += 1);
 				}else{

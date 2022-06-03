@@ -40,7 +40,7 @@ void SceneMain::update()
 {
 	if (sInputManager->getKeyPressed(key_space)) {
 		sSoundManager->pararSonido(_soundID);
-		sDirector->changeScene(INTRO, true);
+		sDirector->changeScene(INTRO, true);			//CAMBIO DE ESCENA
 	}
 	if (sInputManager->getKeyPressed(key_esc)) {
 		sInputManager->quit();
